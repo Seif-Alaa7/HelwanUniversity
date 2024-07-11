@@ -20,8 +20,6 @@ namespace Models
         public decimal TotalPoints { get; set; }
         public Level Level { get; set; }
         public Semester Semester { get; set; }
-
         public Student Student { get; set; } = null!;
-
     }
 }

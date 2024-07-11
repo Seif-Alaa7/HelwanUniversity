@@ -15,8 +15,8 @@ namespace Models
         public Semester Semester { get; set; }
         public int DepartmentId { get; set; }
         public int DoctorId { get; set; }
-        public int CreditHours { get; set; }
-
+        public int SubjectHours { get; set; }
+        public int StudentsAllowed { get; set; }
         public List<DepartmentSubjects> DepartmentSubjects { get; set; } = new List<DepartmentSubjects>();
         public List<StudentSubjects> StudentSubjects { get; set; } = new List<StudentSubjects>();
         public Doctor Doctor { get; set; } = null!;

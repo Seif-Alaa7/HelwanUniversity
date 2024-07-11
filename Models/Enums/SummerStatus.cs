@@ -6,15 +6,9 @@ using System.Threading.Tasks;
 
 namespace Models.Enums
 {
-    public enum Semester
+    public enum SummerStatus
     {
-        First,
-        Second,
-        Third,
-        Fourth,
-        Fifth,
-        Sixth,
-        Seventh,
-        Eighth,
+        Allowed,
+        NotAllowed
     }
 }
