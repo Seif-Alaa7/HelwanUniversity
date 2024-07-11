@@ -16,7 +16,6 @@ namespace Models
         public string Picture { get; set; }
         public string Address { get; set; }
         public JobTitle JobTitle { get; set; }
-
         public List<Subject> Subjects { get; set; } = new List<Subject>();
 
     }

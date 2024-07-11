@@ -21,10 +21,11 @@ namespace Models
         public string Picture { get; set; }
         public DateTime AdmissionDate { get; set; } = DateTime.Now;
         public bool PaymentFees { get; set; }
+        public DateTime? PaymentFeesDate { get; set; }
 
         public List<StudentSubjects> StudentSubjects { get; set; } = new List<StudentSubjects>();
         public Department Department { get; set; } = null!;
-        public AcademicRecords AcademicRecords { get; set; } =null!;
+        public AcademicRecords AcademicRecords { get; set; } = null!;
 
     }
 }

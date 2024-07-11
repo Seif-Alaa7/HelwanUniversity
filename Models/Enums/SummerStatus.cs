@@ -8,7 +8,7 @@ namespace Models.Enums
 {
     public enum SummerStatus
     {
-        Allowed,
-        NotAllowed
+        Open,
+        Closed
     }
 }

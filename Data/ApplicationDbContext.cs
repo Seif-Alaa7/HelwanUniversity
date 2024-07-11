@@ -60,7 +60,7 @@ namespace Data
                            SELECT SUM(s.SubjectHours)
                            FROM Subject s
                            JOIN StudentSubjects ss ON s.Id = ss.SubjectId
-                           WHERE ss.DegreePoints >= 60
+                           WHERE ss.Degree >= 60
                            AND ss.StudentId = ar.StudentId
                      )").ValueGeneratedOnAddOrUpdate();
 
@@ -95,11 +95,14 @@ namespace Data
                                       .ValueGeneratedOnAddOrUpdate();
 
             modelBuilder.Entity<StudentSubjects>().Property(ar => ar.Grade).HasComputedColumnSql("CASE " +
-                                      "WHEN DegreePoints <= 100  AND DegreePoints >= 85 THEN 0 " +
-                                      "WHEN DegreePoints >= 75   AND DegreePoints < 85 THEN 1 " +
-                                      "WHEN DegreePoints >= 65   AND DegreePoints < 75 THEN 2 " +
-                                      "WHEN DegreePoints >= 60   AND DegreePoints < 65 THEN 3 " +
-                                      "ELSE 4 END")
+                                      "WHEN Degree <= 100 AND Degree >= 90 THEN 0 " +
+                                      "WHEN Degree >= 85  AND Degree < 90 THEN 1 " +
+                                      "WHEN Degree >= 80  AND Degree < 85 THEN 2 " +
+                                      "WHEN Degree >= 75  AND Degree < 80 THEN 3 " +
+                                      "WHEN Degree >= 70  AND Degree < 75 THEN 4 " +
+                                      "WHEN Degree >= 65  AND Degree < 70 THEN 5 " +
+                                      "WHEN Degree >= 60  AND Degree < 65 THEN 6 " +
+                                      "ELSE 7 END")
                                       .ValueGeneratedOnAddOrUpdate();
 
             modelBuilder.Entity<AcademicRecords>().Property(t => t.GPASemester)
@@ -119,6 +122,20 @@ namespace Data
                                     "WHEN CreditHours >= 108  AND CreditHours < 126 THEN 6 " +
                                     "WHEN CreditHours >= 126  AND CreditHours <= 144 THEN 7 " +
                                     "ELSE 0 END").ValueGeneratedOnAddOrUpdate();
+            modelBuilder.Entity<StudentSubjects>().Property(ar => ar.DegreePoints).HasComputedColumnSql(
+                "CASE " +
+                "WHEN Grade = 0 THEN 4.0 " +
+                "WHEN Grade = 1 THEN 3.667 " +
+                "WHEN Grade = 2 THEN 3.333 " +
+                "WHEN Grade = 3 THEN 3.0 " +
+                "WHEN Grade = 4 THEN 2.667 " +
+                "WHEN Grade = 5 THEN 2.333 " +
+                "WHEN Grade = 6 THEN 2.0 " +
+                "ELSE 0.0 END"
+            ).ValueGeneratedOnAddOrUpdate();
+
+
+
 
 
         }
