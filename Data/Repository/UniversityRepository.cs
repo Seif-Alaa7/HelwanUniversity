@@ -18,29 +18,29 @@ namespace Data.Repository
         }
         public void Add(University university)
         {
-            context.Universities.Add(university);
+            context.University.Add(university);
         }
 
         public void Update(University university)
         {
-            context.Universities.Update(university);
+            context.University.Update(university);
         }
 
         public void Delete(University university)
         {
-            context.Universities.Remove(university);
+            context.University.Remove(university);
         }
 
         public University GetOne(int Id)
         {
-            var university = context.Universities
+            var university = context.University
                 .Find(Id);
             return university;
         }
 
         public List<University> GetAll()
         {
-            var universities = context.Universities
+            var universities = context.University
                 .ToList();
             return universities;
         }
