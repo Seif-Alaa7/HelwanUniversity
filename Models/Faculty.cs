@@ -10,7 +10,6 @@ namespace Models
     {
         public int Id { get; set; }
         public int DeanId {  get; set; }
-        public int RegisterId { get; set; }
         public string Name { get; set; }
         public string Logo { get; set; }
         public string Picture { get; set; }
