@@ -11,8 +11,8 @@ namespace Models
     {
         public int StudentId { get; set; }
         public int SubjectId { get; set; }
-        public int Degree { get; set; }
-        public Grade Grade { get; set; }
+        public int? Degree { get; set; }
+        public Grade? Grade { get; set; }
         public decimal DegreePoints { get; set; }
 
         public Student Student { get; set; } = null!;

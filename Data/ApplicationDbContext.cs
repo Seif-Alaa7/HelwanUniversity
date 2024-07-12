@@ -105,12 +105,16 @@ namespace Data
                                       "ELSE 7 END")
                                       .ValueGeneratedOnAddOrUpdate();
 
-            modelBuilder.Entity<AcademicRecords>().Property(t => t.GPASemester)
-                .HasComputedColumnSql("([Semesterpoints] / [RecordedHours])").ValueGeneratedOnAddOrUpdate();
+            modelBuilder.Entity<AcademicRecords>()
+                .Property(t => t.GPASemester)
+                .HasComputedColumnSql("CASE WHEN [RecordedHours] = 0 THEN 0 ELSE ([SemesterPoints] / [RecordedHours]) END")
+                .ValueGeneratedOnAddOrUpdate();
 
 
-            modelBuilder.Entity<AcademicRecords>().Property(t => t.GPATotal)
-                .HasComputedColumnSql("([Totalpoints] / [TotalHours])").ValueGeneratedOnAddOrUpdate();
+            modelBuilder.Entity<AcademicRecords>()
+                .Property(t => t.GPATotal)
+                .HasComputedColumnSql("CASE WHEN [TotalHours] = 0 THEN 0 ELSE ([TotalPoints] / [TotalHours]) END")
+                .ValueGeneratedOnAddOrUpdate();
 
             modelBuilder.Entity<AcademicRecords>().Property(ar => ar.Semester).HasComputedColumnSql("CASE " +
                                     "WHEN CreditHours < 18 AND CreditHours >= 0 THEN 0 " +
@@ -124,6 +128,7 @@ namespace Data
                                     "ELSE 0 END").ValueGeneratedOnAddOrUpdate();
             modelBuilder.Entity<StudentSubjects>().Property(ar => ar.DegreePoints).HasComputedColumnSql(
                 "CASE " +
+                "WHEN Grade IS NULL THEN NULL " +
                 "WHEN Grade = 0 THEN 4.0 " +
                 "WHEN Grade = 1 THEN 3.667 " +
                 "WHEN Grade = 2 THEN 3.333 " +
@@ -135,6 +140,10 @@ namespace Data
             ).ValueGeneratedOnAddOrUpdate();
 
 
+
+            modelBuilder.Entity<StudentSubjects>()
+                .Property(ar => ar.Degree)
+                .HasDefaultValue(null);
 
 
 
