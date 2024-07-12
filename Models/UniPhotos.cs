@@ -9,6 +9,6 @@ namespace Models
     public class UniPhotos
     {
         public int Id { get; set; }
-        public string Picture { get; set; }
+        public string Picture { get; set; } = null!;
     }
 }
