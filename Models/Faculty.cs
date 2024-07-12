@@ -15,7 +15,6 @@ namespace Models
         public string Picture { get; set; }
         public string Description { get; set; }
         public int ViewCount { get; set; }
-
         public List<Department> Departments { get; set; } = new List<Department>();
         public HighBoard HighBoard { get; set; } = null!;
     }

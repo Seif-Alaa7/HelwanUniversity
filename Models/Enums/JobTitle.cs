@@ -9,6 +9,12 @@ namespace Models.Enums
     public enum JobTitle
     {
         Prof_Doctor,
-        Doctor
+        Doctor,
+        President,
+        VicePrecident,
+        DeanOfCollege,
+        HeadOfDepartment,
+        VP_For_AcademicAffairs,
+        VP_For_Finance
     }
 }

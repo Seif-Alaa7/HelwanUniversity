@@ -23,13 +23,90 @@ namespace Data
         public DbSet<StudentSubjects> StudentSubjects { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Subject> Subjects { get; set; }
-        public DbSet<University> Universities { get; set; }
+        public DbSet<University> University { get; set; }
         public DbSet<AcademicRecords> academicRecords { get; set; }
+        public DbSet<UniPhotos> UniPhotos { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            //One to One
+            modelBuilder.Entity<Faculty>()
+                    .HasOne(f => f.HighBoard)
+                    .WithOne(hb => hb.Faculty)
+                    .HasForeignKey<Faculty>(f => f.DeanId)
+                    .HasPrincipalKey<HighBoard>(hb => hb.Id);
+
+            modelBuilder.Entity<HighBoard>()
+                .HasOne(hb=>hb.Department)
+                .WithOne(d=>d.HighBoard)
+                .HasForeignKey<Department>(hb => hb.HeadId)
+                .HasPrincipalKey<HighBoard> (d => d.Id);
+
+            modelBuilder.Entity<AcademicRecords>()
+                .HasOne(e => e.Student)
+                .WithOne(e => e.AcademicRecords)
+                .HasForeignKey<AcademicRecords>(e=>e.StudentId)
+                .HasPrincipalKey<Student>(e => e.Id);
+
+            //One To Many
+
+            modelBuilder.Entity<Department>()
+                      .HasOne(e => e.Faculty)
+                      .WithMany(e => e.Departments)
+                      .HasPrincipalKey(e => e.Id)
+                      .HasForeignKey(e => e.FacultyId);
+
+            modelBuilder.Entity<Doctor>()
+                .HasMany(e=>e.Subjects)
+                .WithOne(e=>e.Doctor)
+                .HasPrincipalKey(e=>e.Id)
+                .HasForeignKey(e=>e.DoctorId);
+
+            modelBuilder.Entity<Student>()
+                .HasOne(e => e.Department)
+                .WithMany(e => e.Students)
+                .HasPrincipalKey(e => e.Id)
+                .HasForeignKey(e => e.DepartmentId);
+
+            //Many To Many
+
+            modelBuilder.Entity<Department>()
+                     .HasMany(e => e.Subjects)
+                     .WithMany(e => e.Departments)
+                     .UsingEntity<DepartmentSubjects>(
+                      j => j.HasOne(m => m.Subject).WithMany(b => b.DepartmentSubjects).HasForeignKey(m => m.SubjectId).HasPrincipalKey(m => m.Id),
+                      j => j.HasOne(m => m.Department).WithMany(b => b.DepartmentSubjects).HasForeignKey(m => m.DepartmentId).HasPrincipalKey(m => m.Id),
+                      j =>
+                      {
+                          j.HasKey(t => new { t.SubjectId, t.DepartmentId});
+                      });
+
+            modelBuilder.Entity<Subject>()
+                .HasMany(e => e.Students)
+                .WithMany(e => e.Subjects)
+                .UsingEntity<StudentSubjects>(
+                j => j.HasOne(m => m.Student).WithMany(b => b.StudentSubjects).HasForeignKey(m => m.StudentId).HasPrincipalKey(m => m.Id),
+                j => j.HasOne(m => m.Subject).WithMany(b => b.StudentSubjects).HasForeignKey(m => m.SubjectId).HasPrincipalKey(m => m.Id),
+                j =>
+                {
+                    j.HasKey(t => new { t.StudentId, t.SubjectId });
+                });
+
+            modelBuilder.Entity<Student>()
+                .HasMany(e => e.Departments)
+                .WithMany(e => e.Students)
+                .UsingEntity<BifurcationRequest>(
+                j => j.HasOne(m => m.Department).WithMany(b => b.BifurcationRequests).HasForeignKey(m => m.DepartmentId).HasPrincipalKey(m => m.Id),
+                j => j.HasOne(m => m.Student).WithMany(b => b.BifurcationRequests).HasForeignKey(m => m.StudentId).HasPrincipalKey(m => m.Id),
+                 j =>
+                 {
+                     j.HasKey(t => new { t.DepartmentId, t.StudentId });
+                 });
+
+            //Computed Columns
 
             modelBuilder.Entity<AcademicRecords>()
                 .Property(ar => ar.SemesterPoints)

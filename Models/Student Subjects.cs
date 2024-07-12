@@ -14,7 +14,6 @@ namespace Models
         public int Degree { get; set; }
         public Grade Grade { get; set; }
         public decimal DegreePoints { get; set; }
-
         public Student Student { get; set; } = null!;
         public Subject Subject { get; set; } = null!;
 
