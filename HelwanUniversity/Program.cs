@@ -2,6 +2,8 @@ using Data;
 using Data.Repository;
 using Data.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Models;
 
 namespace HelwanUniversity
 {
@@ -11,6 +13,17 @@ namespace HelwanUniversity
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+            // Add services to the container.
+            builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<ApplicationDbContext>(
+                options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
             builder.Services.AddScoped<IFacultyRepository, FacultyRepository>();
@@ -19,13 +32,6 @@ namespace HelwanUniversity
             builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
             builder.Services.AddScoped<IUniversityRepository, UniversityRepository>();
             builder.Services.AddScoped<IAcademicRecordsRepository, AcademicRecordsRepository>();
-
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
-
-            builder.Services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 
             var app = builder.Build();
 
