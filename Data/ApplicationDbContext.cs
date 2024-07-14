@@ -27,6 +27,7 @@ namespace Data
         public DbSet<University> University { get; set; }
         public DbSet<AcademicRecords> academicRecords { get; set; }
         public DbSet<UniPhotos> UniPhotos { get; set; }
+        public DbSet<BifurcationRequest> BifurcationRequests { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -53,6 +54,7 @@ namespace Data
                 .HasPrincipalKey<Student>(e => e.Id);
 
             // One To Many
+
             modelBuilder.Entity<Department>()
                 .HasOne(e => e.Faculty)
                 .WithMany(e => e.Departments)
@@ -70,6 +72,21 @@ namespace Data
                 .WithMany(e => e.Students)
                 .HasForeignKey(e => e.DepartmentId)
                 .HasPrincipalKey(e => e.Id);
+
+            modelBuilder.Entity<Student>()
+                .HasMany(s => s.BifurcationRequests)
+                .WithOne(br => br.Student)
+                .HasForeignKey(br => br.StudentId)
+                .HasPrincipalKey(e => e.Id);
+
+            modelBuilder.Entity<Department>()
+                .HasMany(d => d.BifurcationRequests)
+                .WithOne(br => br.Department)
+                .HasForeignKey(br => br.DepartmentId)
+                .HasPrincipalKey(e=>e.Id);
+
+            modelBuilder.Entity<BifurcationRequest>()
+                .HasKey(br => new { br.StudentId, br.DepartmentId });
 
             // Many To Many
             modelBuilder.Entity<Department>()
@@ -104,23 +121,6 @@ namespace Data
                     j =>
                     {
                         j.HasKey(t => new { t.StudentId, t.SubjectId });
-                    });
-
-            modelBuilder.Entity<Student>()
-                .HasMany(e => e.Departments)
-                .WithMany(e => e.Students)
-                .UsingEntity<BifurcationRequest>(
-                    j => j.HasOne(m => m.Department)
-                          .WithMany(b => b.BifurcationRequests)
-                          .HasForeignKey(m => m.DepartmentId)
-                          .HasPrincipalKey(m => m.Id),
-                    j => j.HasOne(m => m.Student)
-                          .WithMany(b => b.BifurcationRequests)
-                          .HasForeignKey(m => m.StudentId)
-                          .HasPrincipalKey(m => m.Id),
-                    j =>
-                    {
-                        j.HasKey(t => new { t.DepartmentId, t.StudentId });
                     });
 
             // Computed Columns
