@@ -166,37 +166,37 @@ namespace Data.Migrations
                     b.Property<int>("CreditHours")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("int")
-                        .HasComputedColumnSql("\r\n            (\r\n                SELECT SUM(s.SubjectHours)\r\n                FROM Subject s\r\n                JOIN StudentSubjects ss ON s.Id = ss.SubjectId\r\n                WHERE ss.Degree >= 60\r\n                AND ss.StudentId = ar.StudentId\r\n            )");
+                        .HasComputedColumnSql("\r\n            (\r\n                SELECT SUM(s.SubjectHours)\r\n                FROM Subject s\r\n            JOIN StudentSubjects ss ON s.Id = ss.SubjectId\r\n                WHERE ss.Degree >= 60\r\n                AND ss.StudentId = ar.StudentId\r\n            )");
 
                     b.Property<decimal>("GPASemester")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("decimal(18,2)")
-                        .HasComputedColumnSql("CASE WHEN [RecordedHours] = 0 THEN 0 ELSE ([SemesterPoints] / [RecordedHours]) END");
+                        .HasColumnType("decimal(18, 3)")
+                        .HasComputedColumnSql("\r\n                CASE \r\n                    WHEN [RecordedHours] = 0 THEN 0 \r\n                    ELSE ([SemesterPoints] / [RecordedHours]) \r\n                END");
 
                     b.Property<decimal>("GPATotal")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("decimal(18,2)")
-                        .HasComputedColumnSql("CASE WHEN [TotalHours] = 0 THEN 0 ELSE ([TotalPoints] / [TotalHours]) END");
+                        .HasColumnType("decimal(18, 3)")
+                        .HasComputedColumnSql("\r\n                CASE \r\n                    WHEN [TotalHours] = 0 THEN 0 \r\n                    ELSE ([TotalPoints] / [TotalHours]) \r\n                END");
 
                     b.Property<int>("Level")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("int")
-                        .HasComputedColumnSql("CASE WHEN CreditHours < 36 AND CreditHours >= 0 THEN 0 WHEN CreditHours >= 36  AND CreditHours < 72 THEN 1 WHEN CreditHours >= 72  AND CreditHours < 108 THEN 2 WHEN CreditHours >= 108  AND CreditHours <= 144 THEN 3 ELSE 0 END");
+                        .HasComputedColumnSql("CASE\r\n                    WHEN CreditHours < 36 AND CreditHours >= 0 THEN 0\r\n                    WHEN CreditHours >= 36  AND CreditHours < 72 THEN 1\r\n                    WHEN CreditHours >= 72  AND CreditHours < 108 THEN 2\r\n                    WHEN CreditHours >= 108  AND CreditHours <= 144 THEN 3\r\n                    ELSE 0 END");
 
                     b.Property<int>("RecordedHours")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("int")
-                        .HasComputedColumnSql("\r\n            (\r\n                SELECT SUM(s.SubjectHours)\r\n                FROM Subject s\r\n                JOIN StudentSubjects ss ON s.Id = ss.SubjectId\r\n                WHERE s.Semester = ar.Semester\r\n                AND ss.StudentId = ar.StudentId\r\n            )");
+                        .HasComputedColumnSql("\r\n            (\r\n                SELECT SUM(s.SubjectHours)\r\n                FROM Subject s\r\n            JOIN StudentSubjects ss ON s.Id = ss.SubjectId\r\n                WHERE s.Semester = ar.Semester\r\n                AND ss.StudentId = ar.StudentId\r\n            )");
 
                     b.Property<int>("Semester")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("int")
-                        .HasComputedColumnSql("CASE WHEN CreditHours < 18 AND CreditHours >= 0 THEN 0 WHEN CreditHours >= 18  AND CreditHours < 36 THEN 1 WHEN CreditHours >= 36  AND CreditHours < 54 THEN 2 WHEN CreditHours >= 54  AND CreditHours < 72 THEN 3 WHEN CreditHours >= 72  AND CreditHours < 90 THEN 4 WHEN CreditHours >= 90  AND CreditHours < 108 THEN 5 WHEN CreditHours >= 108  AND CreditHours < 126 THEN 6 WHEN CreditHours >= 126  AND CreditHours <= 144 THEN 7 ELSE 0 END");
+                        .HasComputedColumnSql("\r\n                CASE \r\n                    WHEN CreditHours < 18 AND CreditHours >= 0 THEN 0 \r\n                    WHEN CreditHours >= 18 AND CreditHours < 36 THEN 1 \r\n                    WHEN CreditHours >= 36 AND CreditHours < 54 THEN 2 \r\n                    WHEN CreditHours >= 54 AND CreditHours < 72 THEN 3 \r\n                    WHEN CreditHours >= 72 AND CreditHours < 90 THEN 4 \r\n                    WHEN CreditHours >= 90 AND CreditHours < 108 THEN 5 \r\n                    WHEN CreditHours >= 108 AND CreditHours < 126 THEN 6 \r\n                    WHEN CreditHours >= 126 AND CreditHours <= 144 THEN 7 \r\n                    ELSE 0 \r\n                END");
 
                     b.Property<decimal>("SemesterPoints")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("decimal(18,2)")
-                        .HasComputedColumnSql("\r\n            (\r\n                SELECT SUM(ss.DegreePoints * s.SubjectHours)\r\n                FROM StudentSubjects ss\r\n                JOIN Subject s ON ss.SubjectId = s.Id\r\n                WHERE ss.StudentId = ar.StudentId AND s.Semester = ar.Semester\r\n            )");
+                        .HasColumnType("decimal(18, 3)")
+                        .HasComputedColumnSql("\r\n            (\r\n                SELECT SUM(ss.DegreePoints * s.SubjectHours)\r\n            FROM StudentSubjects ss\r\n                JOIN Subject s ON ss.SubjectId = s.Id\r\n                WHERE ss.StudentId = ar.StudentId AND s.Semester = ar.Semester\r\n            )");
 
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
@@ -204,12 +204,12 @@ namespace Data.Migrations
                     b.Property<int>("TotalHours")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("int")
-                        .HasComputedColumnSql("\r\n            (\r\n                SELECT SUM(s.SubjectHours)\r\n                FROM Subject s\r\n                JOIN StudentSubjects ss ON s.Id = ss.SubjectId\r\n                WHERE ss.StudentId = ar.StudentId\r\n            )");
+                        .HasComputedColumnSql("\r\n            (\r\n                SELECT SUM(s.SubjectHours)\r\n                FROM Subject s\r\n            JOIN StudentSubjects ss ON s.Id = ss.SubjectId\r\n                WHERE ss.StudentId = ar.StudentId\r\n            )");
 
                     b.Property<decimal>("TotalPoints")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("decimal(18,2)")
-                        .HasComputedColumnSql("\r\n            (\r\n                SELECT SUM(ss.DegreePoints * s.SubjectHours)\r\n                FROM StudentSubjects ss\r\n                JOIN Subject s ON ss.SubjectId = s.Id\r\n                WHERE ss.StudentId = ar.StudentId\r\n            )");
+                        .HasColumnType("decimal(18, 3)")
+                        .HasComputedColumnSql("\r\n            (\r\n                SELECT SUM(ss.DegreePoints * s.SubjectHours)\r\n            FROM StudentSubjects ss\r\n                JOIN Subject s ON ss.SubjectId = s.Id\r\n                WHERE ss.StudentId = ar.StudentId\r\n            )");
 
                     b.HasKey("Id");
 
@@ -510,13 +510,13 @@ namespace Data.Migrations
 
                     b.Property<decimal>("DegreePoints")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("decimal(18,2)")
-                        .HasComputedColumnSql("CASE WHEN Grade IS NULL THEN NULL WHEN Grade = 0 THEN 4.0 WHEN Grade = 1 THEN 3.667 WHEN Grade = 2 THEN 3.333 WHEN Grade = 3 THEN 3.0 WHEN Grade = 4 THEN 2.667 WHEN Grade = 5 THEN 2.333 WHEN Grade = 6 THEN 2.0 ELSE 0.0 END");
+                        .HasColumnType("decimal(18, 3)")
+                        .HasComputedColumnSql("\r\n                CASE \r\n                    WHEN Grade IS NULL THEN NULL \r\n                    WHEN Grade = 0 THEN 4.0 \r\n                    WHEN Grade = 1 THEN 3.667 \r\n                    WHEN Grade = 2 THEN 3.333 \r\n                    WHEN Grade = 3 THEN 3.0 \r\n                    WHEN Grade = 4 THEN 2.667 \r\n                    WHEN Grade = 5 THEN 2.333 \r\n                    WHEN Grade = 6 THEN 2.0 \r\n                    ELSE 0.0 \r\n                END");
 
                     b.Property<int?>("Grade")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("int")
-                        .HasComputedColumnSql("CASE WHEN Degree <= 100 AND Degree >= 90 THEN 0 WHEN Degree >= 85  AND Degree < 90 THEN 1 WHEN Degree >= 80  AND Degree < 85 THEN 2 WHEN Degree >= 75  AND Degree < 80 THEN 3 WHEN Degree >= 70  AND Degree < 75 THEN 4 WHEN Degree >= 65  AND Degree < 70 THEN 5 WHEN Degree >= 60  AND Degree < 65 THEN 6 ELSE 7 END");
+                        .HasComputedColumnSql("CASE\r\n                    WHEN Degree <= 100 AND Degree >= 90 THEN 0\r\n                    WHEN Degree >= 85  AND Degree < 90 THEN 1\r\n                    WHEN Degree >= 80  AND Degree < 85 THEN 2\r\n                    WHEN Degree >= 75  AND Degree < 80 THEN 3\r\n                    WHEN Degree >= 70  AND Degree < 75 THEN 4\r\n                    WHEN Degree >= 65  AND Degree < 70 THEN 5\r\n                    WHEN Degree >= 60  AND Degree < 65 THEN 6 \r\n                    ELSE 7 END");
 
                     b.HasKey("StudentId", "SubjectId");
 
@@ -695,7 +695,7 @@ namespace Data.Migrations
                     b.HasOne("Models.Department", "Department")
                         .WithMany("BifurcationRequests")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Models.Student", "Student")
@@ -714,13 +714,13 @@ namespace Data.Migrations
                     b.HasOne("Models.Faculty", "Faculty")
                         .WithMany("Departments")
                         .HasForeignKey("FacultyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Models.HighBoard", "HighBoard")
                         .WithOne("Department")
                         .HasForeignKey("Models.Department", "HeadId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Faculty");
@@ -733,7 +733,7 @@ namespace Data.Migrations
                     b.HasOne("Models.Department", "Department")
                         .WithMany("DepartmentSubjects")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Models.Subject", "Subject")
