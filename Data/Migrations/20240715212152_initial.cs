@@ -360,15 +360,15 @@ namespace Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StudentId = table.Column<int>(type: "int", nullable: false),
-                    GPASemester = table.Column<decimal>(type: "decimal(18,3)", nullable: false, computedColumnSql: "\r\n                CASE \r\n                    WHEN [RecordedHours] = 0 THEN 0 \r\n                    ELSE ([SemesterPoints] / [RecordedHours]) \r\n                END"),
-                    GPATotal = table.Column<decimal>(type: "decimal(18,3)", nullable: false, computedColumnSql: "\r\n                CASE \r\n                    WHEN [TotalHours] = 0 THEN 0 \r\n                    ELSE ([TotalPoints] / [TotalHours]) \r\n                END"),
-                    CreditHours = table.Column<int>(type: "int", nullable: false, computedColumnSql: "\r\n            (\r\n                SELECT SUM(s.SubjectHours)\r\n                FROM Subject s\r\n            JOIN StudentSubjects ss ON s.Id = ss.SubjectId\r\n                WHERE ss.Degree >= 60\r\n                AND ss.StudentId = ar.StudentId\r\n            )"),
-                    RecordedHours = table.Column<int>(type: "int", nullable: false, computedColumnSql: "\r\n            (\r\n                SELECT SUM(s.SubjectHours)\r\n                FROM Subject s\r\n            JOIN StudentSubjects ss ON s.Id = ss.SubjectId\r\n                WHERE s.Semester = ar.Semester\r\n                AND ss.StudentId = ar.StudentId\r\n            )"),
-                    TotalHours = table.Column<int>(type: "int", nullable: false, computedColumnSql: "\r\n            (\r\n                SELECT SUM(s.SubjectHours)\r\n                FROM Subject s\r\n            JOIN StudentSubjects ss ON s.Id = ss.SubjectId\r\n                WHERE ss.StudentId = ar.StudentId\r\n            )"),
-                    SemesterPoints = table.Column<decimal>(type: "decimal(18,3)", nullable: false, computedColumnSql: "\r\n            (\r\n                SELECT SUM(ss.DegreePoints * s.SubjectHours)\r\n            FROM StudentSubjects ss\r\n                JOIN Subject s ON ss.SubjectId = s.Id\r\n                WHERE ss.StudentId = ar.StudentId AND s.Semester = ar.Semester\r\n            )"),
-                    TotalPoints = table.Column<decimal>(type: "decimal(18,3)", nullable: false, computedColumnSql: "\r\n            (\r\n                SELECT SUM(ss.DegreePoints * s.SubjectHours)\r\n            FROM StudentSubjects ss\r\n                JOIN Subject s ON ss.SubjectId = s.Id\r\n                WHERE ss.StudentId = ar.StudentId\r\n            )"),
-                    Level = table.Column<int>(type: "int", nullable: false, computedColumnSql: "CASE\r\n                    WHEN CreditHours < 36 AND CreditHours >= 0 THEN 0\r\n                    WHEN CreditHours >= 36  AND CreditHours < 72 THEN 1\r\n                    WHEN CreditHours >= 72  AND CreditHours < 108 THEN 2\r\n                    WHEN CreditHours >= 108  AND CreditHours <= 144 THEN 3\r\n                    ELSE 0 END"),
-                    Semester = table.Column<int>(type: "int", nullable: false, computedColumnSql: "\r\n                CASE \r\n                    WHEN CreditHours < 18 AND CreditHours >= 0 THEN 0 \r\n                    WHEN CreditHours >= 18 AND CreditHours < 36 THEN 1 \r\n                    WHEN CreditHours >= 36 AND CreditHours < 54 THEN 2 \r\n                    WHEN CreditHours >= 54 AND CreditHours < 72 THEN 3 \r\n                    WHEN CreditHours >= 72 AND CreditHours < 90 THEN 4 \r\n                    WHEN CreditHours >= 90 AND CreditHours < 108 THEN 5 \r\n                    WHEN CreditHours >= 108 AND CreditHours < 126 THEN 6 \r\n                    WHEN CreditHours >= 126 AND CreditHours <= 144 THEN 7 \r\n                    ELSE 0 \r\n                END")
+                    GPASemester = table.Column<decimal>(type: "decimal(18,3)", nullable: false),
+                    GPATotal = table.Column<decimal>(type: "decimal(18,3)", nullable: false),
+                    CreditHours = table.Column<int>(type: "int", nullable: false),
+                    RecordedHours = table.Column<int>(type: "int", nullable: false),
+                    TotalHours = table.Column<int>(type: "int", nullable: false),
+                    SemesterPoints = table.Column<decimal>(type: "decimal(18,3)", nullable: false),
+                    TotalPoints = table.Column<decimal>(type: "decimal(18,3)", nullable: false),
+                    Level = table.Column<int>(type: "int", nullable: false),
+                    Semester = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -413,8 +413,8 @@ namespace Data.Migrations
                     StudentId = table.Column<int>(type: "int", nullable: false),
                     SubjectId = table.Column<int>(type: "int", nullable: false),
                     Degree = table.Column<int>(type: "int", nullable: true),
-                    Grade = table.Column<int>(type: "int", nullable: true, computedColumnSql: "CASE\r\n                    WHEN Degree <= 100 AND Degree >= 90 THEN 0\r\n                    WHEN Degree >= 85  AND Degree < 90 THEN 1\r\n                    WHEN Degree >= 80  AND Degree < 85 THEN 2\r\n                    WHEN Degree >= 75  AND Degree < 80 THEN 3\r\n                    WHEN Degree >= 70  AND Degree < 75 THEN 4\r\n                    WHEN Degree >= 65  AND Degree < 70 THEN 5\r\n                    WHEN Degree >= 60  AND Degree < 65 THEN 6 \r\n                    ELSE 7 END"),
-                    DegreePoints = table.Column<decimal>(type: "decimal(18,3)", nullable: false, computedColumnSql: "\r\n                CASE \r\n                    WHEN Grade IS NULL THEN NULL \r\n                    WHEN Grade = 0 THEN 4.0 \r\n                    WHEN Grade = 1 THEN 3.667 \r\n                    WHEN Grade = 2 THEN 3.333 \r\n                    WHEN Grade = 3 THEN 3.0 \r\n                    WHEN Grade = 4 THEN 2.667 \r\n                    WHEN Grade = 5 THEN 2.333 \r\n                    WHEN Grade = 6 THEN 2.0 \r\n                    ELSE 0.0 \r\n                END")
+                    Grade = table.Column<int>(type: "int", nullable: true),
+                    DegreePoints = table.Column<decimal>(type: "decimal(18,3)", nullable: false)
                 },
                 constraints: table =>
                 {
