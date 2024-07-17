@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models
+namespace Models.Enums
 {
-    public class UniPhotos
+    public enum type
     {
-        public int Id { get; set; }
-        public string Picture { get; set; } = null!;
+        IMG,
+        Video
     }
 }

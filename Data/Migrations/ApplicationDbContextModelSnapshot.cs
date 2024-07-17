@@ -102,12 +102,10 @@ namespace Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -144,12 +142,10 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -202,7 +198,7 @@ namespace Data.Migrations
                     b.HasIndex("StudentId")
                         .IsUnique();
 
-                    b.ToTable("academicRecords", (string)null);
+                    b.ToTable("academicRecords");
                 });
 
             modelBuilder.Entity("Models.ApplicationUser", b =>
@@ -288,7 +284,7 @@ namespace Data.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("BifurcationRequests", (string)null);
+                    b.ToTable("BifurcationRequests");
                 });
 
             modelBuilder.Entity("Models.Department", b =>
@@ -319,7 +315,7 @@ namespace Data.Migrations
                     b.HasIndex("HeadId")
                         .IsUnique();
 
-                    b.ToTable("Departments", (string)null);
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("Models.DepartmentSubjects", b =>
@@ -334,7 +330,7 @@ namespace Data.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("DepartmentSubjects", (string)null);
+                    b.ToTable("DepartmentSubjects");
                 });
 
             modelBuilder.Entity("Models.Doctor", b =>
@@ -366,7 +362,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Doctors", (string)null);
+                    b.ToTable("Doctors");
                 });
 
             modelBuilder.Entity("Models.Faculty", b =>
@@ -401,7 +397,7 @@ namespace Data.Migrations
                     b.HasIndex("DeanId")
                         .IsUnique();
 
-                    b.ToTable("Faculties", (string)null);
+                    b.ToTable("Faculties");
                 });
 
             modelBuilder.Entity("Models.HighBoard", b =>
@@ -427,7 +423,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HighBoards", (string)null);
+                    b.ToTable("HighBoards");
                 });
 
             modelBuilder.Entity("Models.Student", b =>
@@ -480,7 +476,7 @@ namespace Data.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Students", (string)null);
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("Models.StudentSubjects", b =>
@@ -504,7 +500,7 @@ namespace Data.Migrations
 
                     b.HasIndex("SubjectId");
 
-                    b.ToTable("StudentSubjects", (string)null);
+                    b.ToTable("StudentSubjects");
                 });
 
             modelBuilder.Entity("Models.Subject", b =>
@@ -550,10 +546,10 @@ namespace Data.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Subjects", (string)null);
+                    b.ToTable("Subjects");
                 });
 
-            modelBuilder.Entity("Models.UniPhotos", b =>
+            modelBuilder.Entity("Models.UniFile", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -561,13 +557,16 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Picture")
+                    b.Property<int>("ContentType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("File")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("UniPhotos", (string)null);
+                    b.ToTable("UniFiles");
                 });
 
             modelBuilder.Entity("Models.University", b =>
@@ -607,7 +606,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("University", (string)null);
+                    b.ToTable("University");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

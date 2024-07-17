@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240715212152_initial")]
+    [Migration("20240717213043_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -552,7 +552,7 @@ namespace Data.Migrations
                     b.ToTable("Subjects");
                 });
 
-            modelBuilder.Entity("Models.UniPhotos", b =>
+            modelBuilder.Entity("Models.UniFile", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -560,13 +560,16 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Picture")
+                    b.Property<int>("ContentType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("File")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("UniPhotos");
+                    b.ToTable("UniFiles");
                 });
 
             modelBuilder.Entity("Models.University", b =>

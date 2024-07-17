@@ -1,12 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data
 {
@@ -26,7 +20,7 @@ namespace Data
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<University> University { get; set; }
         public DbSet<AcademicRecords> academicRecords { get; set; }
-        public DbSet<UniPhotos> UniPhotos { get; set; }
+        public DbSet<UniFile> UniFiles { get; set; }
         public DbSet<BifurcationRequest> BifurcationRequests { get; set; }
 
 

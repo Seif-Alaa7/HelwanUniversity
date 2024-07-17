@@ -85,16 +85,17 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UniPhotos",
+                name: "UniFiles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Picture = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    File = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContentType = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UniPhotos", x => x.Id);
+                    table.PrimaryKey("PK_UniFiles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -552,7 +553,7 @@ namespace Data.Migrations
                 name: "StudentSubjects");
 
             migrationBuilder.DropTable(
-                name: "UniPhotos");
+                name: "UniFiles");
 
             migrationBuilder.DropTable(
                 name: "University");
