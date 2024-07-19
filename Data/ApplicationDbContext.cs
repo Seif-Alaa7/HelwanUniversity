@@ -139,6 +139,18 @@ namespace Data
             modelBuilder.Entity<StudentSubjects>()
                 .Property(ar => ar.Degree)
                 .HasDefaultValue(null);
+
+            modelBuilder.Entity<StudentSubjects>().Property(t => t.DegreePoints).HasComputedColumnSql(@"CASE
+                                  WHEN Grade IS NULL THEN NULL
+                                  WHEN Grade = 0 THEN 4.0
+                                  WHEN Grade = 1 THEN 3.667
+                                  WHEN Grade = 2 THEN 3.333
+                                  WHEN Grade = 3 THEN 3.0
+                                  WHEN Grade = 4 THEN 2.667
+                                  WHEN Grade = 5 THEN 2.333
+                                  WHEN Grade = 6 THEN 2.0
+                                  ELSE 0.0 END").ValueGeneratedOnAddOrUpdate();
+
         }
     }
 }
