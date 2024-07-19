@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models.Enums
 {
-    public enum type
+    public enum Filetype
     {
         IMG,
         Video
