@@ -12,7 +12,7 @@ namespace Models.Enums
         Doctor,
         President,
         VicePrecident,
-        DeanOfCollege,
+        DeanOfFaculty,
         HeadOfDepartment,
         VP_For_AcademicAffairs,
         VP_For_Finance
