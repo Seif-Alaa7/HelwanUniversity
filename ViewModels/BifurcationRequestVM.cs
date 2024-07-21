@@ -1,6 +1,6 @@
 ﻿namespace ViewModels
 {
-    internal class BifurcationRequestVM
+    public class BifurcationRequestVM
     {
         public int Id { get; set; }
         public int StudentId { get; set; }

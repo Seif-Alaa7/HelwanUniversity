@@ -1,9 +1,14 @@
 ﻿using Models.Enums;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ViewModels
 {
-    internal class AcademicRecordsVM
+    public class AcademicRecordsVM
     {
         private decimal _GPASemester;
         private decimal _GPATotal;

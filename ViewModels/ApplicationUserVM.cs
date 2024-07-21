@@ -1,6 +1,7 @@
 ﻿namespace ViewModels
 {
-    internal class ApplicationUserVM
+    public class ApplicationUserVM
     {
+
     }
 }

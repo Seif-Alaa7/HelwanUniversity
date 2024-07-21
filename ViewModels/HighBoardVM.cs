@@ -2,7 +2,7 @@
 
 namespace ViewModels
 {
-    internal class HighBoardVM
+    public class HighBoardVM
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;

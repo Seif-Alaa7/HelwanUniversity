@@ -3,7 +3,7 @@
 
 namespace ViewModels
 {
-    internal class UniFileVM
+    public class UniFileVM
     {
         public int Id { get; set; }
         public string File { get; set; } = null!;

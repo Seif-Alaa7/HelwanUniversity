@@ -1,6 +1,6 @@
 ﻿namespace ViewModels
 {
-    internal class FacultyVM
+    public class FacultyVM
     {
         public int Id { get; set; }
         public int DeanId { get; set; }

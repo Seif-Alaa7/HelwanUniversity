@@ -2,7 +2,7 @@
 
 namespace ViewModels
 {
-    internal class DoctorVM
+    public class DoctorVM
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
