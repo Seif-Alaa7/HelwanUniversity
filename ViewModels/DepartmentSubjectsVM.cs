@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ViewModels
+﻿namespace ViewModels
 {
     internal class DepartmentSubjectsVM
     {
+        public int DepartmentId { get; set; }
+        public int SubjectId { get; set; }
     }
 }
