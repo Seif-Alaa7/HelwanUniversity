@@ -9,6 +9,7 @@
         public string FacebookPage { get; set; } = null!;
         public string LinkedInPage { get; set; } = null!;
         public string MainPage { get; set; } = null!;
+        public string ContactMail { get; set; } = null!;
         public int ViewCount { get; set; }
 
     }
