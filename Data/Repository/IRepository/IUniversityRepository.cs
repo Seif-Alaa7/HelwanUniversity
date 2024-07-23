@@ -9,11 +9,7 @@ namespace Data.Repository.IRepository
 {
     public interface IUniversityRepository
     {
-        List<University> GetAll();
-        University GetOne(int Id);
-        void Delete(University university);
         void Update(University university);
-        void Add(University university);
-        void Save();
+        University? Get();
     }
 }

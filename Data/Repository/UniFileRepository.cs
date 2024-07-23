@@ -1,4 +1,5 @@
 ﻿using Data.Repository.IRepository;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,35 @@ namespace Data.Repository
         {
             this.context = context;
         }
-
+        public List<UniFile> GetAllImages()
+        {
+            var IMGs = context.UniFiles.Where(x=>x.ContentType == Models.Enums.Filetype.IMG).ToList();
+            return IMGs;
+        }
+        public List<UniFile> GetAllVideos()
+        {
+            var Videos = context.UniFiles.Where(x => x.ContentType == Models.Enums.Filetype.Video).ToList();
+            return Videos;
+        }
+        public UniFile GetFile(int id)
+        {
+            var file = context.UniFiles.Find(id);
+            return file;
+        }
+        public void Update(UniFile File)
+        {
+            context.UniFiles.Update(File);
+            context.SaveChanges();
+        }
+        public void Add(UniFile File)
+        {
+            context.UniFiles.Add(File);
+            context.SaveChanges();
+        }
+        public void Delete(UniFile File)
+        {
+            context.UniFiles.Remove(File);
+            context.SaveChanges();
+        }
     }
 }

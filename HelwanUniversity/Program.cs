@@ -4,6 +4,7 @@ using Data;
 using Models;
 using Data.Repository.IRepository;
 using Data.Repository;
+using CloudinaryDotNet;
 
 namespace HelwanUniversity
 {
@@ -31,6 +32,19 @@ namespace HelwanUniversity
             builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
             builder.Services.AddScoped<IUniversityRepository, UniversityRepository>();
             builder.Services.AddScoped<IAcademicRecordsRepository, AcademicRecordsRepository>();
+            builder.Services.AddScoped<IUniFileRepository, UniFileRepository>();
+            builder.Services.AddScoped<IStudentSubjectsRepository, StudentSubjectsRepository>();
+            builder.Services.AddScoped<IDepartmentSubjectsRepository, DepartmentSubjectsRepository>();
+            builder.Services.AddScoped<IBifurcationRequestRepository, BifurcationRequestRepository>();
+
+            var cloudinaryAccount = new Account(
+                         builder.Configuration["Cloudinary:CloudName"],
+                         builder.Configuration["Cloudinary:ApiKey"],
+                         builder.Configuration["Cloudinary:ApiSecret"]
+                             );
+            var cloudinary = new Cloudinary(cloudinaryAccount);
+
+            builder.Services.AddSingleton(cloudinary);
 
             var app = builder.Build();
 
