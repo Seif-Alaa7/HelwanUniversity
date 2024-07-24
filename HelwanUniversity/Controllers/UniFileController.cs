@@ -19,6 +19,7 @@ namespace HelwanUniversity.Controllers
             this._cloudinary = cloudinary;
 
         }
+
         //Display image & Video
         public IActionResult News()
         {
@@ -90,7 +91,7 @@ namespace HelwanUniversity.Controllers
                 uniFileRepository.Add(file);
                 uniFileRepository.Save();
 
-                return RedirectToAction("Index", "University");
+                return RedirectToAction("Index", "Home");
             }
             return View("AddImage", uniFileVM);
         }
@@ -169,7 +170,7 @@ namespace HelwanUniversity.Controllers
                 uniFileRepository.Update(IMG);
                 uniFileRepository.Save();
 
-                return RedirectToAction("Index", "University");
+                return RedirectToAction("Index", "Home");
             }
             return View("UpdateImage", newImgVM);
         }
@@ -193,7 +194,7 @@ namespace HelwanUniversity.Controllers
             uniFileRepository.Save();
             if(fileType == Models.Enums.Filetype.IMG)
             {
-                return RedirectToAction("Index", "University"); 
+                return RedirectToAction("Index", "Home"); 
             }
             else
             {

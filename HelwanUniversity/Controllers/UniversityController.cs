@@ -71,7 +71,7 @@ namespace HelwanUniversity.Controllers
             universityRepository.Update(uni);
             universityRepository.Save();
 
-            return RedirectToAction("Index", "University");
+            return RedirectToAction("Index", "Home");
         }
 
         private async Task<string> UploadImageAsync(IFormFile file, string currentUrl, string errorMessage)
