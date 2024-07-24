@@ -11,5 +11,6 @@ namespace Data.Repository.IRepository
     {
         void Update(University university);
         University? Get();
+        void Save();
     }
 }

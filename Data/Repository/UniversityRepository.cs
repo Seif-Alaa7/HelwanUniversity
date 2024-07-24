@@ -12,12 +12,15 @@ namespace Data.Repository
         public void Update(University university)
         {
             context.University.Update(university);
-            context.SaveChanges();
         }
         public University? Get()
         {
             var university = context.University.Find(1);
             return university;
+        }
+        public void Save()
+        {
+            context.SaveChanges();
         }
     }
 }

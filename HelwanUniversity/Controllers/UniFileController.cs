@@ -19,7 +19,7 @@ namespace HelwanUniversity.Controllers
             this._cloudinary = cloudinary;
 
         }
-        //Delete image & Video
+        //Display image & Video
         public IActionResult News()
         {
             var videos = uniFileRepository.GetAllVideos();
@@ -30,63 +30,77 @@ namespace HelwanUniversity.Controllers
             var video = uniFileRepository.GetFile(id);
             return View(video);
         }
-        [HttpPost]
+        [HttpGet]
         public IActionResult AddVideo()
         {
             return View();
         }
+        [HttpPost]
         public IActionResult SaveVideo(UniFileVM uniFileVM)
         {
             if (ModelState.IsValid)
             {
-                var file = new UniFile()
+                var file = new UniFile
                 {
                     File = uniFileVM.File,
                     ContentType = uniFileVM.ContentType,
                 };
                 uniFileRepository.Add(file);
+                uniFileRepository.Save();
 
                 return RedirectToAction("News");
             }
             return View("AddVideo",uniFileVM);
         }
-        [HttpPost]
+        [HttpGet]
         public IActionResult AddImage()
         {
             return View();
         }
+        [HttpPost]
         public async Task<IActionResult> SaveImgAsync(UniFileVM uniFileVM)
         {
             if (ModelState.IsValid)
             {
                 if (uniFileVM.ImgPath != null && uniFileVM.ImgPath.Length > 0)
                 {
-                    var uploadParams = new ImageUploadParams()
+                    var uploadParams = new ImageUploadParams
                     {
                         File = new FileDescription(uniFileVM.ImgPath.FileName, uniFileVM.ImgPath.OpenReadStream())
                     };
 
                     var uploadResult = await _cloudinary.UploadAsync(uploadParams);
-                    uniFileVM.File = uploadResult.SecureUrl.AbsoluteUri;
-                };
-                var file = new UniFile()
+
+                    if (uploadResult.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        uniFileVM.File = uploadResult.SecureUrl.AbsoluteUri;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "An error occurred while uploading the photo. Please try again.");
+                        return View("AddImage", uniFileVM);
+                    }
+
+                }
+                var file = new UniFile
                 {
                     File = uniFileVM.File,
                     ContentType = uniFileVM.ContentType,
                 };
                 uniFileRepository.Add(file);
+                uniFileRepository.Save();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "University");
             }
             return View("AddImage", uniFileVM);
         }
-        [HttpPost]
+        [HttpGet]
         public IActionResult UpdateVideo(int id)
         {
             var Video = uniFileRepository.GetFile(id);
 
             //Mapping
-            var VideoVM = new UniFileVM2()
+            var VideoVM = new UniFileVM2
             {
                 Id = Video.Id,
                 File = Video.File,
@@ -94,27 +108,29 @@ namespace HelwanUniversity.Controllers
             };
             return View(VideoVM);
         }
-        public IActionResult SaveUpdateVideo(UniFileVM2 New_VideoVM)
+        [HttpPost]
+        public IActionResult SaveUpdateVideo(UniFileVM2 newVideoVM)
         {
             if (ModelState.IsValid)
             {
-                var video = uniFileRepository.GetFile(New_VideoVM.Id);
+                var video = uniFileRepository.GetFile(newVideoVM.Id);
 
                 //Update Changes
-                video.File = New_VideoVM.File;
+                video.File = newVideoVM.File;
                 uniFileRepository.Update(video);
+                uniFileRepository.Save();
 
                 return RedirectToAction("News");
             }
-            return View("UpdateVideo",New_VideoVM);
+            return View("UpdateVideo", newVideoVM);
         }
-        [HttpPost]
+        [HttpGet]
         public IActionResult UpdateImage(int id)
         {
             var Img = uniFileRepository.GetFile(id);
 
             //Mapping
-            var ImgVM = new UniFileVM2()
+            var ImgVM = new UniFileVM2
             {
                 Id = Img.Id,
                 File = Img.File,
@@ -122,30 +138,42 @@ namespace HelwanUniversity.Controllers
             };
             return View(ImgVM);
         }
-        public async Task<IActionResult> SaveUpdateImageAsync(UniFileVM2 New_ImgVM)
+        [HttpPost]
+        public async Task<IActionResult> SaveUpdateImageAsync(UniFileVM2 newImgVM)
         {
             if (ModelState.IsValid)
             {
-                if (New_ImgVM.ImgPath != null && New_ImgVM.ImgPath.Length > 0)
+                if (newImgVM.ImgPath != null && newImgVM.ImgPath.Length > 0)
                 {
-                    var uploadParams = new ImageUploadParams()
+                    var uploadParams = new ImageUploadParams
                     {
-                        File = new FileDescription(New_ImgVM.ImgPath.FileName, New_ImgVM.ImgPath.OpenReadStream())
+                        File = new FileDescription(newImgVM.ImgPath.FileName, newImgVM.ImgPath.OpenReadStream())
                     };
                     var uploadResult = await _cloudinary.UploadAsync(uploadParams);
-                    New_ImgVM.File = uploadResult.SecureUrl.AbsoluteUri;
+
+                    if (uploadResult.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        newImgVM.File = uploadResult.SecureUrl.AbsoluteUri;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "An error occurred while uploading the photo. Please try again.");
+                        return View("UpdateImage", newImgVM);
+                    }
+
                 };
-                var IMG = uniFileRepository.GetFile(New_ImgVM.Id);
+                var IMG = uniFileRepository.GetFile(newImgVM.Id);
 
                 //Update Change
-                IMG.File = New_ImgVM.File;
+                IMG.File = newImgVM.File;
                 uniFileRepository.Update(IMG);
+                uniFileRepository.Save();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "University");
             }
-            return View("UpdateImage",New_ImgVM);
+            return View("UpdateImage", newImgVM);
         }
-        [HttpPost]
+        [HttpGet]
         public IActionResult Delete(int id)
         {
             var File = uniFileRepository.GetFile(id);
@@ -155,15 +183,17 @@ namespace HelwanUniversity.Controllers
             }
             return View(File);
         }
+        [HttpPost]
         public IActionResult ConfirmDelete(int id)
         {
             var File = uniFileRepository.GetFile(id);
-            var FileType = File.ContentType;
+            var fileType = File.ContentType;
 
             uniFileRepository.Delete(File);
-            if(FileType == Models.Enums.Filetype.IMG)
+            uniFileRepository.Save();
+            if(fileType == Models.Enums.Filetype.IMG)
             {
-                return RedirectToAction("Index","Home"); 
+                return RedirectToAction("Index", "University"); 
             }
             else
             {

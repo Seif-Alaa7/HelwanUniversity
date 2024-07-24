@@ -79,6 +79,7 @@ namespace HelwanUniversity.Controllers
                 UNI.ViewCount = New_UNIvm.ViewCount;
 
                 universityRepository.Update(UNI);
+                universityRepository.Save();
 
                 return RedirectToAction("Index", "Home");
             }

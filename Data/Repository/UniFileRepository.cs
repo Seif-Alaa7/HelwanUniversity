@@ -34,16 +34,17 @@ namespace Data.Repository
         public void Update(UniFile File)
         {
             context.UniFiles.Update(File);
-            context.SaveChanges();
         }
         public void Add(UniFile File)
         {
             context.UniFiles.Add(File);
-            context.SaveChanges();
         }
         public void Delete(UniFile File)
         {
             context.UniFiles.Remove(File);
+        }
+        public void Save ()
+        {
             context.SaveChanges();
         }
     }

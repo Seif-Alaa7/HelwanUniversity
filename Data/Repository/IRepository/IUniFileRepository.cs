@@ -15,5 +15,6 @@ namespace Data.Repository.IRepository
         void Update(UniFile File);
         void Add(UniFile File);
         void Delete(UniFile File);
+        void Save();
     }
 }
