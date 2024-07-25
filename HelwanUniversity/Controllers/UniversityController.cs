@@ -9,12 +9,12 @@ namespace HelwanUniversity.Controllers
     public class UniversityController : Controller
     {
         private readonly IUniversityRepository universityRepository;
-        private readonly Cloudinary _cloudinary;
+        private readonly CloudinaryController _cloudinaryController;
 
-        public UniversityController(IUniversityRepository universityRepository, Cloudinary cloudinary)
+        public UniversityController(IUniversityRepository universityRepository, CloudinaryController _cloudinaryController)
         {
             this.universityRepository = universityRepository;
-            this._cloudinary = cloudinary;
+            this._cloudinaryController = _cloudinaryController;
         }
         public IActionResult Index()
         {
@@ -36,6 +36,7 @@ namespace HelwanUniversity.Controllers
                 LinkedInPage = university.LinkedInPage,
                 MainPage = university.MainPage,
                 ContactMail = university.ContactMail,
+                HistoricalBackground = university.HistoricalBackground,
                 ViewCount = university.ViewCount,
             };
             return View(universityVM);
@@ -43,52 +44,43 @@ namespace HelwanUniversity.Controllers
         }
         public async Task<IActionResult> SaveUpdateAsync(UniversityVM newUniVm)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View("Update", newUniVm);
-            }
-
-            newUniVm.Logo = await UploadImageAsync(newUniVm.LogoFile, newUniVm.Logo, "An error occurred while uploading the logo. Please try again.");
-            newUniVm.MainPicture = await UploadImageAsync(newUniVm.MainPictureFile, newUniVm.MainPicture, "An error occurred while uploading the photo. Please try again.");
-
-            if (newUniVm.Logo == null || newUniVm.MainPicture == null)
-            {
-                return View("Update", newUniVm);
-            }
-
-            var uni = universityRepository.Get();
-            uni.Name = newUniVm.Name;
-            uni.Logo = newUniVm.Logo;
-            uni.MainPicture = newUniVm.MainPicture;
-            uni.Description = newUniVm.Description;
-            uni.FacebookPage = newUniVm.FacebookPage;
-            uni.LinkedInPage = newUniVm.LinkedInPage;
-            uni.MainPage = newUniVm.MainPage;
-            uni.ContactMail = newUniVm.ContactMail;
-            uni.ViewCount = newUniVm.ViewCount;
-
-            universityRepository.Update(uni);
-            universityRepository.Save();
-
-            return RedirectToAction("Index");
-        }
-
-        private async Task<string> UploadImageAsync(IFormFile file, string currentUrl, string errorMessage)
-        {
-            if (file != null && file.Length > 0)
-            {
-                var uploadParams = new ImageUploadParams
+                try
                 {
-                    File = new FileDescription(file.FileName, file.OpenReadStream())
-                };
-                var uploadResult = await _cloudinary.UploadAsync(uploadParams);
-                if (uploadResult.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    return uploadResult.SecureUrl.AbsoluteUri;
+                    newUniVm.Logo = await _cloudinaryController.UploadFile(newUniVm.LogoFile, newUniVm.Logo, "An error occurred while uploading the logo. Please try again.");
                 }
-                ModelState.AddModelError("", errorMessage);
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                }
+                try
+                {
+                    newUniVm.MainPicture = await _cloudinaryController.UploadFile(newUniVm.MainPictureFile, newUniVm.MainPicture, "An error occurred while uploading the photo. Please try again.");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                }
+                var uni = universityRepository.Get();
+
+                uni.Name = newUniVm.Name;
+                uni.Logo = newUniVm.Logo;
+                uni.MainPicture = newUniVm.MainPicture;
+                uni.Description = newUniVm.Description;
+                uni.FacebookPage = newUniVm.FacebookPage;
+                uni.LinkedInPage = newUniVm.LinkedInPage;
+                uni.MainPage = newUniVm.MainPage;
+                uni.ContactMail = newUniVm.ContactMail;
+                uni.HistoricalBackground = newUniVm.HistoricalBackground;
+                uni.ViewCount = newUniVm.ViewCount;
+
+                universityRepository.Update(uni);
+                universityRepository.Save();
+
+                return RedirectToAction("Index");
             }
-            return currentUrl;
+            return View("Update", newUniVm);
         }
     }
 }

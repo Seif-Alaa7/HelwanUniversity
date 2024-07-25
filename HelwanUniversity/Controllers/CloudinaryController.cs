@@ -20,21 +20,27 @@ namespace HelwanUniversity.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadFile(IFormFile file)
+        public async Task<string> UploadFile(IFormFile file, string currentUrl, string errorMessage)
         {
-            if (file == null || file.Length == 0)
+            if (file != null && file.Length > 0)
             {
-                return Content("File not selected.");
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(file.FileName, file.OpenReadStream())
+                };
+
+                var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+
+                if (uploadResult.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return uploadResult.SecureUrl.AbsoluteUri;
+                }
+                else
+                {
+                    throw new Exception(errorMessage);
+                }
             }
-
-            var uploadParams = new ImageUploadParams()
-            {
-                File = new FileDescription(file.FileName, file.OpenReadStream())
-            };
-
-            var uploadResult = await _cloudinary.UploadAsync(uploadParams);
-
-            return Content($"File uploaded successfully: {uploadResult.SecureUrl}");
+            return currentUrl;
         }
     }
 }

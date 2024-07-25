@@ -5,6 +5,7 @@ using Models;
 using Data.Repository.IRepository;
 using Data.Repository;
 using CloudinaryDotNet;
+using HelwanUniversity.Controllers;
 
 namespace HelwanUniversity
 {
@@ -36,6 +37,7 @@ namespace HelwanUniversity
             builder.Services.AddScoped<IStudentSubjectsRepository, StudentSubjectsRepository>();
             builder.Services.AddScoped<IDepartmentSubjectsRepository, DepartmentSubjectsRepository>();
             builder.Services.AddScoped<IBifurcationRequestRepository, BifurcationRequestRepository>();
+            builder.Services.AddTransient<CloudinaryController>();
 
             var cloudinaryAccount = new Account(
                          builder.Configuration["Cloudinary:CloudName"],
