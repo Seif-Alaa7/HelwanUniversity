@@ -21,9 +21,9 @@ namespace HelwanUniversity
             builder.Services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            /*builder.Services.AddIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();*/
+            builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
+
+            builder.Services.AddRazorPages();
 
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
@@ -69,7 +69,7 @@ namespace HelwanUniversity
                 name: "default",
                 pattern: "{controller=University}/{action=Index}/{id?}");
 
-            /*app.MapRazorPages();*/
+            app.MapRazorPages();
 
             app.Run();
         }
