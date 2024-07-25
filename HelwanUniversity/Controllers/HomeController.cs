@@ -15,7 +15,7 @@ namespace HelwanUniversity.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("Index","University");   
+            return View(); 
         }
 
         public IActionResult Privacy()

@@ -91,7 +91,7 @@ namespace HelwanUniversity.Controllers
                 uniFileRepository.Add(file);
                 uniFileRepository.Save();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index","University");
             }
             return View("AddImage", uniFileVM);
         }
@@ -170,7 +170,7 @@ namespace HelwanUniversity.Controllers
                 uniFileRepository.Update(IMG);
                 uniFileRepository.Save();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "University");
             }
             return View("UpdateImage", newImgVM);
         }
@@ -194,7 +194,7 @@ namespace HelwanUniversity.Controllers
             uniFileRepository.Save();
             if(fileType == Models.Enums.Filetype.IMG)
             {
-                return RedirectToAction("Index", "Home"); 
+                return RedirectToAction("Index", "University"); 
             }
             else
             {

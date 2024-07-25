@@ -18,7 +18,7 @@ namespace HelwanUniversity.Controllers
         }
         public IActionResult Index()
         {
-            return View(); //Done by Home Controller(Index) : Home Page
+            return View();
         }
         [HttpPost]
         public IActionResult Update()
@@ -38,7 +38,6 @@ namespace HelwanUniversity.Controllers
                 ContactMail = university.ContactMail,
                 ViewCount = university.ViewCount,
             };
-
             return View(universityVM);
 
         }
@@ -71,7 +70,7 @@ namespace HelwanUniversity.Controllers
             universityRepository.Update(uni);
             universityRepository.Save();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
 
         private async Task<string> UploadImageAsync(IFormFile file, string currentUrl, string errorMessage)
