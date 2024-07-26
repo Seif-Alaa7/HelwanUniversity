@@ -11,5 +11,7 @@ namespace Models
         public string? Picture { get; set; }
         public Faculty Faculty { get; set; } = null!;
         public Department Department { get; set; } = null!;
+        public string ApplicationUserId { get; set; } = null!;
+        public ApplicationUser ApplicationUser { get; set; } = null!;
     }
 }

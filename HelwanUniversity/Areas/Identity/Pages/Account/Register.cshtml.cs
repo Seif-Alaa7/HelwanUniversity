@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -17,7 +18,11 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Models;
+using Models.Enums;
 
 namespace HelwanUniversity.Areas.Identity.Pages.Account
 {
@@ -29,13 +34,17 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IOptions<IdentityOptions> _identityOptions;
+        private readonly ApplicationDbContext _context;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IOptions<IdentityOptions> identityOptions,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -43,6 +52,8 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _identityOptions = identityOptions;
+            _context = context;
         }
 
         /// <summary>
@@ -97,6 +108,40 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [Display(Name = "User Type")]
+            public UserType UserType { get; set; }
+
+            public string? Picture { get; set; }
+
+            // Fields for Student
+            public string? StudentName { get; set; }
+            public DateOnly? StudentBirthDate { get; set; }
+            public string? StudentNationality { get; set; }
+            public Gender StudentGender { get; set; }
+            public Religion StudentReligion { get; set; }
+            public string? StudentAddress { get; set; }
+            public string? StudentPhoneNumber { get; set; }
+            public int? StudentDepartmentId { get; set; }
+            public bool? StudentPaymentFees { get; set; }
+            public DateTime? StudentAdmissionDate { get; set; }
+            public DateTime? StudentPaymentFeesDate { get; set; }
+
+            // Fields for Doctor
+            public string? DoctorName { get; set; }
+            public Gender DoctorGender { get; set; }
+            public Religion DoctorReligion { get; set; }
+            public string? DoctorAddress { get; set; }
+            public JobTitle? DoctorJobTitle { get; set; }
+
+            // Fields for HighBoard
+            public string? HighBoardName { get; set; }
+            public string? HighBoardDescription { get; set; }
+            public JobTitle? HighBoardJobTitle { get; set; } 
+            public Faculty? HighBoardFaculty { get; set; }
+            public Department? HighBoardDepartment { get; set; }
+
         }
 
 
@@ -106,65 +151,118 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(CancellationToken cancellationToken = default)
         {
-            returnUrl ??= Url.Content("~/");
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var user = CreateUser();
+                return Page();
+            }
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                var result = await _userManager.CreateAsync(user, Input.Password);
+            var user = CreateUser();
 
-                if (result.Succeeded)
+            await _userManager.SetUserNameAsync(user, Input.Email);
+            await _userManager.SetEmailAsync(user, Input.Email);
+            var result = await _userManager.CreateAsync(user, Input.Password);
+
+            if (result.Succeeded)
+            {
+                var userId = user.Id;
+
+                // Handle user types and create corresponding records
+                switch (Input.UserType)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    case UserType.Student:
+                        var student = new Student
+                        {
+                            Name = Input.StudentName!,
+                            Nationality = Input.StudentNationality!,
+                            BirthDate = Input.StudentBirthDate ?? DateOnly.MinValue,
+                            Address = Input.StudentAddress,
+                            PhoneNumber = Input.StudentPhoneNumber,
+                            DepartmentId = Input.StudentDepartmentId ?? 0,
+                            PaymentFees = Input.StudentPaymentFees ?? false,
+                            Picture = Input.Picture,
+                            AdmissionDate = Input.StudentAdmissionDate ?? DateTime.Now,
+                            PaymentFeesDate = Input.StudentPaymentFeesDate,
+                            ApplicationUserId = userId
+                        };
+                        _context.Students.Add(student);
+                        break;
 
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
+                    case UserType.Doctor:
+                        var doctor = new Doctor
+                        {
+                            Name = Input.DoctorName!,
+                            Gender = Input.DoctorGender,
+                            Religion = Input.DoctorReligion,
+                            Address = Input.DoctorAddress,
+                            JobTitle = Input.DoctorJobTitle.GetValueOrDefault(),
+                            Picture = Input.Picture,
+                            ApplicationUserId = userId
+                        };
+                        _context.Doctors.Add(doctor);
+                        break;
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    }
-                    else
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
-                    }
+                    case UserType.HighBoard:
+                        var highBoard = new HighBoard
+                        {
+                            Name = Input.HighBoardName!,
+                            Description = Input.HighBoardDescription,
+                            JobTitle = Input.HighBoardJobTitle.GetValueOrDefault(),
+                            Picture = Input.Picture,
+                            Faculty = Input.HighBoardFaculty,
+                            Department = Input.HighBoardDepartment,
+                            ApplicationUserId = userId
+                        };
+                        _context.HighBoards.Add(highBoard);
+                        break;
                 }
-                foreach (var error in result.Errors)
+
+                await _context.SaveChangesAsync(cancellationToken);
+
+                _logger.LogInformation("User created a new account with password.");
+
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                var callbackUrl = Url.Page(
+                    "/Account/ConfirmEmail",
+                    pageHandler: null,
+                    values: new { area = "Identity", userId = userId, code = code },
+                    protocol: Request.Scheme);
+
+                await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                if (_userManager.Options.SignIn.RequireConfirmedAccount)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    return RedirectToPage("RegisterConfirmation", new { email = Input.Email });
+                }
+                else
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToPage();
                 }
             }
 
-            // If we got this far, something failed, redisplay form
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
             return Page();
         }
 
-        private IdentityUser CreateUser()
+
+        private ApplicationUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<ApplicationUser>();
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(IdentityUser)}'. " +
-                    $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
-                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. Ensure that '{nameof(ApplicationUser)}' has a parameterless constructor.");
+
             }
         }
 
