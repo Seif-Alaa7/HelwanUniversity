@@ -37,9 +37,9 @@
             </div>
             <div class="form-floating mb-3">
                 <select asp-for="Input.UserType" class="form-control" id="userTypeSelect">
-                    <option value="@UserType.Student">Student</option>
-                    <option value="@UserType.Doctor">Doctor</option>
-                    <option value="@UserType.HighBoard">High Board</option>
+                    <option value="Student">Student</option>
+                    <option value="Doctor">Doctor</option>
+                    <option value="HighBoard">High Board</option>
                 </select>
                 <label asp-for="Input.UserType">User Type</label>
                 <span asp-validation-for="Input.UserType" class="text-danger"></span>
@@ -133,7 +133,7 @@
                 </div>
             </div>
 
-            <div id="highBoardFields" class="type-specific-fields" style="display:none;">
+            <div id="highboardFields" class="type-specific-fields" style="display:none;">
                 <div class="form-floating mb-3">
                     <input asp-for="Input.HighBoardName" class="form-control" placeholder="Name" />
                     <label asp-for="Input.HighBoardName">Name</label>
