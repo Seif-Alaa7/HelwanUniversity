@@ -1,0 +1,30 @@
+﻿@model List<Faculty>
+
+<div class="container">
+    <h2 class="text-center my-4">الكليات</h2>
+    <div class="row">
+        @foreach (var faculty in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    @if (!string.IsNullOrEmpty(faculty.Picture))
+                    {
+                        <img src="@faculty.Picture" class="card-img-top" alt="@faculty.Name">
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@faculty.Name</h5>
+                        <p class="card-text">@(faculty.Description?.Substring(0, Math.Min(faculty.Description.Length, 100)))...</p>
+                        <p class="card-text"><small class="text-muted">عدد الأقسام: @faculty.Departments.Count</small></p>
+                        <a href="@Url.Action("Details", "Faculty", new { id = faculty.Id })" class="btn btn-primary">عرض التفاصيل</a>
+                        <a href="@Url.Action("Edit", "Faculty", new { id = faculty.Id })" class="btn btn-warning">تعديل</a>
+                        <form asp-action="Delete" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@faculty.Id" />
+                            <input type="submit" value="حذف" class="btn btn-danger" onclick="return confirm('هل أنت متأكد أنك تريد حذف هذه الكلية؟');" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

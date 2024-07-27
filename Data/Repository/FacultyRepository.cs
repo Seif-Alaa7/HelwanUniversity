@@ -1,4 +1,5 @@
 ﻿using Data.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -31,11 +32,15 @@ namespace Data.Repository
             context.Faculties.Remove(faculty);
         }
 
-        public Faculty GetOne(int Id)
+        public Faculty GetOne(int id)
         {
             var faculty = context.Faculties
-                .Find(Id);
-            return faculty;
+                .Include(f => f.Departments)
+                .FirstOrDefault(f => f.Id == id);
+
+
+
+            return (faculty);
         }
 
         public List<Faculty> GetAll()
