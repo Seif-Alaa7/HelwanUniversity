@@ -12,5 +12,7 @@ namespace Models
         public string? Address { get; set; }
         public JobTitle JobTitle { get; set; }
         public List<Subject> Subjects { get; set; } = new List<Subject>();
+        public string ApplicationUserId { get; set; } = null!;
+        public ApplicationUser ApplicationUser { get; set; } = null!;
     }
 }

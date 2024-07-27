@@ -1,4 +1,5 @@
 ﻿@page
+@using Models.Enums
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
@@ -8,10 +9,17 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
             <h2>Create a new account.</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Picture" type="file" class="form-control" />
+                <label asp-for="Input.Picture">Profile Picture</label>
+                <span asp-validation-for="Input.Picture" class="text-danger"></span>
+            </div>
+
             <div class="form-floating mb-3">
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                 <label asp-for="Input.Email">Email</label>
@@ -27,6 +35,128 @@
                 <label asp-for="Input.ConfirmPassword">Confirm Password</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+            <div class="form-floating mb-3">
+                <select asp-for="Input.UserType" class="form-control" id="userTypeSelect">
+                    <option value="Student">Student</option>
+                    <option value="Doctor">Doctor</option>
+                    <option value="HighBoard">High Board</option>
+                </select>
+                <label asp-for="Input.UserType">User Type</label>
+                <span asp-validation-for="Input.UserType" class="text-danger"></span>
+            </div>
+
+            <div id="studentFields" class="type-specific-fields" style="display:none;">
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.StudentName" class="form-control" placeholder="Name" />
+                    <label asp-for="Input.StudentName">Name</label>
+                    <span asp-validation-for="Input.StudentName" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.StudentAddress" class="form-control" placeholder="Address" />
+                    <label asp-for="Input.StudentAddress">Address</label>
+                    <span asp-validation-for="Input.StudentAddress" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.StudentNationality" class="form-control" placeholder="Nationality" />
+                    <label asp-for="Input.StudentNationality">Nationality</label>
+                    <span asp-validation-for="Input.StudentNationality" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.StudentGender">Gender</label>
+                    <select asp-for="Input.StudentGender" class="form-control">
+                        <option value="@Gender.Male">Male</option>
+                        <option value="@Gender.Female">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.StudentReligion">Religion</label>
+                    <select asp-for="Input.StudentReligion" class="form-control">
+                        <option value="@Religion.Muslim">Muslim</option>
+                        <option value="@Religion.Christian">Christian</option>
+                        <option value="@Religion.Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.StudentBirthDate" class="form-control" placeholder="Birth Date" />
+                    <label asp-for="Input.StudentBirthDate">Birth Date</label>
+                    <span asp-validation-for="Input.StudentBirthDate" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.StudentPhoneNumber" class="form-control" placeholder="Phone Number" />
+                    <label asp-for="Input.StudentPhoneNumber">Phone Number</label>
+                    <span asp-validation-for="Input.StudentPhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.StudentDepartmentId" class="form-control" placeholder="Department ID" />
+                    <label asp-for="Input.StudentDepartmentId">Department ID</label>
+                    <span asp-validation-for="Input.StudentDepartmentId" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.StudentPaymentFees" class="form-control" placeholder="Payment Fees" />
+                    <label asp-for="Input.StudentPaymentFees">Payment Fees</label>
+                    <span asp-validation-for="Input.StudentPaymentFees" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div id="doctorFields" class="type-specific-fields" style="display:none;">
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.DoctorName" class="form-control" placeholder="Name" />
+                    <label asp-for="Input.DoctorName">Name</label>
+                    <span asp-validation-for="Input.DoctorName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.DoctorGender">Gender</label>
+                    <select asp-for="Input.DoctorGender" class="form-control">
+                        <option value="@Gender.Male">Male</option>
+                        <option value="@Gender.Female">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.DoctorReligion">Religion</label>
+                    <select asp-for="Input.DoctorReligion" class="form-control">
+                        <option value="@Religion.Muslim">Muslim</option>
+                        <option value="@Religion.Christian">Christian</option>
+                        <option value="@Religion.Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.DoctorAddress" class="form-control" placeholder="Address" />
+                    <label asp-for="Input.DoctorAddress">Address</label>
+                    <span asp-validation-for="Input.DoctorAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.DoctorJobTitle">Job Title</label>
+                    <select asp-for="Input.DoctorJobTitle" class="form-control">
+                        <option value="@JobTitle.Prof_Doctor">Professor Doctor</option>
+                        <option value="@JobTitle.Doctor">Doctor</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="highboardFields" class="type-specific-fields" style="display:none;">
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.HighBoardName" class="form-control" placeholder="Name" />
+                    <label asp-for="Input.HighBoardName">Name</label>
+                    <span asp-validation-for="Input.HighBoardName" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.HighBoardDescription" class="form-control" placeholder="Description" />
+                    <label asp-for="Input.HighBoardDescription">Description</label>
+                    <span asp-validation-for="Input.HighBoardDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.HighBoardJobTitle">Job Title</label>
+                    <select asp-for="Input.HighBoardJobTitle" class="form-control">
+                        <option value="@JobTitle.VP_For_Finance">VP For Finance</option>
+                        <option value="@JobTitle.DeanOfFaculty">Dean of Faculty</option>
+                        <option value="@JobTitle.VicePrecident">Vice President</option>
+                        <option value="@JobTitle.HeadOfDepartment">Head of Department</option>
+                        <option value="@JobTitle.President">President</option>
+                        <option value="@JobTitle.VP_For_AcademicAffairs">VP For Academic Affairs</option>
+                    </select>
+                </div>
+            </div>
+
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>
     </div>
@@ -39,8 +169,10 @@
                 {
                     <div>
                         <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
+                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">
+                                article
+                                about setting up this ASP.NET application to support logging in via external services
+                            </a>.
                         </p>
                     </div>
                 }
@@ -63,5 +195,13 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $('#userTypeSelect').change(function () {
+                var selectedType = $(this).val();
+                $('.type-specific-fields').hide();
+                $('#' + selectedType.toLowerCase() + 'Fields').show();
+            });
+        });
+    </script>
 }

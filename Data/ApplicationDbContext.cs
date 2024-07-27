@@ -142,6 +142,21 @@ namespace Data
                 .Property(ar => ar.Degree)
                 .HasDefaultValue(null);
 
+            modelBuilder.Entity<Student>()
+            .HasOne(s => s.ApplicationUser)
+            .WithOne(u => u.Student)
+            .HasForeignKey<Student>(s => s.ApplicationUserId);
+
+            modelBuilder.Entity<Doctor>()
+                .HasOne(d => d.ApplicationUser)
+                .WithOne(u => u.Doctor)
+                .HasForeignKey<Doctor>(d => d.ApplicationUserId);
+
+            modelBuilder.Entity<HighBoard>()
+                .HasOne(hb => hb.ApplicationUser)
+                .WithOne(u => u.HighBoard)
+                .HasForeignKey<HighBoard>(hb => hb.ApplicationUserId);
+
             modelBuilder.Entity<StudentSubjects>().Property(t => t.DegreePoints).HasComputedColumnSql(@"CASE
                                   WHEN Grade IS NULL THEN NULL
                                   WHEN Grade = 0 THEN 4.0

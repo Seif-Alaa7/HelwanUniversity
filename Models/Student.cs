@@ -22,6 +22,8 @@ namespace Models
         public List<BifurcationRequest> BifurcationRequests { get; set; } = new List<BifurcationRequest>();
         public Department Department { get; set; } = null!;
         public AcademicRecords AcademicRecords { get; set; } = null!;
+        public string ApplicationUserId { get; set; } = null!;
+        public ApplicationUser ApplicationUser { get; set; } = null!;
 
     }
 }
