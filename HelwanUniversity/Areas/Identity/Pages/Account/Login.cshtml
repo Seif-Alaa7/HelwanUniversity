@@ -4,23 +4,26 @@
 @{
     ViewData["Title"] = "Log in";
 }
-
-<h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-4">
+<div class="font-mono bg-gray-400">
+    <div class="container mx-auto">
+        <div class="flex justify-center px-6 my-12">
+            <div class="w-full xl:w-3/4 lg:w-11/12 flex">
+                <div class="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg"
+                     style="background-image: url('~\HU-Color.png')">
+                 </div>
+                <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
+                <h3 class="pt-4 text-2xl text-center">Welcome Back!</h3>
         <section>
-            <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
-                <hr />
+                <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded" id="account" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label asp-for="Input.Email" class="form-label">Email</label>
+                    <div class="mb-4">
+                    <label class="block mb-2 text-sm font-bold text-gray-700" asp-for="Input.Email" class="form-label">Email</label>
+                    <input class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
-                    <label asp-for="Input.Password" class="form-label">Password</label>
+                    <div class="mb-4">
+                    <label class="block mb-2 text-sm font-bold text-gray-700" asp-for="Input.Password" class="form-label">Password</label>
+                    <input class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline" asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div class="checkbox mb-3">
@@ -76,6 +79,9 @@
             }
         </section>
     </div>
+</div>
+</div>
+</div>
 </div>
 
 @section Scripts {
