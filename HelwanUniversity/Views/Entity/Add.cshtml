@@ -1,0 +1,199 @@
+﻿@model ViewModels.AddEntity
+@{
+    ViewData["Title"] = "Add Entity";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="/css/AddEntity.css">
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">
+                        <i class="fas fa-plus-circle"></i> @ViewData["Title"]
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <form id="addEntityForm" asp-action="Add" method="post" enctype="multipart/form-data">
+                        @if (TempData["SuccessMessage"] != null)
+                        {
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                @TempData["SuccessMessage"]
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        }
+                        <h3 class="mb-4">Add a new entity</h3>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Name</label>
+                            <input asp-for="Name" class="form-control" placeholder="Entity Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label d-block">Entity Type</label>
+                            <div class="btn-group" role="group">
+                                <input type="radio" class="btn-check" name="EntityType" id="departmentType" value="Department" autocomplete="off" checked>
+                                <label class="btn btn-outline-primary" for="departmentType">Department</label>
+
+                                <input type="radio" class="btn-check" name="EntityType" id="facultyType" value="Faculty" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="facultyType">Faculty</label>
+
+                                <input type="radio" class="btn-check" name="EntityType" id="subjectType" value="Subject" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="subjectType">Subject</label>
+                            </div>
+                        </div>
+
+                        <!-- Department Fields -->
+                        <div id="departmentFields" class="type-specific-fields">
+                            <h4 class="mt-4 mb-3">Department Information</h4>
+                            <div class="mb-3">
+                                <label asp-for="HeadId" class="form-label">Head ID</label>
+                                <input asp-for="HeadId" class="form-control" placeholder="Head ID" />
+                                <span asp-validation-for="HeadId" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="FacultyId" class="form-label">Faculty ID</label>
+                                <input asp-for="FacultyId" class="form-control" placeholder="Faculty ID" />
+                                <span asp-validation-for="FacultyId" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Allowed" class="form-label">Allowed</label>
+                                <input asp-for="Allowed" class="form-control" placeholder="Allowed" />
+                                <span asp-validation-for="Allowed" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Faculty Fields -->
+                        <div id="facultyFields" class="type-specific-fields" style="display:none;">
+                            <h4 class="mt-4 mb-3">Faculty Information</h4>
+                            <div class="mb-3">
+                                <label asp-for="DeanId" class="form-label">Dean ID</label>
+                                <input asp-for="DeanId" class="form-control" placeholder="Dean ID" />
+                                <span asp-validation-for="DeanId" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Logo" class="form-label">Logo</label>
+                                <input asp-for="Logo" class="form-control" placeholder="Logo URL" />
+                                <span asp-validation-for="Logo" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Picture" class="form-label">Picture</label>
+                                <input asp-for="Picture" class="form-control" placeholder="Picture URL" />
+                                <span asp-validation-for="Picture" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Description" class="form-label">Description</label>
+                                <textarea asp-for="Description" class="form-control" placeholder="Description"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="ViewCount" class="form-label">View Count</label>
+                                <input asp-for="ViewCount" class="form-control" placeholder="View Count" />
+                                <span asp-validation-for="ViewCount" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Subject Fields -->
+                        <div id="subjectFields" class="type-specific-fields" style="display:none;">
+                            <h4 class="mt-4 mb-3">Subject Information</h4>
+                            <div class="mb-3">
+                                <label asp-for="DoctorId" class="form-label">Doctor ID</label>
+                                <input asp-for="DoctorId" class="form-control" placeholder="Doctor ID" />
+                                <span asp-validation-for="DoctorId" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="DepartmentId" class="form-label">Department ID</label>
+                                <input asp-for="DepartmentId" class="form-control" placeholder="Department ID" />
+                                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="SubjectHours" class="form-label">Subject Hours</label>
+                                <input asp-for="SubjectHours" class="form-control" placeholder="Subject Hours" />
+                                <span asp-validation-for="SubjectHours" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="StudentsAllowed" class="form-label">Students Allowed</label>
+                                <input asp-for="StudentsAllowed" class="form-control" placeholder="Students Allowed" />
+                                <span asp-validation-for="StudentsAllowed" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Level" class="form-label">Level</label>
+                                <select asp-for="Level" class="form-select">
+                                    <option value="">Select Level</option>
+                                    <option value="1">Level 1</option>
+                                    <option value="2">Level 2</option>
+                                    <option value="3">Level 3</option>
+                                    <option value="4">Level 4</option>
+                                </select>
+                                <span asp-validation-for="Level" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Semester" class="form-label">Semester</label>
+                                <select asp-for="Semester" class="form-select">
+                                    <option value="">Select Semester</option>
+                                    <option value="1">Semester 1</option>
+                                    <option value="2">Semester 2</option>
+                                    <option value="3">Semester 3</option>
+                                </select>
+                                <span asp-validation-for="Semester" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="SummerStatus" class="form-label">Summer Status</label>
+                                <select asp-for="SummerStatus" class="form-select">
+                                    <option value="">Select Summer Status</option>
+                                    <option value="0">Not Offered</option>
+                                    <option value="1">Offered</option>
+                                </select>
+                                <span asp-validation-for="SummerStatus" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="SubjectType" class="form-label">Subject Type</label>
+                                <select asp-for="SubjectType" class="form-select">
+                                    <option value="">Select Subject Type</option>
+                                    <option value="0">Core</option>
+                                    <option value="1">Elective</option>
+                                </select>
+                                <span asp-validation-for="SubjectType" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Salary" class="form-label">Salary</label>
+                                <input asp-for="Salary" class="form-control" placeholder="Salary" />
+                                <span asp-validation-for="Salary" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">Add Entity</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const entityTypeRadios = document.querySelectorAll('input[name="EntityType"]');
+        const departmentFields = document.getElementById('departmentFields');
+        const facultyFields = document.getElementById('facultyFields');
+        const subjectFields = document.getElementById('subjectFields');
+
+        function updateFields() {
+            const selectedType = document.querySelector('input[name="EntityType"]:checked').value;
+            departmentFields.style.display = selectedType === 'Department' ? 'block' : 'none';
+            facultyFields.style.display = selectedType === 'Faculty' ? 'block' : 'none';
+            subjectFields.style.display = selectedType === 'Subject' ? 'block' : 'none';
+        }
+
+        entityTypeRadios.forEach(radio => {
+            radio.addEventListener('change', updateFields);
+        });
+
+        updateFields(); // Initial call to set the correct fields based on default radio selection
+    });
+</script>
