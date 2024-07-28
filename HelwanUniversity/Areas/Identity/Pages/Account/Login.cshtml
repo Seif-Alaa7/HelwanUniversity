@@ -3,93 +3,52 @@
 
 @{
     ViewData["Title"] = "Log in";
+    Layout = null;
 }
-
-<style>
-    .login-container {
-        max-width: 400px;
-        margin: 50px auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    .login-logo {
-        display: block;
-        margin: 0 auto 20px;
-        max-width: 150px;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-    .form-control {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-
-    .btn-primary {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-
-    .text-danger {
-        color: #dc3545;
-        font-size: 0.9em;
-    }
-
-    .remember-me {
-        margin-bottom: 15px;
-    }
-
-    .additional-options {
-        margin-top: 20px;
-        text-align: center;
-    }
-
-        .additional-options a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-            .additional-options a:hover {
-                text-decoration: underline;
-            }
-</style>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Helwan University - Home Page</title>
+    <link rel="icon" href="/HU-Color.png" type="image/png">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                 <a class="navbar-brand" asp-area="" asp-controller="University" asp-action="Index">
+                      <img src="~/HU-Color.png" alt="Logo" height="45" width="45" style="margin-right: 5px"/></a>
+                </a>
+                <a class="navbar-brand" asp-area="" asp-controller="University" asp-action="Index">HelwanUniversity</a>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item" style="margin-top: 5px">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="University" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item" style="margin-top: 5px">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 <div class="login-container">
     <img src="~/HU-Color.png" alt="HU Logo" class="login-logo">
-    <h2 style="text-align: center; margin-bottom: 20px;">Log in</h2>
+    <h2 style="text-align: center; margin-bottom: 20px;">Sign In</h2>
     <form id="account" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
         <div class="form-group">
             <label asp-for="Input.Email">Email</label>
-            <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+            <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="StudentId@Faculty.helwan.edu.eg" />
             <span asp-validation-for="Input.Email" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Input.Password">Password</label>
-            <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+            <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="*********" />
             <span asp-validation-for="Input.Password" class="text-danger"></span>
         </div>
         <div class="remember-me">
@@ -99,7 +58,7 @@
             </label>
         </div>
         <div>
-            <button id="login-submit" type="submit" class="btn-primary">Log in</button>
+            <button id="login-submit" type="submit" class="btn-primary">Sign In</button>
         </div>
         <div class="additional-options">
             <p>
@@ -108,6 +67,8 @@
         </div>
     </form>
 </div>
+</body>
+</html>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
