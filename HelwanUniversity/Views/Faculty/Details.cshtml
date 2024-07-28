@@ -1,0 +1,24 @@
+﻿@model Faculty
+
+<div class="container">
+    <h2 class="text-center my-4">@Model.Name</h2>
+    <div class="row">
+        <div class="col-md-6">
+            @if (!string.IsNullOrEmpty(Model.Picture))
+            {
+                <img src="@Model.Picture" class="img-fluid" alt="@Model.Name">
+            }
+        </div>
+        <div class="col-md-6">
+            <p>@Model.Description</p>
+            <p><strong>عدد الأقسام:</strong> @Model.Departments.Count</p>
+            <h3>الأقسام:</h3>
+            <ul>
+                @foreach (var department in Model.Departments)
+                {
+                    <li>@department.Name</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
