@@ -11,6 +11,7 @@ using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using Data;
+using HelwanUniversity.Vaildations;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -23,6 +24,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Models;
 using Models.Enums;
+using ViewModels.Vaildations.StudentsValid;
 
 namespace HelwanUniversity.Areas.Identity.Pages.Account
 {
@@ -85,6 +87,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            [UniqueEmail]
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -116,12 +119,15 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             public string? Picture { get; set; }
 
             // Fields for Student
+            [UniqueStudentName]
             public string? StudentName { get; set; }
+
             public DateOnly? StudentBirthDate { get; set; }
             public string? StudentNationality { get; set; }
             public Gender StudentGender { get; set; }
             public Religion StudentReligion { get; set; }
             public string? StudentAddress { get; set; }
+            [UniqueSPhoneNumber]
             public string? StudentPhoneNumber { get; set; }
             public int? StudentDepartmentId { get; set; }
             public bool? StudentPaymentFees { get; set; }
@@ -129,6 +135,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             public DateTime? StudentPaymentFeesDate { get; set; }
 
             // Fields for Doctor
+            [UniqueDoctorName]
             public string? DoctorName { get; set; }
             public Gender DoctorGender { get; set; }
             public Religion DoctorReligion { get; set; }
@@ -136,8 +143,10 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             public JobTitle? DoctorJobTitle { get; set; }
 
             // Fields for HighBoard
+            [UniqueHBName]
             public string? HighBoardName { get; set; }
             public string? HighBoardDescription { get; set; }
+            [UniquePresident]
             public JobTitle? HighBoardJobTitle { get; set; } 
             public Faculty? HighBoardFaculty { get; set; }
             public Department? HighBoardDepartment { get; set; }
