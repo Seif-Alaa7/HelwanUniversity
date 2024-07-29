@@ -16,15 +16,26 @@ html {
   position: relative;
   min-height: 100%;
 }
-
-body {
-  margin-bottom: 60px;
+.dropdown-menu {
+    border-radius: 0.375rem;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
+
+.dropdown-item {
+    color: black;
+    text-decoration: none;
+}
+
+    .dropdown-item:hover {
+        background-color: #f8f9fa;
+    }
 .nav-item .nav-link {
     position: relative;
     color: #544A4A;
     text-decoration: none;
     transition: color 0.2s ease, border-bottom-color 0.2s ease;
+    padding: 0.25rem 0.5rem;
 }
 
     .nav-item .nav-link:hover {
@@ -32,5 +43,14 @@ body {
         text-decoration: none;
         border-bottom: 2px solid blue;
     }
+.navbar {
+    padding: 0.25rem 1rem; 
+    height: 80px;
+}
 
-
+.navbar-brand img {
+    height: 40px;
+}
+.navbar-nav .nav-item {
+    margin: 0 0.5rem;
+}

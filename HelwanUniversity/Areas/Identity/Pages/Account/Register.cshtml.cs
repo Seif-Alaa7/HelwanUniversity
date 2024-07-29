@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -24,6 +25,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Models;
 using Models.Enums;
+using ViewModels.Vaildations.DoctorValid;
+using ViewModels.Vaildations.HighBoardValid;
 using ViewModels.Vaildations.StudentsValid;
 
 namespace HelwanUniversity.Areas.Identity.Pages.Account
@@ -115,8 +118,11 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "User Type")]
             public UserType UserType { get; set; }
+            [NotMapped]
 
-            public string? Picture { get; set; }
+            public IFormFile? Picture { get; set; }
+            public string? PicturePath { get; set; }
+
 
             // Fields for Student
             [UniqueStudentName]
@@ -190,7 +196,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                             PhoneNumber = Input.StudentPhoneNumber,
                             DepartmentId = Input.StudentDepartmentId ?? 0,
                             PaymentFees = Input.StudentPaymentFees ?? false,
-                            Picture = Input.Picture,
+                            Picture = Input.PicturePath,
                             AdmissionDate = Input.StudentAdmissionDate ?? DateTime.Now,
                             PaymentFeesDate = Input.StudentPaymentFeesDate,
                             ApplicationUserId = userId
@@ -206,7 +212,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                             Religion = Input.DoctorReligion,
                             Address = Input.DoctorAddress,
                             JobTitle = Input.DoctorJobTitle.GetValueOrDefault(),
-                            Picture = Input.Picture,
+                            Picture = Input.PicturePath,
                             ApplicationUserId = userId
                         };
                         _context.Doctors.Add(doctor);
@@ -218,7 +224,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                             Name = Input.HighBoardName!,
                             Description = Input.HighBoardDescription,
                             JobTitle = Input.HighBoardJobTitle.GetValueOrDefault(),
-                            Picture = Input.Picture,
+                            Picture = Input.PicturePath,
                             Faculty = Input.HighBoardFaculty,
                             Department = Input.HighBoardDepartment,
                             ApplicationUserId = userId

@@ -1,9 +1,9 @@
 ﻿using Data;
 using System.ComponentModel.DataAnnotations;
 
-namespace HelwanUniversity.Vaildations
+namespace ViewModels.Vaildations.HighBoardValid
 {
-    public class UniqueDoctorNameAttribute : ValidationAttribute
+    public class UniqueHBNameAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
         {
@@ -16,11 +16,11 @@ namespace HelwanUniversity.Vaildations
 
             if (value != null)
             {
-                var DoctorName = value.ToString();
+                var HBName = value.ToString();
 
-                var DoctorExists = context.Doctors.Any(m => m.Name == DoctorName);
+                var HBExists = context.HighBoards.Any(h => h.Name == HBName);
 
-                if (DoctorExists)
+                if (HBExists)
                 {
                     return new ValidationResult("This Name is already exists.");
                 }

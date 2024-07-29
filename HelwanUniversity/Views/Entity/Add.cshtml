@@ -1,12 +1,12 @@
 ﻿@model ViewModels.AddEntity
 @{
-    ViewData["Title"] = "Add Entity";
+    ViewData["Title"] = "Academic Entities Registration";
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="/css/AddEntity.css">
 
-<div class="container mt-5">
+<div class="container mt-5" style="padding-bottom: 80px;">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow">
@@ -51,18 +51,18 @@
                         <div id="departmentFields" class="type-specific-fields">
                             <h4 class="mt-4 mb-3">Department Information</h4>
                             <div class="mb-3">
-                                <label asp-for="HeadId" class="form-label">Head ID</label>
-                                <input asp-for="HeadId" class="form-control" placeholder="Head ID" />
+                                <label asp-for="HeadId" class="form-label">Head</label>
+                                <input asp-for="HeadId" class="form-control" placeholder="Head" />
                                 <span asp-validation-for="HeadId" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label asp-for="FacultyId" class="form-label">Faculty ID</label>
-                                <input asp-for="FacultyId" class="form-control" placeholder="Faculty ID" />
+                                <label asp-for="FacultyId" class="form-label">Faculty</label>
+                                <input asp-for="FacultyId" class="form-control" placeholder="Faculty" />
                                 <span asp-validation-for="FacultyId" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label asp-for="Allowed" class="form-label">Allowed</label>
-                                <input asp-for="Allowed" class="form-control" placeholder="Allowed" />
+                                <label asp-for="Allowed" class="form-label">Number Allowed</label>
+                                <input asp-for="Allowed" class="form-control"/>
                                 <span asp-validation-for="Allowed" class="text-danger"></span>
                             </div>
                         </div>
@@ -71,18 +71,26 @@
                         <div id="facultyFields" class="type-specific-fields" style="display:none;">
                             <h4 class="mt-4 mb-3">Faculty Information</h4>
                             <div class="mb-3">
-                                <label asp-for="DeanId" class="form-label">Dean ID</label>
-                                <input asp-for="DeanId" class="form-control" placeholder="Dean ID" />
+                                <label asp-for="DeanId" class="form-label">Dean</label>
+                                <input asp-for="DeanId" class="form-control" placeholder="Dean" />
                                 <span asp-validation-for="DeanId" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
                                 <label asp-for="Logo" class="form-label">Logo</label>
-                                <input asp-for="Logo" class="form-control" placeholder="Logo URL" />
+                                <input asp-for="Logo" type="file" class="form-control-file" class="form-control" id="profilePicture" style="display:none;" />
+                                <div id="picturePreview" class="mt-2"></div>
+                                <label for="profilePicture" class="custom-file-upload">
+                                    <i class="fa fa-upload"></i> Upload Logo
+                                </label>
                                 <span asp-validation-for="Logo" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
                                 <label asp-for="Picture" class="form-label">Picture</label>
-                                <input asp-for="Picture" class="form-control" placeholder="Picture URL" />
+                                <input asp-for="Picture" type="file" class="form-control-file" id="pictureInput" style="display:none;" />
+                                <div id="picturePreview" class="mt-2"></div>
+                                <label for="pictureInput" class="custom-file-upload">
+                                    <i class="fa fa-upload"></i> Upload Picture
+                                </label>
                                 <span asp-validation-for="Picture" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
@@ -91,33 +99,30 @@
                                 <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label asp-for="ViewCount" class="form-label">View Count</label>
-                                <input asp-for="ViewCount" class="form-control" placeholder="View Count" />
-                                <span asp-validation-for="ViewCount" class="text-danger"></span>
+                                <input type="hidden" asp-for="ViewCount" class="form-control" value = "0" />
                             </div>
                         </div>
-
                         <!-- Subject Fields -->
                         <div id="subjectFields" class="type-specific-fields" style="display:none;">
                             <h4 class="mt-4 mb-3">Subject Information</h4>
                             <div class="mb-3">
-                                <label asp-for="DoctorId" class="form-label">Doctor ID</label>
-                                <input asp-for="DoctorId" class="form-control" placeholder="Doctor ID" />
+                                <label asp-for="DoctorId" class="form-label">Doctor</label>
+                                <input asp-for="DoctorId" class="form-control" placeholder="Doctor" />
                                 <span asp-validation-for="DoctorId" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label asp-for="DepartmentId" class="form-label">Department ID</label>
-                                <input asp-for="DepartmentId" class="form-control" placeholder="Department ID" />
+                                <label asp-for="DepartmentId" class="form-label">Department</label>
+                                <input asp-for="DepartmentId" class="form-control" placeholder="Department" />
                                 <span asp-validation-for="DepartmentId" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
                                 <label asp-for="SubjectHours" class="form-label">Subject Hours</label>
-                                <input asp-for="SubjectHours" class="form-control" placeholder="Subject Hours" />
+                                <input asp-for="SubjectHours" class="form-control"/>
                                 <span asp-validation-for="SubjectHours" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
                                 <label asp-for="StudentsAllowed" class="form-label">Students Allowed</label>
-                                <input asp-for="StudentsAllowed" class="form-control" placeholder="Students Allowed" />
+                                <input asp-for="StudentsAllowed" class="form-control"/>
                                 <span asp-validation-for="StudentsAllowed" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
@@ -161,7 +166,7 @@
                             </div>
                             <div class="mb-3">
                                 <label asp-for="Salary" class="form-label">Salary</label>
-                                <input asp-for="Salary" class="form-control" placeholder="Salary" />
+                                <input asp-for="Salary" class="form-control"/>
                                 <span asp-validation-for="Salary" class="text-danger"></span>
                             </div>
                         </div>
@@ -175,25 +180,4 @@
         </div>
     </div>
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const entityTypeRadios = document.querySelectorAll('input[name="EntityType"]');
-        const departmentFields = document.getElementById('departmentFields');
-        const facultyFields = document.getElementById('facultyFields');
-        const subjectFields = document.getElementById('subjectFields');
-
-        function updateFields() {
-            const selectedType = document.querySelector('input[name="EntityType"]:checked').value;
-            departmentFields.style.display = selectedType === 'Department' ? 'block' : 'none';
-            facultyFields.style.display = selectedType === 'Faculty' ? 'block' : 'none';
-            subjectFields.style.display = selectedType === 'Subject' ? 'block' : 'none';
-        }
-
-        entityTypeRadios.forEach(radio => {
-            radio.addEventListener('change', updateFields);
-        });
-
-        updateFields(); // Initial call to set the correct fields based on default radio selection
-    });
-</script>
+<script src="/js/addEntity.js"></script>

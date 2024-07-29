@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,8 +25,14 @@ namespace ViewModels
 
         // Faculty-specific properties
         public int? DeanId { get; set; }
-        public string? Logo { get; set; }
-        public string? Picture { get; set; }
+        public IFormFile? Logo { get; set; }
+        [NotMapped]
+        public string? LogoPath { get; set; }
+
+        public IFormFile? Picture { get; set; }
+        [NotMapped]
+        public string? PicturePath { get; set; }
+
         public string? Description { get; set; }
         public int? ViewCount { get; set; }
 

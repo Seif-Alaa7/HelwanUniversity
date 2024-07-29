@@ -56,8 +56,8 @@ namespace HelwanUniversity.Controllers
                     {
                         Name = entity.Name,
                         DeanId = entity.DeanId ?? 0,
-                        Logo = entity.Logo,
-                        Picture = entity.Picture,
+                        Logo = entity.LogoPath,
+                        Picture = entity.PicturePath,
                         Description = entity.Description,
                         ViewCount = entity.ViewCount ?? 0
                     };

@@ -2,7 +2,7 @@
 using Models.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace HelwanUniversity.Vaildations
+namespace ViewModels.Vaildations.HighBoardValid
 {
     public class UniquePresidentAttribute : ValidationAttribute
     {
