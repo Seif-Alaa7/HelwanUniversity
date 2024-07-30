@@ -40,17 +40,21 @@ button.accept-policy {
 }
 
 footer {
-    background-color: #f8f9fa;
-    padding: 20px 0;
-    border-top: 1px solid #e9ecef;
+    background-color: #f8f9fa; 
+    padding: 20px 0; 
+    border-top: 1px solid #e9ecef; 
     width: 100%;
+    text-align: center; 
 }
 body {
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
     margin: 0;
-    padding: 0;
 }
-
+main {
+    flex: 1; 
+}
 
 
 

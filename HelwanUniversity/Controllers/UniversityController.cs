@@ -82,5 +82,9 @@ namespace HelwanUniversity.Controllers
             }
             return View("Update", newUniVm);
         }
+        public IActionResult DisplayMap()
+        {
+            return View();
+        }
     }
 }

@@ -1,11 +1,14 @@
 ﻿        document.addEventListener('DOMContentLoaded', function () {
             const loader = document.querySelector('.loader-container');
             const header = document.querySelector('header');
+            const main = document.querySelector('main');
             const footer = document.querySelector('footer');
+
 
             setTimeout(function () {
                 loader.style.display = 'none';
                 header.style.display = 'block';
+                main.style.display = 'block';
                 footer.style.display = 'block';
             }, 3000); 
         });
@@ -32,7 +35,6 @@
             };
         });
 
-        // script.js
 
         document.addEventListener('DOMContentLoaded', () => {
             const toggle = document.getElementById('theme-toggle');
@@ -42,6 +44,22 @@
                 body.classList.add('dark-theme');
                 toggle.classList.replace('fa-sun', 'fa-moon');
             }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const fadeElements = document.querySelectorAll('.fade-in');
+
+                function checkVisibility() {
+                    fadeElements.forEach(element => {
+                        const rect = element.getBoundingClientRect();
+                        if (rect.top < window.innerHeight && rect.bottom > 0) {
+                            element.classList.add('visible');
+                        }
+                    });
+                }
+
+                window.addEventListener('scroll', checkVisibility);
+                checkVisibility();
+            }); 
 
             toggle.addEventListener('click', () => {
                 body.classList.toggle('dark-theme');
@@ -55,4 +73,6 @@
                 }
             });
         });
+
+
 
