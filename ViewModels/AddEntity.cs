@@ -27,12 +27,11 @@ namespace ViewModels
 
         // Faculty-specific properties
         public int? DeanId { get; set; }
+        [NotMapped]
         public IFormFile? Logo { get; set; }
-        [NotMapped]
         public string? LogoPath { get; set; }
-
-        public IFormFile? Picture { get; set; }
         [NotMapped]
+        public IFormFile? Picture { get; set; }
         public string? PicturePath { get; set; }
 
         public string? Description { get; set; }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Models;
+using System;
 using ViewModels;
 
 namespace HelwanUniversity.Controllers
@@ -29,7 +30,7 @@ namespace HelwanUniversity.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            ViewBag.EntityTypes = new List<string> { "Department", "Faculty", "Subject" };
+            ViewBag.EntityTypes = new List<string> { "Department", "FacultyVm", "Subject" };
 
             //Select Options
             ViewData["Heads"] = context.HighBoards.Where(x => x.JobTitle == Models.Enums.JobTitle.HeadOfDepartment).Select(a => new SelectListItem
