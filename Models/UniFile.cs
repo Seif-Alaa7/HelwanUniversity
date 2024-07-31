@@ -10,15 +10,16 @@ namespace Models
 
         //Image0 : Title Logo(png)
         //Image1 : Internal Map
+        //Image2 : Update
 
-        //ImagesSlides
-        //Image2 : SignIn Img
-        //Image3 : Forgot Password
-        //Image4 : Slide3
-        //Image5 : Slide4
-        //Image6 : Slide5
-        //Image7 : Slide7
-        //Image8 : Slide8
+           //ImagesSlides
+        //Image3 : SignIn Img
+        //Image4 : Forgot Password
+        //Image5 : Slide3
+        //Image6 : Slide4
+        //Image7 : Slide5
+        //Image8 : Slide7
+        //Image9 : Slide8
 
         //More...
     }

@@ -55,30 +55,36 @@ namespace HelwanUniversity.Controllers
                 HistoricalBackground = university.HistoricalBackground,
                 ViewCount = university.ViewCount,
             };
+
+            var Imgs = uniFileRepository.GetAllImages();
+            ViewData["ImgUpdate"] = Imgs[2];
             return View(universityVM);
 
         }
-        public async Task<IActionResult> SaveUpdateAsync(UniversityVM newUniVm)
+        public async Task<IActionResult> SaveUpdate(UniversityVM newUniVm)
         {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    newUniVm.Logo = await _cloudinaryController.UploadFile(newUniVm.LogoFile, newUniVm.Logo, "An error occurred while uploading the logo. Please try again.");
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError(string.Empty, ex.Message);
-                }
-                try
-                {
-                    newUniVm.MainPicture = await _cloudinaryController.UploadFile(newUniVm.MainPictureFile, newUniVm.MainPicture, "An error occurred while uploading the photo. Please try again.");
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError(string.Empty, ex.Message);
-                }
                 var uni = universityRepository.Get();
+                try
+                {
+                    newUniVm.Logo = await _cloudinaryController.UploadFile(newUniVm.LogoFile, uni.Logo, "An error occurred while uploading the logo. Please try again.");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                    return View("Update", newUniVm);
+
+                }
+                try
+                {
+                    newUniVm.MainPicture = await _cloudinaryController.UploadFile(newUniVm.MainPictureFile, uni.MainPicture, "An error occurred while uploading the photo. Please try again.");
+
+                }
+            catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                    return View("Update", newUniVm);
+
+                }
 
                 uni.Name = newUniVm.Name;
                 uni.Logo = newUniVm.Logo;
@@ -95,12 +101,21 @@ namespace HelwanUniversity.Controllers
                 universityRepository.Save();
 
                 return RedirectToAction("Index");
-            }
-            return View("Update", newUniVm);
         }
         public IActionResult DisplayMap()
         {
+            var Imgs = uniFileRepository.GetAllImages();
+            ViewData["MapImage"] = Imgs[1];
+
             return View();
+        }
+        public IActionResult Details()
+        {
+            var Images = uniFileRepository.GetAllImages();
+            ViewData["LogoTitle"] = Images[0];
+
+            var university = universityRepository.Get();
+            return View(university);
         }
     }
 }

@@ -28,17 +28,22 @@ namespace HelwanUniversity.Controllers
                 {
                     File = new FileDescription(file.FileName, file.OpenReadStream())
                 };
-
-                var uploadResult = await _cloudinary.UploadAsync(uploadParams);
-
-                if (uploadResult.StatusCode == System.Net.HttpStatusCode.OK)
+                using (var httpClient = new HttpClient())
                 {
-                    return uploadResult.SecureUrl.AbsoluteUri;
+                    httpClient.Timeout = TimeSpan.FromMinutes(5);
+
+                    var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+
+                    if (uploadResult.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        return uploadResult.SecureUrl.AbsoluteUri;
+                    }
+                    else
+                    {
+                        throw new Exception(errorMessage);
+                    }
                 }
-                else
-                {
-                    throw new Exception(errorMessage);
-                }
+                
             }
             return currentUrl;
         }

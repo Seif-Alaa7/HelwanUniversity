@@ -81,15 +81,18 @@
                                 </select>
                                 <span asp-validation-for="DeanId" class="text-danger"></span>
                             </div>
+
+
                             <div class="mb-3">
                                 <label asp-for="Logo" class="form-label">Logo</label>
-                                <input asp-for="Logo" type="file" class="form-control-file" class="form-control" id="profilePicture" style="display:none;" />
-                                <div id="picturePreview" class="mt-2"></div>
-                                <label for="profilePicture" class="custom-file-upload">
+                                <input asp-for="Logo" type="file" class="form-control-file" id="logoInput" style="display:none;" />
+                                <div id="logoPreview" class="mt-2"></div>
+                                <label for="logoInput" class="custom-file-upload">
                                     <i class="fa fa-upload"></i> Upload Logo
                                 </label>
                                 <span asp-validation-for="Logo" class="text-danger"></span>
                             </div>
+
                             <div class="mb-3">
                                 <label asp-for="Picture" class="form-label">Picture</label>
                                 <input asp-for="Picture" type="file" class="form-control-file" id="pictureInput" style="display:none;" />

@@ -69,12 +69,6 @@ namespace HelwanUniversity.Controllers
         [HttpPost]
         public IActionResult Add(AddEntity entity)
         {
-            /*if (!ModelState.IsValid)
-            {
-                ViewBag.EntityTypes = new List<string> { "Department", "Faculty", "Subject" };
-                return View(entity);
-            }*/
-
             switch (entity.EntityType)
             {
                 case "Department":
