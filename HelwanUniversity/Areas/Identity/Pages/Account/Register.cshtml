@@ -113,7 +113,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label asp-for="Input.StudentDepartmentId" class="form-label">Department</label>
-                                    <input asp-for="Input.StudentDepartmentId" class="form-control" placeholder="Department" />
+                                    <select asp-for="Input.StudentDepartmentId" class="form-select" asp-items="@ViewBag.Departments">
+                                        <option disabled><--Select--></></option>
+                                    </select>
                                     <span asp-validation-for="Input.StudentDepartmentId" class="text-danger"></span>
                                 </div>
                             </div>

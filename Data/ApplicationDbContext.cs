@@ -26,6 +26,7 @@ namespace Data
         public DbSet<BifurcationRequest> BifurcationRequests { get; set; }
 
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -167,7 +168,6 @@ namespace Data
                                   WHEN Grade = 5 THEN 2.333
                                   WHEN Grade = 6 THEN 2.0
                                   ELSE 0.0 END").ValueGeneratedOnAddOrUpdate();
-
         }
     }
 }

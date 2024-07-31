@@ -19,12 +19,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Models;
 using Models.Enums;
+using ViewModels.Vaildations.ApplicationUserValid;
 using ViewModels.Vaildations.DoctorValid;
 using ViewModels.Vaildations.HighBoardValid;
 using ViewModels.Vaildations.StudentsValid;
@@ -152,7 +154,6 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             [UniqueHBName]
             public string? HighBoardName { get; set; }
             public string? HighBoardDescription { get; set; }
-            [UniquePresident]
             public JobTitle? HighBoardJobTitle { get; set; } 
             public Faculty? HighBoardFaculty { get; set; }
             public Department? HighBoardDepartment { get; set; }
@@ -164,6 +165,13 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            ViewData["Departments"] = _context.Departments.Select(a => new SelectListItem
+            {
+                Value = a.Id.ToString(),
+                Text = a.Name,
+
+            }).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(CancellationToken cancellationToken = default)
@@ -177,6 +185,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
 
             await _userManager.SetUserNameAsync(user, Input.Email);
             await _userManager.SetEmailAsync(user, Input.Email);
+
             var result = await _userManager.CreateAsync(user, Input.Password);
 
             if (result.Succeeded)

@@ -1,5 +1,7 @@
-﻿using Data.Repository.IRepository;
+﻿using Data;
+using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using ViewModels;
@@ -11,12 +13,14 @@ namespace HelwanUniversity.Controllers
         private readonly ISubjectRepository subjectRepository;
         private readonly IDepartmentRepository departmentRepository;
         private readonly IFacultyRepository facultyRepository;
+        private readonly ApplicationDbContext context;
 
-        public EntityController(ISubjectRepository subjectRepository , IDepartmentRepository departmentRepository , IFacultyRepository facultyRepository)
+        public EntityController(ISubjectRepository subjectRepository , IDepartmentRepository departmentRepository , IFacultyRepository facultyRepository, ApplicationDbContext context)
         {
             this.subjectRepository = subjectRepository;
             this.departmentRepository = departmentRepository;
             this.facultyRepository = facultyRepository;
+            this.context = context;
         }
         public IActionResult Index()
         {
@@ -26,6 +30,40 @@ namespace HelwanUniversity.Controllers
         public IActionResult Add()
         {
             ViewBag.EntityTypes = new List<string> { "Department", "Faculty", "Subject" };
+
+            //Select Options
+            ViewData["Heads"] = context.HighBoards.Where(x => x.JobTitle == Models.Enums.JobTitle.HeadOfDepartment).Select(a => new SelectListItem
+            {
+                Value = a.Id.ToString(),
+                Text = a.Name
+            }).ToList();
+
+            ViewData["Faculties"] = context.Faculties.Select(a => new SelectListItem
+            {
+                Value = a.Id.ToString(),
+                Text = a.Name
+            }).ToList();
+
+            ViewData["Deans"] = context.HighBoards.Where(x => x.JobTitle == Models.Enums.JobTitle.DeanOfFaculty).Select(a => new SelectListItem
+            {
+                Value = a.Id.ToString(),
+                Text = a.Name
+            }).ToList();
+
+            ViewData["Doctors"] = context.Doctors.Select(a => new SelectListItem
+            {
+                Value = a.Id.ToString(),
+                Text = a.Name
+
+            }).ToList();
+
+            ViewData["Departments"] = context.Departments.Select(a => new SelectListItem
+            {
+                Value = a.Id.ToString(),
+                Text = a.Name,
+
+            }).ToList();
+
             return View(new AddEntity());
         }
         [HttpPost]

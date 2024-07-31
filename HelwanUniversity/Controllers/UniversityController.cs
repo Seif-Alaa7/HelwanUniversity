@@ -10,17 +10,33 @@ namespace HelwanUniversity.Controllers
     {
         private readonly IUniversityRepository universityRepository;
         private readonly CloudinaryController _cloudinaryController;
+        private readonly IUniFileRepository uniFileRepository;
+        private readonly IHighBoardRepository highBoardRepository;
 
-        public UniversityController(IUniversityRepository universityRepository, CloudinaryController _cloudinaryController)
+        public UniversityController(IUniversityRepository universityRepository, CloudinaryController _cloudinaryController, IUniFileRepository uniFileRepository, IHighBoardRepository highBoardRepository)
         {
             this.universityRepository = universityRepository;
             this._cloudinaryController = _cloudinaryController;
+            this.uniFileRepository = uniFileRepository;
+            this.highBoardRepository = highBoardRepository;
         }
         public IActionResult Index()
         {
-            return View();
+            var UNI = universityRepository.Get();
+            var Images = uniFileRepository.GetAllImages();
+            var Hboards = highBoardRepository.GetAll();
+
+            //ViewData
+            ViewData["LogoTitle"] = Images[0];
+            ViewData["Images"] = Images;
+            ViewData["Mail"] = $"mailto:{UNI.ContactMail}";
+            ViewData["President"]= Hboards.FirstOrDefault(a=>a.JobTitle == Models.Enums.JobTitle.President);
+            ViewData["VicePresidents"]= Hboards.Where(a=>a.JobTitle == Models.Enums.JobTitle.VicePrecident).ToList();
+            ViewData["VPAcademicAffairs"] = Hboards.FirstOrDefault(a => a.JobTitle == Models.Enums.JobTitle.VP_For_AcademicAffairs);
+
+            return View(UNI);       
+
         }
-        [HttpPost]
         public IActionResult Update()
         {
             var university = universityRepository.Get();

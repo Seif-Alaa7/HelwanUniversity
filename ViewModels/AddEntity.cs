@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using HelwanUniversity.Vaildations;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,6 +17,7 @@ namespace ViewModels
         public DepartmentVM Department { get; set; }
         public FacultyVM Faculty { get; set; }
         public SubjectVM Subject { get; set; }
+        [UniqueName]
         public string Name { get; set; } = null!;
 
         // Department-specific properties

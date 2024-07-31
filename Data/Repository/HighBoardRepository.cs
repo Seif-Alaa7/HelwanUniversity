@@ -40,8 +40,7 @@ namespace Data.Repository
 
         public List<HighBoard> GetAll()
         {
-            var highboards = context.HighBoards
-                .ToList();
+            var highboards = context.HighBoards.ToList();
             return highboards;
         }
 

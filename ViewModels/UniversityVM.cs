@@ -19,7 +19,7 @@ namespace ViewModels
         public string MainPicture { get; set; } = null!;
         [NotMapped]
         [Display(Name = "If you want Change The Image, Enter New Image here: ")]
-        public IFormFile? MainPictureFile { get; set; } = null!;
+        public IFormFile? MainPictureFile { get; set; }
 
         [Display(Name = "Facebook Page")]
         public string FacebookPage { get; set; } = null!;

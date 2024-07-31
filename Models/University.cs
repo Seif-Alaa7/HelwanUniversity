@@ -13,6 +13,5 @@
         public string ContactMail { get; set; } = null!;
         public string HistoricalBackground { get; set; } = null!;
         public int ViewCount { get; set; }
-
     }
 }

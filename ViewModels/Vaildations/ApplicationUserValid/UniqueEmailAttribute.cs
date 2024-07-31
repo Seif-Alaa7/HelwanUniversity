@@ -1,7 +1,7 @@
 ﻿using Data;
 using System.ComponentModel.DataAnnotations;
 
-namespace HelwanUniversity.Vaildations
+namespace ViewModels.Vaildations.ApplicationUserValid
 {
     public class UniqueEmailAttribute : ValidationAttribute
     {
@@ -18,7 +18,7 @@ namespace HelwanUniversity.Vaildations
             {
                 var EmailExists = value.ToString();
 
-                var Email = context.ApplicationUsers.All(u => u.Email == EmailExists);
+                var Email = context.ApplicationUsers.Any(u => u.Email == EmailExists);
 
                 if (Email)
                 {

@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using ViewModels.Vaildations.ApplicationUserValid;
 
 namespace HelwanUniversity.Areas.Identity.Pages.Account
 {
@@ -46,6 +47,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [EmailAddress]
+            [EmailNotExists]
             public string Email { get; set; }
         }
 

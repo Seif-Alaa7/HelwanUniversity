@@ -14,7 +14,7 @@ namespace ViewModels.UniFileVMs
         public string File { get; set; } = null!;
         [NotMapped]
         [Display(Name = "Put the New Image Here: ")]
-        public IFormFile? ImgPath { get; set; } = null!;
+        public IFormFile? ImgPath { get; set; }
         public Filetype ContentType { get; set; }
     }
 }

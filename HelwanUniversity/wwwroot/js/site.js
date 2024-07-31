@@ -10,7 +10,7 @@
                 header.style.display = 'block';
                 main.style.display = 'block';
                 footer.style.display = 'block';
-            }, 3000); 
+            }, 2000); 
         });
         document.addEventListener('DOMContentLoaded', function () {
             const navbar = document.querySelector('.navbar');

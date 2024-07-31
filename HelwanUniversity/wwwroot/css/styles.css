@@ -77,9 +77,6 @@ header {
     transition: background 0.5s ease-in-out;
     display: none;
 }
-.header.loaded {
-    background: url('/img9.png') no-repeat center center;
-}
 .footer {
     background-color: #000228;
     color: #ffffff;
@@ -209,20 +206,6 @@ body {
     margin-right: 0;
     max-width: 100%;
 }
-
-.masthead {
-    padding: 3rem 0 7rem;
-    background-color: #dd3d31;
-    background-image: url('/img9.png'), linear-gradient(45deg, #dd3d31 0%, #d22f23 100%);
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-    box-sizing: border-box;
-    position: sticky;
-    z-index: 1500;
-}
-
-
     .masthead svg.wave {
         position: absolute;
         bottom: -1px;
@@ -577,4 +560,12 @@ main {
     border: 0;
     width: 100%;
     height: 300px;
+}
+.nonline-link {
+    text-decoration: none
+}
+.GoogleMaps {
+    width: 100%;
+    height: 300px;
+    margin-top: 20px;
 }

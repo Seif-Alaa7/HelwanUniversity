@@ -54,39 +54,6 @@ namespace HelwanUniversity.Controllers
             return View("AddVideo",uniFileVM);
         }
         [HttpGet]
-        public IActionResult AddImage()
-        {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> SaveImgAsync(UniFileVM uniFileVM)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    uniFileVM.File = await _cloudinaryController.UploadFile(uniFileVM.ImgPath,string.Empty, "An error occurred while uploading the photo. Please try again.");
-
-                    var file = new UniFile
-                    {
-                        File = uniFileVM.File,
-                        ContentType = uniFileVM.ContentType,
-                    };
-
-                    uniFileRepository.Add(file);
-                    uniFileRepository.Save();
-
-                    return RedirectToAction("Index", "University");
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError(string.Empty, ex.Message);
-                }
-            }
-            return View("AddImage", uniFileVM);
-        }
-
-        [HttpGet]
         public IActionResult UpdateVideo(int id)
         {
             var Video = uniFileRepository.GetFile(id);
@@ -173,14 +140,8 @@ namespace HelwanUniversity.Controllers
 
             uniFileRepository.Delete(File);
             uniFileRepository.Save();
-            if(fileType == Models.Enums.Filetype.IMG)
-            {
-                return RedirectToAction("Index", "University"); 
-            }
-            else
-            {
-                return RedirectToAction("News");
-            }
+
+            return RedirectToAction("News");
         }
     }
 }
