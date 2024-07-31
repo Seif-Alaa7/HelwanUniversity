@@ -27,7 +27,7 @@ namespace HelwanUniversity.Controllers
             var Hboards = highBoardRepository.GetAll();
 
             //ViewData
-            ViewData["LogoTitle"] = Images[0];
+            ViewData["LogoTitle"] = Images[0].File;
             ViewData["Images"] = Images;
             ViewData["Mail"] = $"mailto:{UNI.ContactMail}";
             ViewData["President"]= Hboards.FirstOrDefault(a=>a.JobTitle == Models.Enums.JobTitle.President);
@@ -57,7 +57,7 @@ namespace HelwanUniversity.Controllers
             };
 
             var Imgs = uniFileRepository.GetAllImages();
-            ViewData["ImgUpdate"] = Imgs[2];
+            ViewData["ImgUpdate"] = Imgs[2].File;
             return View(universityVM);
 
         }
@@ -105,14 +105,14 @@ namespace HelwanUniversity.Controllers
         public IActionResult DisplayMap()
         {
             var Imgs = uniFileRepository.GetAllImages();
-            ViewData["MapImage"] = Imgs[1];
+            ViewData["MapImage"] = Imgs[1].File;
 
             return View();
         }
         public IActionResult Details()
         {
             var Images = uniFileRepository.GetAllImages();
-            ViewData["LogoTitle"] = Images[0];
+            ViewData["LogoTitle"] = Images[0].File;
 
             var university = universityRepository.Get();
             return View(university);

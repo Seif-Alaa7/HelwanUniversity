@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewModels.FacultyVMs;
 
 namespace ViewModels
 {
@@ -15,7 +16,7 @@ namespace ViewModels
 
         // Common properties
         public DepartmentVM Department { get; set; }
-        public FacultyVM Faculty { get; set; }
+        public FacultyVm Faculty { get; set; }
         public SubjectVM Subject { get; set; }
         [UniqueName]
         public string Name { get; set; } = null!;

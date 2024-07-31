@@ -2,7 +2,7 @@
 using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Models;
-using ViewModels;
+using ViewModels.FacultyVMs;
 
 namespace HelwanUniversity.Controllers
 {
@@ -31,7 +31,7 @@ namespace HelwanUniversity.Controllers
         public IActionResult Edit(int id)
         {
             var Faculty = facultyRepository.GetOne(id);
-            var FacultyVM = new FacultyVM
+            var FacultyVM = new FacultyVm
             {
                 DeanId = Faculty.DeanId,
                 Id = Faculty.Id,
@@ -44,7 +44,7 @@ namespace HelwanUniversity.Controllers
             return View(FacultyVM);
         }
         [HttpPost]
-        public IActionResult SaveEdit(FacultyVM faculty)
+        public IActionResult SaveEdit(FacultyVm faculty)
         {
             var Faculty = facultyRepository.GetOne(faculty.Id);
 
