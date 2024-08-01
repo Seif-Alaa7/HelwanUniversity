@@ -39,7 +39,7 @@
                                 <input type="radio" class="btn-check" name="EntityType" id="departmentType" value="Department" autocomplete="off" checked>
                                 <label class="btn btn-outline-primary" for="departmentType">Department</label>
 
-                                <input type="radio" class="btn-check" name="EntityType" id="facultyType" value="Faculty" autocomplete="off">
+                                <input type="radio" class="btn-check" name="EntityType" id="facultyType" value="FacultyVm" autocomplete="off">
                                 <label class="btn btn-outline-primary" for="facultyType">Faculty</label>
 
                                 <input type="radio" class="btn-check" name="EntityType" id="subjectType" value="Subject" autocomplete="off">
@@ -81,8 +81,6 @@
                                 </select>
                                 <span asp-validation-for="DeanId" class="text-danger"></span>
                             </div>
-
-
                             <div class="mb-3">
                                 <label asp-for="Logo" class="form-label">Logo</label>
                                 <input asp-for="Logo" type="file" class="form-control-file" id="logoInput" style="display:none;" />
@@ -92,7 +90,6 @@
                                 </label>
                                 <span asp-validation-for="Logo" class="text-danger"></span>
                             </div>
-
                             <div class="mb-3">
                                 <label asp-for="Picture" class="form-label">Picture</label>
                                 <input asp-for="Picture" type="file" class="form-control-file" id="pictureInput" style="display:none;" />

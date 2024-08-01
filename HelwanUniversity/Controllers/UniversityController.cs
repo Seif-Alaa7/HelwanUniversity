@@ -3,6 +3,7 @@ using CloudinaryDotNet;
 using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using ViewModels;
+using Data.Repository;
 
 namespace HelwanUniversity.Controllers
 {
@@ -12,13 +13,18 @@ namespace HelwanUniversity.Controllers
         private readonly CloudinaryController _cloudinaryController;
         private readonly IUniFileRepository uniFileRepository;
         private readonly IHighBoardRepository highBoardRepository;
-
-        public UniversityController(IUniversityRepository universityRepository, CloudinaryController _cloudinaryController, IUniFileRepository uniFileRepository, IHighBoardRepository highBoardRepository)
+        private readonly IFacultyRepository facultyRepository;
+        private readonly IDoctorRepository doctorRepository;
+        private readonly IStudentRepository studentRepository;
+        public UniversityController(IUniversityRepository universityRepository, CloudinaryController _cloudinaryController, IUniFileRepository uniFileRepository, IHighBoardRepository highBoardRepository,IFacultyRepository facultyRepository,IDoctorRepository doctorRepository,IStudentRepository studentRepository)
         {
             this.universityRepository = universityRepository;
             this._cloudinaryController = _cloudinaryController;
             this.uniFileRepository = uniFileRepository;
             this.highBoardRepository = highBoardRepository;
+            this.facultyRepository = facultyRepository;
+            this.doctorRepository = doctorRepository;
+            this.studentRepository = studentRepository;
         }
         public IActionResult Index()
         {
@@ -33,6 +39,14 @@ namespace HelwanUniversity.Controllers
             ViewData["President"]= Hboards.FirstOrDefault(a=>a.JobTitle == Models.Enums.JobTitle.President);
             ViewData["VicePresidents"]= Hboards.Where(a=>a.JobTitle == Models.Enums.JobTitle.VicePrecident).ToList();
             ViewData["VPAcademicAffairs"] = Hboards.FirstOrDefault(a => a.JobTitle == Models.Enums.JobTitle.VP_For_AcademicAffairs);
+
+            //Counts
+            ViewData["FacultyCounts"] = facultyRepository.GetAll().Count();
+            ViewData["DoctorCounts"] = doctorRepository.GetAll().Count();
+            ViewData["StudentCounts"] = studentRepository.GetAll().Count();
+
+            UNI.ViewCount++;
+            universityRepository.Save();    
 
             return View(UNI);       
 

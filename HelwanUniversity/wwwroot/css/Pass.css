@@ -3,19 +3,6 @@
     padding: 0;
     font-family: 'Poppins', sans-serif;
 }
-
-body {
-    background-image: url('/img6.jpg');
-    background-repeat: no-repeat;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    padding: 0 20px;
-    background-size: cover;
-}
-
 .card {
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);

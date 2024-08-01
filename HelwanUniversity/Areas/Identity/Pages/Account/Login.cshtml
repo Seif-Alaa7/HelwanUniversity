@@ -10,17 +10,29 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Helwan University - Home Page</title>
-    <link rel="icon" href="/HU-Color.png" type="image/png">
+    <title>SignIn - Helwan University</title>
+    <link rel="icon" href="@ViewBag.TitleLogo" type="image/png">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/login.css">
+    <style>
+        body, html {
+            background-image: url('@ViewBag.ImgSignIn');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            height: 105%;
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                  <a class="navbar-brand" asp-area="" asp-controller="University" asp-action="Index">
-                      <img src="~/HU-Color.png" alt="Logo" height="45" width="45"></a>
+                    <img src="@ViewBag.TitleLogo" alt="Logo" height="45" width="45">
+                </a>
                 </a>
                 <a class="navbar-brand" asp-area="" asp-controller="University" asp-action="Index">HelwanUniversity</a>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
@@ -37,7 +49,7 @@
         </nav>
     </header>
 <div class="login-container">
-    <img src="~/HU-Color.png" alt="HU Logo" class="login-logo">
+        <img src="@ViewBag.TitleLogo" alt="HU Logo" class="login-logo">
     <h2 style="text-align: center; margin-bottom: 20px;">Sign In</h2>
     <form id="account" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>

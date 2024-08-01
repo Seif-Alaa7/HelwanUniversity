@@ -12,6 +12,7 @@ using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using Data;
+using HelwanUniversity.Controllers;
 using HelwanUniversity.Vaildations;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -22,10 +23,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Models;
 using Models.Enums;
+using ViewModels;
 using ViewModels.Vaildations.ApplicationUserValid;
 using ViewModels.Vaildations.DoctorValid;
 using ViewModels.Vaildations.HighBoardValid;
@@ -43,6 +46,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly IOptions<IdentityOptions> _identityOptions;
         private readonly ApplicationDbContext _context;
+        private readonly CloudinaryController cloudinaryController;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -51,7 +55,8 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             IOptions<IdentityOptions> identityOptions,
-            ApplicationDbContext context)
+            ApplicationDbContext context,
+            CloudinaryController cloudinaryController)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -61,6 +66,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             _emailSender = emailSender;
             _identityOptions = identityOptions;
             _context = context;
+            this.cloudinaryController = cloudinaryController;
         }
 
         /// <summary>
@@ -157,9 +163,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             public JobTitle? HighBoardJobTitle { get; set; } 
             public Faculty? HighBoardFaculty { get; set; }
             public Department? HighBoardDepartment { get; set; }
-
         }
-
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -191,7 +195,14 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             if (result.Succeeded)
             {
                 var userId = user.Id;
-
+                try
+                {
+                    Input.PicturePath = await cloudinaryController.UploadFile(Input.Picture, string.Empty, "There was an error uploading the file. Please try again.");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                }
                 // Handle user types and create corresponding records
                 switch (Input.UserType)
                 {
