@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -170,18 +171,14 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            ViewData["Departments"] = _context.Departments.Select(a => new SelectListItem
-            {
-                Value = a.Id.ToString(),
-                Text = a.Name,
-
-            }).ToList();
+            LoadPageData();
         }
 
         public async Task<IActionResult> OnPostAsync(CancellationToken cancellationToken = default)
         {
             if (!ModelState.IsValid)
             {
+                LoadPageData();
                 return Page();
             }
 
@@ -284,7 +281,18 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                 ModelState.AddModelError(string.Empty, error.Description);
             }
 
+            LoadPageData();
             return Page();
+        }
+        private void LoadPageData()
+        {
+            ViewData["Departments"] = _context.Departments.Select(a => new SelectListItem
+            {
+                Value = a.Id.ToString(),
+                Text = a.Name,
+            }).ToList();
+
+            // أضف أي بيانات إضافية تحتاجها الصفحة هنا
         }
 
 
