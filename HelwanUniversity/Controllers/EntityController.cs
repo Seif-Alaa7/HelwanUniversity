@@ -44,22 +44,21 @@ namespace HelwanUniversity.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            ViewBag.EntityTypes = new List<string> { "Department", "FacultyVm", "Subject" };
-
-            //Select Options
-            ViewData["Heads"] = highBoardRepository.selectHeads();
-            ViewData["Faculties"] = facultyRepository.Select();
-            ViewData["Deans"] = highBoardRepository.selectDeans();
-            ViewData["Doctors"] = doctorRepository.Select();
-            ViewData["Departments"] = departmentRepository.Select();
+            LoadPageData();
 
             return View(new AddEntity());
         }
         [HttpPost]
         public async Task<IActionResult> Add(AddEntity entity)
         {
+            if (!ModelState.IsValid)
+            {
+                LoadPageData();
+                return View(entity);
+            }
             switch (entity.EntityType)
             {
+
                 case "Department":
                     var department = new Department
                     {
@@ -93,6 +92,7 @@ namespace HelwanUniversity.Controllers
                     catch (Exception ex)
                     {
                         ModelState.AddModelError(string.Empty, ex.Message);
+                        LoadPageData();
                         return View("Add", entity);
                     }
                     break;
@@ -117,11 +117,21 @@ namespace HelwanUniversity.Controllers
                 default:
                     ModelState.AddModelError("", "An Error");
                     ViewBag.EntityTypes = new List<string> { "Department", "Faculty", "Subject" };
+                    LoadPageData();
                     return View(entity);
             }
             TempData["SuccessMessage"] = "Success !";
             return RedirectToAction("Index" , "Faculty");
         }
+        private void LoadPageData()
+        {
+            ViewBag.EntityTypes = new List<string> { "Department", "FacultyVm", "Subject" };
 
+            ViewData["Heads"] = highBoardRepository.selectHeads();
+            ViewData["Faculties"] = facultyRepository.Select();
+            ViewData["Deans"] = highBoardRepository.selectDeans();
+            ViewData["Doctors"] = doctorRepository.Select();
+            ViewData["Departments"] = departmentRepository.Select();
+        }
     }
 }
