@@ -44,6 +44,7 @@ namespace Data.Repository
         public List<Faculty> GetAll()
         {
             var faculties = context.Faculties
+                .Include(f => f.Departments)
                 .ToList();
             return faculties;
         }
