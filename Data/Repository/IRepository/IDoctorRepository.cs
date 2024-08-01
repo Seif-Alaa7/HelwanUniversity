@@ -12,7 +12,7 @@ namespace Data.Repository.IRepository
     {
         List<Doctor> GetAll();
         Doctor GetOne(int Id);
-        void Delete(Doctor doctor);
+        void Delete(int id);
         void Update(Doctor doctor);
         void Add(Doctor doctor);
         List<SelectListItem> Select();
