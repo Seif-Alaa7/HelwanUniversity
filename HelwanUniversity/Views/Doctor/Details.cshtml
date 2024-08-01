@@ -1,0 +1,84 @@
+﻿@model Doctor
+@{
+    ViewData["Title"] = "Personal Data";
+}
+<style>
+    .badge-info {
+        color: white !important;
+        background-color: #17a2b8 !important;
+    }
+</style>
+<div class="container py-5">
+    <h2 class="text-center mb-5 font-weight-bold">Personal Data</h2>
+    <div class="card shadow-lg rounded-lg overflow-hidden">
+        <div class="row no-gutters">
+            @if (!string.IsNullOrEmpty(Model.Picture))
+            {
+                <div class="col-lg-4">
+                    <img src="@Model.Picture" class="card-img h-100 object-fit-cover" alt="@Model.Name">
+                </div>
+            }
+            <div class="@(string.IsNullOrEmpty(Model.Picture) ? "col-lg-12" : "col-lg-8")">
+                <div class="card-body p-5">
+                    <h3 class="card-title mb-4 text-primary">@Model.Name</h3>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <p class="card-text"><i class="fas fa-venus-mars mr-2"></i><strong>Gender:</strong> @Model.Gender</p>
+                            <p class="card-text"><i class="fas fa-pray mr-2"></i><strong>Religion:</strong> @Model.Religion</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <p class="card-text"><i class="fas fa-map-marker-alt mr-2"></i><strong>Address:</strong> @(string.IsNullOrEmpty(Model.Address) ? "N/A" : Model.Address)</p>
+                            <p class="card-text">
+                                <i class="fas fa-user-md mr-2"></i><strong>Job Title:</strong>
+                                <span class="badge badge-info">@Model.JobTitle</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a href="@Url.Action("Edit", "Doctor", new { id = Model.Id })" class="btn btn-primary mr-2">
+                            <i class="fas fa-edit mr-1"></i> Edit
+                        </a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                            <i class="fas fa-trash-alt mr-1"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Delete Confirmation -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this doctor?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <form asp-action="Delete" method="post">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.Id)
+                    @Html.HiddenFor(m => m.Name)
+                    @Html.HiddenFor(m => m.Gender)
+                    @Html.HiddenFor(m => m.Religion)
+                    @Html.HiddenFor(m => m.Address)
+                    @Html.HiddenFor(m => m.JobTitle)
+                    @Html.HiddenFor(m => m.Picture)
+                    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
