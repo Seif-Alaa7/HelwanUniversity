@@ -143,5 +143,10 @@ namespace HelwanUniversity.Controllers
 
             return RedirectToAction("News");
         }
+        public IActionResult DispalyImages()
+        {
+            var Imgs = uniFileRepository.GetAllImages();
+            return View(Imgs);
+        }
     }
 }

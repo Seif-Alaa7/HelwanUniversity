@@ -45,7 +45,6 @@ namespace HelwanUniversity.Controllers
         public IActionResult Add()
         {
             LoadPageData();
-
             return View(new AddEntity());
         }
         [HttpPost]
@@ -116,7 +115,7 @@ namespace HelwanUniversity.Controllers
                     break;
                 default:
                     ModelState.AddModelError("", "An Error");
-                    ViewBag.EntityTypes = new List<string> { "Department", "Faculty", "Subject" };
+                    ViewBag.EntityTypes = new List<string> { "Department", "FacultyVm", "Subject" };
                     LoadPageData();
                     return View(entity);
             }
