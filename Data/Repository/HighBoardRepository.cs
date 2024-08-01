@@ -1,4 +1,5 @@
 ﻿using Data.Repository.IRepository;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,24 @@ namespace Data.Repository
             var highboards = context.HighBoards.ToList();
             return highboards;
         }
-
+        public List<SelectListItem> selectDeans()
+        {
+            var options =  context.HighBoards.Where(x => x.JobTitle == Models.Enums.JobTitle.DeanOfFaculty).Select(a => new SelectListItem
+            {
+                Value = a.Id.ToString(),
+                Text = a.Name
+            }).ToList();
+            return options;
+        }
+        public List<SelectListItem> selectHeads()
+        {
+           var options = context.HighBoards.Where(x => x.JobTitle == Models.Enums.JobTitle.HeadOfDepartment).Select(a => new SelectListItem
+            {
+                Value = a.Id.ToString(),
+                Text = a.Name
+            }).ToList();
+            return options;
+        }
         public void Save()
         {
             context.SaveChanges();

@@ -1,4 +1,5 @@
 ﻿using Data.Repository.IRepository;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,16 @@ namespace Data.Repository
             var doctor = context.Doctors
                 .Find(Id);
             return doctor;
+        }
+        public List<SelectListItem> Select()
+        {
+            var options =  context.Doctors.Select(a => new SelectListItem
+            {
+                Value = a.Id.ToString(),
+                Text = a.Name
+
+            }).ToList();
+            return options;
         }
 
         public List<Doctor> GetAll()

@@ -12,6 +12,7 @@ using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using Data;
+using Data.Repository.IRepository;
 using HelwanUniversity.Controllers;
 using HelwanUniversity.Vaildations;
 using Microsoft.AspNetCore.Authentication;
@@ -47,6 +48,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
         private readonly IOptions<IdentityOptions> _identityOptions;
         private readonly ApplicationDbContext _context;
         private readonly CloudinaryController cloudinaryController;
+        private readonly IDepartmentRepository departmentRepository;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -56,7 +58,9 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             IEmailSender emailSender,
             IOptions<IdentityOptions> identityOptions,
             ApplicationDbContext context,
-            CloudinaryController cloudinaryController)
+            CloudinaryController cloudinaryController,
+            IDepartmentRepository department
+            )
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -67,6 +71,8 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             _identityOptions = identityOptions;
             _context = context;
             this.cloudinaryController = cloudinaryController;
+            this.departmentRepository = department;
+            ;
         }
 
         /// <summary>
@@ -170,12 +176,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            ViewData["Departments"] = _context.Departments.Select(a => new SelectListItem
-            {
-                Value = a.Id.ToString(),
-                Text = a.Name,
-
-            }).ToList();
+            ViewData["Departments"] = departmentRepository.Select();
         }
 
         public async Task<IActionResult> OnPostAsync(CancellationToken cancellationToken = default)

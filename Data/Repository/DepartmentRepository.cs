@@ -1,5 +1,6 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,16 @@ namespace Data.Repository
                 .ToList();
             return departments;
         }
+        public List<SelectListItem> Select()
+        {
+            var options =  context.Departments.Select(a => new SelectListItem
+            {
+                Value = a.Id.ToString(),
+                Text = a.Name,
 
+            }).ToList();
+            return options;
+        }
         public void Save()
         {
             context.SaveChanges();

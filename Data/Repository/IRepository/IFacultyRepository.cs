@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Data.Repository.IRepository
         void Delete(Faculty faculty);
         void Update(Faculty faculty);
         void Add(Faculty faculty);
+        List<SelectListItem> Select();
         void Save();
     }
 }

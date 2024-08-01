@@ -1,9 +1,11 @@
-﻿using Data;
+﻿using CloudinaryDotNet;
+using Data;
 using Data.Repository;
 using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
+using System;
 using ViewModels.FacultyVMs;
 
 namespace HelwanUniversity.Controllers
@@ -12,11 +14,18 @@ namespace HelwanUniversity.Controllers
     {
         private readonly IFacultyRepository facultyRepository;
         private readonly ApplicationDbContext context;
+        private readonly CloudinaryController cloudinaryController;
+        private readonly IHighBoardRepository highBoardRepository;
+        private readonly IUniFileRepository uniFileRepository;
 
-        public FacultyController(IFacultyRepository facultyRepository,ApplicationDbContext context)
+        public FacultyController(IFacultyRepository facultyRepository,ApplicationDbContext context,
+            CloudinaryController cloudinary, IHighBoardRepository highBoardRepository, IUniFileRepository uniFileRepository)
         {
             this.facultyRepository = facultyRepository;
             this.context = context;
+            this.cloudinaryController = cloudinary;
+            this.highBoardRepository = highBoardRepository;
+            this.uniFileRepository = uniFileRepository;
         }
         public IActionResult Index()
         {
@@ -30,7 +39,6 @@ namespace HelwanUniversity.Controllers
             {
                 return NotFound();
             }
-
             faculty.ViewCount++;
             facultyRepository.Save();
 
@@ -49,27 +57,54 @@ namespace HelwanUniversity.Controllers
                 Picture = Faculty.Picture,
                 ViewCount = Faculty.ViewCount
             };
-
-            ViewData["Deans"] = context.HighBoards.Where(x => x.JobTitle == Models.Enums.JobTitle.DeanOfFaculty).Select(a => new SelectListItem
-            {
-                Value = a.Id.ToString(),
-                Text = a.Name
-            }).ToList();
+            var imgs = uniFileRepository.GetAllImages();
+            ViewData["iMGUpdate"] = imgs[2].File;
+            ViewData["Deans"] = highBoardRepository.selectDeans();
 
             return View(FacultyVM);
         }
         [HttpPost]
-        public IActionResult SaveEdit(FacultyVm faculty)
+        public async Task<IActionResult> SaveEdit(FacultyVm facultyvm)
         {
-            var Faculty = facultyRepository.GetOne(faculty.Id);
+            var Faculty = facultyRepository.GetOne(facultyvm.Id);
 
-            Faculty.Description = faculty.Description;
-            Faculty.Id = faculty.Id;
-            Faculty.DeanId = faculty.DeanId;
-            Faculty.Logo = faculty.Logo;
-            Faculty.Name = faculty.Name;
-            Faculty.Picture = faculty.Picture;
-            Faculty.ViewCount = faculty.ViewCount;
+            if(facultyvm.Name != Faculty.Name)
+            {
+                var Faculities = facultyRepository.GetAll();
+                var NameExists = Faculities.Any(a=>a.Name == facultyvm.Name);
+                if(NameExists)
+                {
+                    ModelState.AddModelError("Name", "The faculty name already exists.");
+                    return View("Edit", facultyvm);
+
+                }
+            }
+            try
+            {
+                facultyvm.Logo = await cloudinaryController.UploadFile(facultyvm.LogoFile,Faculty.Logo, "An error occurred while uploading the logo. Please try again.");
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View("Edit", facultyvm);
+            }
+            try
+            {
+                facultyvm.Picture = await cloudinaryController.UploadFile(facultyvm.PictureFile, Faculty.Picture, "An error occurred while uploading the logo. Please try again.");
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View("Edit", facultyvm);
+            }
+            Faculty.Description = facultyvm.Description;
+            Faculty.DeanId = facultyvm.DeanId;
+            Faculty.Logo = facultyvm.Logo;
+            Faculty.Name = facultyvm.Name;
+            Faculty.Picture = facultyvm.Picture;
+            Faculty.ViewCount = facultyvm.ViewCount;
 
             facultyRepository.Update(Faculty);
             facultyRepository.Save();

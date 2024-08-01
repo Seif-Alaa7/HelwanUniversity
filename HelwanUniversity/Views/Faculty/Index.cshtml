@@ -6,44 +6,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-<style>
-    .card-custom {
-        transition: transform 0.2s, box-shadow 0.2s;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-        .card-custom:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-    .card-img-top {
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        height: 200px;
-        object-fit: cover;
-    }
-
-    .card-body {
-        padding: 20px;
-    }
-
-    .btn-custom {
-        border-radius: 20px;
-        padding: 10px 20px;
-        font-size: 18px;
-    }
-
-    .container {
-        margin-top: 30px;
-    }
-
-    .sectiontitle {
-        margin-bottom: 40px;
-        text-align: center;
-    }
-</style>
+<link rel="stylesheet" href="/css/Faculty.css">
 
 <div class="container">
     <h2 class="text-center my-4">الكليات</h2>
@@ -57,6 +20,10 @@
                         <img src="@faculty.Picture" class="card-img-top" alt="@faculty.Name">
                     }
                     <div class="card-body">
+                        @if (!string.IsNullOrEmpty(faculty.Logo))
+                        {
+                            <img src="@faculty.Logo" alt="Logo" style="height: 50px; margin-bottom: 10px;">
+                        }
                         <h5 class="card-title">@faculty.Name</h5>
                         <p class="card-text">
                             @(faculty.Description?.Length > 100 ?
@@ -83,5 +50,6 @@
         }
     </div>
 </div>
+
 
 

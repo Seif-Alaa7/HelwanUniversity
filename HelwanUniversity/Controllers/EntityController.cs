@@ -12,18 +12,30 @@ namespace HelwanUniversity.Controllers
     public class EntityController : Controller
     {
         private readonly ISubjectRepository subjectRepository;
-        private readonly IDepartmentRepository departmentRepository;
         private readonly IFacultyRepository facultyRepository;
         private readonly ApplicationDbContext context;
         private readonly CloudinaryController cloudinaryController;
+        private readonly IDepartmentRepository departmentRepository;
+        private readonly IDoctorRepository doctorRepository;
+        private readonly IHighBoardRepository highBoardRepository;
 
-        public EntityController(ISubjectRepository subjectRepository , IDepartmentRepository departmentRepository , IFacultyRepository facultyRepository, ApplicationDbContext context, CloudinaryController cloudinaryController)
+
+        public EntityController(ISubjectRepository subjectRepository ,
+            IFacultyRepository facultyRepository, 
+            ApplicationDbContext context,
+            CloudinaryController cloudinaryController,
+            IDepartmentRepository department,
+            IDoctorRepository doctorRepository,
+            IHighBoardRepository highBoardRepository
+            )
         {
             this.subjectRepository = subjectRepository;
-            this.departmentRepository = departmentRepository;
             this.facultyRepository = facultyRepository;
             this.context = context;
             this.cloudinaryController = cloudinaryController;   
+            this.departmentRepository = department;
+            this.doctorRepository = doctorRepository;
+            this.highBoardRepository = highBoardRepository;
         }
         public IActionResult Index()
         {
@@ -35,37 +47,11 @@ namespace HelwanUniversity.Controllers
             ViewBag.EntityTypes = new List<string> { "Department", "FacultyVm", "Subject" };
 
             //Select Options
-            ViewData["Heads"] = context.HighBoards.Where(x => x.JobTitle == Models.Enums.JobTitle.HeadOfDepartment).Select(a => new SelectListItem
-            {
-                Value = a.Id.ToString(),
-                Text = a.Name
-            }).ToList();
-
-            ViewData["Faculties"] = context.Faculties.Select(a => new SelectListItem
-            {
-                Value = a.Id.ToString(),
-                Text = a.Name
-            }).ToList();
-
-            ViewData["Deans"] = context.HighBoards.Where(x => x.JobTitle == Models.Enums.JobTitle.DeanOfFaculty).Select(a => new SelectListItem
-            {
-                Value = a.Id.ToString(),
-                Text = a.Name
-            }).ToList();
-
-            ViewData["Doctors"] = context.Doctors.Select(a => new SelectListItem
-            {
-                Value = a.Id.ToString(),
-                Text = a.Name
-
-            }).ToList();
-
-            ViewData["Departments"] = context.Departments.Select(a => new SelectListItem
-            {
-                Value = a.Id.ToString(),
-                Text = a.Name,
-
-            }).ToList();
+            ViewData["Heads"] = highBoardRepository.selectHeads();
+            ViewData["Faculties"] = facultyRepository.Select();
+            ViewData["Deans"] = highBoardRepository.selectDeans();
+            ViewData["Doctors"] = doctorRepository.Select();
+            ViewData["Departments"] = departmentRepository.Select();
 
             return View(new AddEntity());
         }

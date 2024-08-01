@@ -1,4 +1,5 @@
 ﻿using Data.Repository.IRepository;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
@@ -37,9 +38,6 @@ namespace Data.Repository
             var faculty = context.Faculties
                 .Include(f => f.Departments)
                 .FirstOrDefault(f => f.Id == id);
-
-
-
             return (faculty);
         }
 
@@ -49,7 +47,15 @@ namespace Data.Repository
                 .ToList();
             return faculties;
         }
-
+        public List<SelectListItem> Select()
+        {
+            var options =  context.Faculties.Select(a => new SelectListItem
+            {
+                Value = a.Id.ToString(),
+                Text = a.Name
+            }).ToList();
+            return options;
+        }
         public void Save()
         {
             context.SaveChanges();
