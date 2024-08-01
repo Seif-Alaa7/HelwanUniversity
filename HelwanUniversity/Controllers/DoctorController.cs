@@ -20,11 +20,6 @@ namespace HelwanUniversity.Controllers
         {
             return View();
         }
-        public IActionResult Details(int id)
-        {
-            var DoctorDatails = doctorRepository.GetOne(id);
-            return View(DoctorDatails);
-        }
         public IActionResult Edit(int id)
         {
             var doctor = doctorRepository.GetOne(id);

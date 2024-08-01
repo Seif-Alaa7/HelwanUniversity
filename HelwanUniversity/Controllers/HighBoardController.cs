@@ -18,11 +18,6 @@ namespace HelwanUniversity.Controllers
         {
             return View();
         }
-        public IActionResult Details(int id)
-        {
-            var HighboardDatails = highBoardRepository.GetOne(id);
-            return View(HighboardDatails);
-        }
         public IActionResult Edit(int id)
         {
             var highboard = highBoardRepository.GetOne(id);
