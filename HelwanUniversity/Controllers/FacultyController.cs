@@ -1,6 +1,8 @@
-﻿using Data.Repository;
+﻿using Data;
+using Data.Repository;
 using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
 using ViewModels.FacultyVMs;
 
@@ -9,10 +11,12 @@ namespace HelwanUniversity.Controllers
     public class FacultyController : Controller
     {
         private readonly IFacultyRepository facultyRepository;
+        private readonly ApplicationDbContext context;
 
-        public FacultyController(IFacultyRepository facultyRepository)
+        public FacultyController(IFacultyRepository facultyRepository,ApplicationDbContext context)
         {
             this.facultyRepository = facultyRepository;
+            this.context = context;
         }
         public IActionResult Index()
         {
@@ -26,6 +30,10 @@ namespace HelwanUniversity.Controllers
             {
                 return NotFound();
             }
+
+            faculty.ViewCount++;
+            facultyRepository.Save();
+
             return View(faculty);
         }
         public IActionResult Edit(int id)
@@ -41,6 +49,13 @@ namespace HelwanUniversity.Controllers
                 Picture = Faculty.Picture,
                 ViewCount = Faculty.ViewCount
             };
+
+            ViewData["Deans"] = context.HighBoards.Where(x => x.JobTitle == Models.Enums.JobTitle.DeanOfFaculty).Select(a => new SelectListItem
+            {
+                Value = a.Id.ToString(),
+                Text = a.Name
+            }).ToList();
+
             return View(FacultyVM);
         }
         [HttpPost]

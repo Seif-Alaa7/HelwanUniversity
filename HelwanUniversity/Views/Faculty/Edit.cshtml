@@ -1,0 +1,127 @@
+﻿@model ViewModels.FacultyVMs.FacultyVm
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>FacultyVm</h4>
+<hr />
+<link rel="stylesheet" href="/css/AddEntity.css">
+<style>
+    .card-container {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        padding: 20px;
+    }
+
+    .card-content {
+        flex: 2;
+        margin-right: 20px;
+    }
+
+    .card-image {
+        flex: 1;
+        width: 1000px;
+        height: auto;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+</style>
+
+<div class="card-container">
+    <div class="card-content">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger" enctype="multipart/form-data"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Id" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="DeanId" class="form-label">Dean</label>
+                <select asp-for="DeanId" class="form-select" asp-items="@ViewBag.Deans">
+                    <option disabled><--Select--></></option>
+                </select>
+                <span asp-validation-for="DeanId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Logo" class="control-label"></label>
+                <input asp-for="Logo" type="file" class="form-control-file" id="logoInput" style="display:none;" />
+                <div id="logoPreview" class="mt-2"></div>
+                <label for="logoInput" class="custom-file-upload">
+                    <i class="fa fa-upload"></i> Upload Logo
+                </label>                
+                <span asp-validation-for="Logo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Picture" type="file" class="form-control-file" id="pictureInput" style="display:none;" />
+                <div id="picturePreview" class="mt-2"></div>
+                <label for="pictureInput" class="custom-file-upload">
+                    <i class="fa fa-upload"></i> Upload Picture
+                </label>
+                <span asp-validation-for="Picture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ViewCount" class="control-label"></label>
+                <input asp-for="ViewCount" class="form-control" />
+                <span asp-validation-for="ViewCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="card-image">
+        @if (!string.IsNullOrEmpty(Model.Picture))
+        {
+            <img src="@Model.Picture" class="img-fluid" alt="Faculty Image">
+        }
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="/js/addEntity.js"></script>
+}

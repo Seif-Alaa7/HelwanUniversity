@@ -1,26 +1,81 @@
 ﻿@model List<Faculty>
 
+@{
+    ViewData["Title"] = "Faculty";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+    .card-custom {
+        transition: transform 0.2s, box-shadow 0.2s;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .card-custom:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+    .card-img-top {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .btn-custom {
+        border-radius: 20px;
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+
+    .container {
+        margin-top: 30px;
+    }
+
+    .sectiontitle {
+        margin-bottom: 40px;
+        text-align: center;
+    }
+</style>
+
 <div class="container">
     <h2 class="text-center my-4">الكليات</h2>
     <div class="row">
         @foreach (var faculty in Model)
         {
             <div class="col-md-4 mb-4">
-                <div class="card h-100">
+                <div class="card card-custom h-100">
                     @if (!string.IsNullOrEmpty(faculty.Picture))
                     {
                         <img src="@faculty.Picture" class="card-img-top" alt="@faculty.Name">
                     }
                     <div class="card-body">
                         <h5 class="card-title">@faculty.Name</h5>
-                        <p class="card-text">@(faculty.Description?.Substring(0, Math.Min(faculty.Description.Length, 100)))...</p>
-                        <p class="card-text"><small class="text-muted">عدد الأقسام: @faculty.Departments.Count</small></p>
-                        <a href="@Url.Action("Details", "Faculty", new { id = faculty.Id })" class="btn btn-primary">عرض التفاصيل</a>
-                        <a href="@Url.Action("Edit", "Faculty", new { id = faculty.Id })" class="btn btn-warning">تعديل</a>
+                        <p class="card-text">
+                            @(faculty.Description?.Length > 100 ?
+                                faculty.Description.Substring(0, 100) + "..." :
+                                faculty.Description)
+                        </p>
+                        <p class="card-text"><small class="text-muted">عدد الأقسام: @faculty.Departments?.Count</small></p>
+                        <a href="@Url.Action("Details", "Faculty", new { id = faculty.Id })" class="btn btn-primary btn-custom">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        <a href="@Url.Action("Edit", "Faculty", new { id = faculty.Id })" class="btn btn-warning btn-custom">
+                            <i class="fas fa-edit"></i>
+                        </a>
                         <form asp-action="Delete" method="post" class="d-inline">
                             @Html.AntiForgeryToken()
                             <input type="hidden" name="id" value="@faculty.Id" />
-                            <input type="submit" value="حذف" class="btn btn-danger" onclick="return confirm('هل أنت متأكد أنك تريد حذف هذه الكلية؟');" />
+                            <button type="submit" class="btn btn-danger btn-custom" onclick="return confirm('هل أنت متأكد أنك تريد حذف هذه الكلية؟');">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -28,3 +83,5 @@
         }
     </div>
 </div>
+
+
