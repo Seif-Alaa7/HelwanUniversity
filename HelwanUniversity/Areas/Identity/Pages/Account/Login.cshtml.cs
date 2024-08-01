@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using ViewModels.Vaildations.ApplicationUserValid;
+using Data.Repository.IRepository;
 
 namespace HelwanUniversity.Areas.Identity.Pages.Account
 {
@@ -22,11 +23,13 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IUniFileRepository uniFileRepository;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger,IUniFileRepository uniFileRepository)
         {
             _signInManager = signInManager;
             _logger = logger;
+            this.uniFileRepository = uniFileRepository;
         }
 
         /// <summary>
@@ -101,6 +104,9 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
+            var imgs = uniFileRepository.GetAllImages();
+            ViewData["TitleLogo"] = imgs[0].File;
+            ViewData["ImgSignIn"] = imgs[3].File;
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)

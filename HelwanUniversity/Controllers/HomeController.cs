@@ -1,3 +1,5 @@
+using Data.Repository;
+using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using System.Diagnostics;
@@ -20,6 +22,8 @@ namespace HelwanUniversity.Controllers
 
         public IActionResult Privacy()
         {
+          
+
             return View();
         }
 

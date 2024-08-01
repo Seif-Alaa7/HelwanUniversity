@@ -7,7 +7,7 @@
     function updateFields() {
             const selectedType = document.querySelector('input[name="EntityType"]:checked').value;
     departmentFields.style.display = selectedType === 'Department' ? 'block' : 'none';
-    facultyFields.style.display = selectedType === 'Faculty' ? 'block' : 'none';
+    facultyFields.style.display = selectedType === 'FacultyVm' ? 'block' : 'none';
     subjectFields.style.display = selectedType === 'Subject' ? 'block' : 'none';
         }
 

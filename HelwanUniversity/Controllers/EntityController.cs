@@ -15,13 +15,15 @@ namespace HelwanUniversity.Controllers
         private readonly IDepartmentRepository departmentRepository;
         private readonly IFacultyRepository facultyRepository;
         private readonly ApplicationDbContext context;
+        private readonly CloudinaryController cloudinaryController;
 
-        public EntityController(ISubjectRepository subjectRepository , IDepartmentRepository departmentRepository , IFacultyRepository facultyRepository, ApplicationDbContext context)
+        public EntityController(ISubjectRepository subjectRepository , IDepartmentRepository departmentRepository , IFacultyRepository facultyRepository, ApplicationDbContext context, CloudinaryController cloudinaryController)
         {
             this.subjectRepository = subjectRepository;
             this.departmentRepository = departmentRepository;
             this.facultyRepository = facultyRepository;
             this.context = context;
+            this.cloudinaryController = cloudinaryController;   
         }
         public IActionResult Index()
         {
@@ -68,7 +70,7 @@ namespace HelwanUniversity.Controllers
             return View(new AddEntity());
         }
         [HttpPost]
-        public IActionResult Add(AddEntity entity)
+        public async Task<IActionResult> Add(AddEntity entity)
         {
             switch (entity.EntityType)
             {
@@ -84,18 +86,29 @@ namespace HelwanUniversity.Controllers
                     departmentRepository.Save();
                     break;
 
-                case "Faculty":
-                    var faculty = new Faculty
+                case "FacultyVm":
+                    try
                     {
-                        Name = entity.Name,
-                        DeanId = entity.DeanId ?? 0,
-                        Logo = entity.LogoPath,
-                        Picture = entity.PicturePath,
-                        Description = entity.Description,
-                        ViewCount = entity.ViewCount ?? 0
-                    };
-                    facultyRepository.Add(faculty);
-                    facultyRepository.Save();
+                        entity.LogoPath = await cloudinaryController.UploadFile(entity.Logo, string.Empty, "There was an error uploading the cinema logo. Please try again.");
+                        entity.PicturePath = await cloudinaryController.UploadFile(entity.Picture, string.Empty, "There was an error uploading the cinema Picture. Please try again.");
+
+                        var faculty = new Faculty
+                        {
+                            Name = entity.Name,
+                            DeanId = entity.DeanId ?? 0,
+                            Logo = entity.LogoPath,
+                            Picture = entity.PicturePath,
+                            Description = entity.Description,
+                            ViewCount = entity.ViewCount ?? 0
+                        };
+                        facultyRepository.Add(faculty);
+                        facultyRepository.Save();
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError(string.Empty, ex.Message);
+                        return View("Add", entity);
+                    }
                     break;
 
                 case "Subject":
