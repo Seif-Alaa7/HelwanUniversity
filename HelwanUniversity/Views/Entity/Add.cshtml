@@ -119,13 +119,6 @@
                                 <span asp-validation-for="DoctorId" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label asp-for="DepartmentId" class="form-label">Department</label>
-                                <select asp-for="DepartmentId" class="form-select" asp-items="@ViewBag.Departments">
-                                    <option disabled><--Select--></></option>
-                                </select>
-                                <span asp-validation-for="DepartmentId" class="text-danger"></span>
-                            </div>
-                            <div class="mb-3">
                                 <label asp-for="SubjectHours" class="form-label">Subject Hours</label>
                                 <input asp-for="SubjectHours" class="form-control"/>
                                 <span asp-validation-for="SubjectHours" class="text-danger"></span>

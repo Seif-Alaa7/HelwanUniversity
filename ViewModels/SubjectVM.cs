@@ -8,7 +8,6 @@ namespace ViewModels
         public string Name { get; set; } = null!;
         public Level Level { get; set; }
         public Semester Semester { get; set; }
-        public int DepartmentId { get; set; }
         public int DoctorId { get; set; }
         public int SubjectHours { get; set; }
         public int StudentsAllowed { get; set; }
