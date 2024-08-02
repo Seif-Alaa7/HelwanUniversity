@@ -56,6 +56,7 @@ namespace HelwanUniversity
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+            app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

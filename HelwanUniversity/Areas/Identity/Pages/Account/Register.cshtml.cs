@@ -225,6 +225,19 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                             ApplicationUserId = userId
                         };
                         _context.Students.Add(student);
+                        await _context.SaveChangesAsync(cancellationToken);
+
+                        var academicRecords = new AcademicRecords
+                        {
+                            StudentId = student.Id,
+                            GPASemester = 0,
+                            GPATotal = 0,
+                            SemesterPoints = 0,
+                            TotalPoints = 0
+                        };
+                        _context.academicRecords.Add(academicRecords);
+                        await _context.SaveChangesAsync(cancellationToken);
+
                         break;
 
                     case UserType.Doctor:
@@ -255,7 +268,6 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                         _context.HighBoards.Add(highBoard);
                         break;
                 }
-
                 await _context.SaveChangesAsync(cancellationToken);
 
                 _logger.LogInformation("User created a new account with password.");

@@ -100,7 +100,6 @@ namespace HelwanUniversity.Controllers
                     var subject = new Subject
                     {
                         Name = entity.Name,
-                        DepartmentId = entity.DepartmentId ?? 0,
                         DoctorId = entity.DoctorId ?? 0,
                         SubjectHours = entity.SubjectHours ?? 0,
                         StudentsAllowed = entity.StudentsAllowed ?? 0,
