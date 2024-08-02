@@ -28,10 +28,9 @@ namespace HelwanUniversity.Controllers
             var videos = uniFileRepository.GetAllVideos();
             return View(videos);
         }
-        public IActionResult DisplayVideo(int id)
+        public IActionResult   EmbededLink()
         {
-            var video = uniFileRepository.GetFile(id);
-            return View(video);
+            return View();
         }
         [HttpGet]
         public IActionResult AddVideo()
