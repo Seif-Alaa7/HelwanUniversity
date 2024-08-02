@@ -27,8 +27,9 @@ namespace Data.Repository
             context.HighBoards.Update(highBoard);
         }
 
-        public void Delete(HighBoard highBoard)
+        public void Delete(int id)
         {
+            var highBoard = GetOne(id);
             context.HighBoards.Remove(highBoard);
         }
 

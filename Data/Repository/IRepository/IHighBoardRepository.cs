@@ -12,7 +12,7 @@ namespace Data.Repository.IRepository
     {
         List<HighBoard> GetAll();
         HighBoard GetOne(int Id);
-        void Delete(HighBoard highBoard);
+        void Delete(int id);
         void Update(HighBoard highBoard);
         void Add(HighBoard highBoard);
         List<SelectListItem> selectDeans();

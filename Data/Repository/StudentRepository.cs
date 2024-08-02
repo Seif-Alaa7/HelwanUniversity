@@ -26,8 +26,9 @@ namespace Data.Repository
             context.Students.Update(student);
         }
 
-        public void Delete(Student student)
+        public void Delete(int id)
         {
+            var student = GetOne(id);
             context.Students.Remove(student);
         }
 

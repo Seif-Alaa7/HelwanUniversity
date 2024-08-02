@@ -49,16 +49,16 @@ namespace HelwanUniversity.Controllers
 
             highBoardRepository.Update(highboard);
             highBoardRepository.Save();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "University");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(HighBoard highBoard)
+        public IActionResult Delete(int id)
         {
-            highBoardRepository.Delete(highBoard);
+            highBoardRepository.Delete(id);
             highBoardRepository.Save();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index" , "University");
         }
     }
 }

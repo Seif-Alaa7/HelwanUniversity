@@ -65,16 +65,16 @@ namespace HelwanUniversity.Controllers
 
             studentRepository.Update(student);
             studentRepository.Save();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "University");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Student student)
+        public IActionResult Delete(int id)
         {
-            studentRepository.Delete(student);
+            studentRepository.Delete(id);
             studentRepository.Save();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index" , "University");
         }
     }
 }

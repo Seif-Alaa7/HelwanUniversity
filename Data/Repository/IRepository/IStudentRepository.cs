@@ -11,7 +11,7 @@ namespace Data.Repository.IRepository
     {
         List<Student> GetAll();
         Student GetOne(int Id);
-        void Delete(Student student);
+        void Delete(int id);
         void Update(Student student);
         void Add(Student student);
         void Save();
