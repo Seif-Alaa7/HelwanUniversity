@@ -55,7 +55,7 @@ namespace HelwanUniversity.Controllers
 
             doctorRepository.Update(doctor);
             doctorRepository.Save();
-            return RedirectToAction("Index", "University");
+            return RedirectToAction("Details", new { id = doctor.Id });
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
