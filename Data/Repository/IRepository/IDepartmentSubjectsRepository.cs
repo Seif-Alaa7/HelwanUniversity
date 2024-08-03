@@ -10,5 +10,9 @@ namespace Data.Repository.IRepository
     public interface IDepartmentSubjectsRepository
     {
         List<DepartmentSubjects> subjectsByDepartment(int id);
+        bool Exist(DepartmentSubjects model);
+        void Add(DepartmentSubjects model);
+        void Save();
+
     }
 }

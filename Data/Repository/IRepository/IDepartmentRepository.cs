@@ -16,8 +16,9 @@ namespace Data.Repository.IRepository
         void Update(Department department);
         void Add(Department department);
         List<SelectListItem> Select();
-
         void Save();
+        bool Exist(string Name);
+        bool ExistHeadInDepartment(int headId);
         int GetStudentCount(int? studentDepartmentId);
     }
 }

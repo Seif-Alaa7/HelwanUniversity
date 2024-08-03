@@ -1,4 +1,5 @@
 ﻿using Data.Repository.IRepository;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,16 @@ namespace Data.Repository
                 .ToList();
             return subjects;
         }
+        public List<SelectListItem> Select()
+        {
+            var list = context.Subjects.Select(a => new SelectListItem
+            {
+                Value = a.Id.ToString(),
+                Text = a.Name
+            }).ToList();
 
+            return list;
+        }
         public void Save()
         {
             context.SaveChanges();

@@ -28,7 +28,7 @@ namespace HelwanUniversity.Controllers
             var videos = uniFileRepository.GetAllVideos();
             return View(videos);
         }
-        public IActionResult   EmbededLink()
+        public IActionResult EmbededLink()
         {
             return View();
         }

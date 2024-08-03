@@ -78,7 +78,15 @@ namespace Data.Repository
 
             return department.Students.Count;
         }
-
-
+        public bool Exist(string Name)
+        {
+            var existDepartment = context.Departments.Any(d => d.Name == Name);
+            return existDepartment;
+        }
+        public bool ExistHeadInDepartment(int headId)
+        {
+            var existHeadInDepartment = context.Departments.Any(x => x.HeadId == headId);
+            return existHeadInDepartment;
+        }
     }
 }

@@ -24,5 +24,18 @@ namespace Data.Repository
                           .ToList();
             return subjects;
         }
+        public bool Exist(DepartmentSubjects model)
+        {
+            var ExistDepartmentSubject = context.DepartmentSubjects.Any(a => a.DepartmentId == model.DepartmentId && a.SubjectId == model.SubjectId); 
+            return ExistDepartmentSubject;
+        }
+        public void Add(DepartmentSubjects model)
+        {
+            context.DepartmentSubjects.Add(model);
+        }
+        public void Save()
+        {
+            context.SaveChanges();
+        }
     }
 }
