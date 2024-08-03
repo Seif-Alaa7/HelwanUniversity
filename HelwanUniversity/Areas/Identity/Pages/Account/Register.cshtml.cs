@@ -37,6 +37,7 @@ using ViewModels.Vaildations.DoctorValid;
 using ViewModels.Vaildations.HighBoardValid;
 using ViewModels.Vaildations.StudentsValid;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace HelwanUniversity.Areas.Identity.Pages.Account
 {
@@ -113,6 +114,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             ///
             [Required]
             public string Role { get; set; }
+            [ValidateNever]
             public IEnumerable<SelectListItem> ListOfRoles { get; set; }
 
             [UniqueEmail]
@@ -191,8 +193,17 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             if (_roleManager.Roles.IsNullOrEmpty())
             {
                 await _roleManager.CreateAsync(new("Admin"));
-                await _roleManager.CreateAsync(new("User"));
+                await _roleManager.CreateAsync(new("Student"));
+                await _roleManager.CreateAsync(new("Doctor"));
             }
+            Input = new InputModel
+            {
+                ListOfRoles = _roleManager.Roles.Select(e => new SelectListItem
+                {
+                    Text = e.Name,
+                    Value = e.Name
+                })
+            };
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
@@ -225,6 +236,12 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, ex.Message);
                 }
+
+                if (!string.IsNullOrEmpty(Input.Role))
+                {
+                    await _userManager.AddToRoleAsync(user, Input.Role);
+                }
+
                 // Handle user types and create corresponding records
                 switch (Input.UserType)
                 {
@@ -249,8 +266,8 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                         if (department.Allowed == departmentRepository.GetStudentCount(Input.StudentDepartmentId))
                         {
                             ModelState.AddModelError(string.Empty, "The department has reached its maximum allowed number of students.");
-                            LoadPageData(); 
-                            return Page(); 
+                            LoadPageData();
+                            return Page();
                         }
                         _context.Students.Add(student);
                         await _context.SaveChangesAsync(cancellationToken);
@@ -342,11 +359,32 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
 
             LoadPageData();
             return Page();
+
+            if (_userManager.Options.SignIn.RequireConfirmedAccount)
+            {
+                return RedirectToPage("RegisterConfirmation", new { email = Input.Email });
+            }
+            else
+            {
+                // await _signInManager.SignInAsync(user, isPersistent: false);
+                return RedirectToPage("Login");
+            }
         }
+
         private void LoadPageData()
         {
             ViewData["Departments"] = departmentRepository.Select();
+
+            Input = new InputModel
+            {
+                ListOfRoles = _roleManager.Roles.Select(e => new SelectListItem
+                {
+                    Text = e.Name,
+                    Value = e.Name
+                })
+            };
         }
+
 
 
         private ApplicationUser CreateUser()
