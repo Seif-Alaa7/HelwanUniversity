@@ -22,7 +22,7 @@ namespace HelwanUniversity
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddIdentity<IdentityUser , IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI();
+                .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI().AddDefaultTokenProviders();
 
             builder.Services.AddRazorPages();
 
