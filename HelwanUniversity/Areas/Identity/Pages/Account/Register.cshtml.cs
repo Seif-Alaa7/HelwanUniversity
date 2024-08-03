@@ -191,8 +191,17 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             if (_roleManager.Roles.IsNullOrEmpty())
             {
                 await _roleManager.CreateAsync(new("Admin"));
-                await _roleManager.CreateAsync(new("User"));
+                await _roleManager.CreateAsync(new("Student"));
+                await _roleManager.CreateAsync(new("Doctor"));
             }
+            Input = new InputModel
+            {
+                ListOfRoles = _roleManager.Roles.Select(e => new SelectListItem
+                {
+                    Text = e.Name,
+                    Value = e.Name
+                })
+            };
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
