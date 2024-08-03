@@ -46,5 +46,15 @@ namespace Data.Repository
         {
             context.SaveChanges();
         }
+        public List<DepartmentSubjects> SubjectDepartments(int subjectId)
+        {
+            var Departments = context.DepartmentSubjects.Where(x=>x.SubjectId == subjectId).ToList();
+            return Departments;
+        }
+        public DepartmentSubjects? DeleteRelation(int subjectId, int DepartmentId)
+        {
+            var Relation = context.DepartmentSubjects.FirstOrDefault(x => x.SubjectId == subjectId && x.DepartmentId == DepartmentId);
+            return Relation;
+        }
     }
 }

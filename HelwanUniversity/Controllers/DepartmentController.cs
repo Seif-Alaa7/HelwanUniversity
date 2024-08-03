@@ -105,15 +105,20 @@ namespace HelwanUniversity.Controllers
                     return View("Edit");
                 }
             };
-                department.HeadId = departmentVM.HeadId;
-                department.Name = departmentVM.Name;
-                department.FacultyId = departmentVM.FacultyId;
-                department.Allowed = departmentVM.Allowed;
 
-                departmentRepository.Update(department);
-                departmentRepository.Save();
+            department.HeadId = departmentVM.HeadId;
+            department.Name = departmentVM.Name;
+            department.FacultyId = departmentVM.FacultyId;
+            department.Allowed = departmentVM.Allowed;
 
-                return RedirectToAction("Details", new {id = department.Id});
+            departmentRepository.Update(department);
+            departmentRepository.Save();
+
+            if (departmentVM.FacultyId == department.FacultyId)
+            {
+               return RedirectToAction("Details","Faculty", new { id = department.FacultyId });
+            };
+            return RedirectToAction("Details", new {id = department.Id});
         }
         public IActionResult Delete(int id)
         {

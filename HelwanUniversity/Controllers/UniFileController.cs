@@ -57,7 +57,7 @@ namespace HelwanUniversity.Controllers
 
                 return RedirectToAction("News");
             }
-            return View("AddVideo",uniFileVM);
+            return View("AddVideo", uniFileVM);
         }
         [HttpGet]
         public IActionResult AddImage()
@@ -73,26 +73,26 @@ namespace HelwanUniversity.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveImg(UniFileVM uniFileVM)
         {
-                try
+            try
+            {
+                uniFileVM.File = await _cloudinaryController.UploadFile(uniFileVM.ImgPath, string.Empty, "An error occurred while uploading the photo. Please try again.");
+
+                var file = new UniFile
                 {
-                    uniFileVM.File = await _cloudinaryController.UploadFile(uniFileVM.ImgPath, string.Empty, "An error occurred while uploading the photo. Please try again.");
+                    File = uniFileVM.File,
+                    ContentType = uniFileVM.ContentType,
+                };
 
-                    var file = new UniFile
-                    {
-                        File = uniFileVM.File,
-                        ContentType = uniFileVM.ContentType,
-                    };
+                uniFileRepository.Add(file);
+                uniFileRepository.Save();
 
-                    uniFileRepository.Add(file);
-                    uniFileRepository.Save();
-
-                    return RedirectToAction("DispalyImages");
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError(string.Empty, ex.Message);
-                    return View("AddImage", uniFileVM);
-                }
+                return RedirectToAction("DispalyImages");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View("AddImage", uniFileVM);
+            }
         }
 
         [HttpGet]
@@ -112,18 +112,23 @@ namespace HelwanUniversity.Controllers
         [HttpPost]
         public IActionResult SaveUpdateVideo(UniFileVM2 newVideoVM)
         {
-            if (ModelState.IsValid)
+            var video = uniFileRepository.GetFile(newVideoVM.Id);
+            if (newVideoVM.File != video.File)
             {
-                var video = uniFileRepository.GetFile(newVideoVM.Id);
+                var existVideo = uniFileRepository.ExistVideo(newVideoVM.File);
+                if (existVideo)
+                {
+                    ModelState.AddModelError("File", "This file is already Registered");
+                    return View("UpdateVideo", newVideoVM);
 
-                //Update Changes
-                video.File = newVideoVM.File;
-                uniFileRepository.Update(video);
-                uniFileRepository.Save();
-
-                return RedirectToAction("News");
+                }
             }
-            return View("UpdateVideo", newVideoVM);
+            //Update Changes
+            video.File = newVideoVM.File;
+            uniFileRepository.Update(video);
+            uniFileRepository.Save();
+
+            return RedirectToAction("News");
         }
         [HttpGet]
         public IActionResult UpdateImage(int id)

@@ -47,5 +47,10 @@ namespace Data.Repository
         {
             context.SaveChanges();
         }
+        public bool ExistVideo(string file)
+        {
+            var FileExists = context.UniFiles.Any(m => m.File == file);
+            return FileExists;
+        }
     }
 }

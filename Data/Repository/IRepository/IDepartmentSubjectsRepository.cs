@@ -1,9 +1,4 @@
 ﻿using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repository.IRepository
 {
@@ -15,6 +10,7 @@ namespace Data.Repository.IRepository
         void Save();
         List<DepartmentSubjects> GetAll();
         void Delete(DepartmentSubjects model);
-
+        List<DepartmentSubjects> SubjectDepartments(int subjectId);
+        DepartmentSubjects? DeleteRelation(int subjectId, int DepartmentId);
     }
 }

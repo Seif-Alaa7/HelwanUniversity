@@ -27,7 +27,7 @@
                         <form asp-action="Delete" method="post" style="display:inline;">
                             @Html.AntiForgeryToken()
                             <input type="hidden" name="id" value="@item.Id" />
-                            <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;" onclick="return confirm('هل أنت متأكد أنك تريد حذف هذه الصورة؟');">
+                            <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;" onclick="return confirm('هل أنت متأكد أنك تريد حذف هذه الفيديو؟');">
                                 <img src="https://img.icons8.com/dotty/80/1A1A1A/delete-forever.png" alt="delete" />
                             </button>
                         </form>

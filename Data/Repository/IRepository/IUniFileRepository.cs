@@ -16,5 +16,6 @@ namespace Data.Repository.IRepository
         void Add(UniFile File);
         void Delete(UniFile File);
         void Save();
+        bool ExistVideo(string file);
     }
 }

@@ -59,5 +59,10 @@ namespace Data.Repository
         {
             context.SaveChanges();
         }
+        public bool ExistSubject(string Subject)
+        {
+            var exist = context.Subjects.Any(x => x.Name == Subject);
+            return exist;
+        }
     }
 }

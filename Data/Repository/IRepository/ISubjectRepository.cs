@@ -17,5 +17,6 @@ namespace Data.Repository.IRepository
         void Add(Subject subject);
         List<SelectListItem> Select();
         void Save();
+        bool ExistSubject(string Subject);
     }
 }

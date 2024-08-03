@@ -88,5 +88,9 @@ namespace Data.Repository
             var existHeadInDepartment = context.Departments.Any(x => x.HeadId == headId);
             return existHeadInDepartment;
         }
+        public IEnumerable<Department> GetDepartmentsByCollegeId(int collegeId)
+        {
+            return context.Departments.Where(d => d.FacultyId == collegeId).ToList();
+        }
     }
 }

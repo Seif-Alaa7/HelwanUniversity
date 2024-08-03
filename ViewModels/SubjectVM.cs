@@ -1,4 +1,6 @@
-﻿using Models.Enums;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Models.Enums;
 
 namespace ViewModels
 {
@@ -14,5 +16,7 @@ namespace ViewModels
         public SummerStatus summerStatus { get; set; }
         public SubjectType subjectType { get; set; }
         public int Salary { get; set; }
+        public int departmentId { get; set; }
+        public int OriginalDepartmentId { get; set; }
     }
 }

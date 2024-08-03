@@ -81,6 +81,14 @@ namespace HelwanUniversity.Controllers
 
                 }
             }
+            if(facultyvm.DeanId != Faculty.DeanId)
+            {
+                if (facultyRepository.ExistDeanInFaculty(facultyvm.DeanId))
+                {
+                    ModelState.AddModelError("DeanId", "This person is already a Dean of a registered Faculty.");
+                    return View("Edit", facultyvm);
+                }
+            }
             try
             {
                 facultyvm.Logo = await cloudinaryController.UploadFile(facultyvm.LogoFile,Faculty.Logo, "An error occurred while uploading the logo. Please try again.");
@@ -110,7 +118,7 @@ namespace HelwanUniversity.Controllers
 
             facultyRepository.Update(Faculty);
             facultyRepository.Save();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Faculty", new {id = Faculty.Id});
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -121,5 +129,6 @@ namespace HelwanUniversity.Controllers
 
             return RedirectToAction("Index");
         }
+
     }
 }

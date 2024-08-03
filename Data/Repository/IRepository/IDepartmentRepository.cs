@@ -20,5 +20,6 @@ namespace Data.Repository.IRepository
         bool Exist(string Name);
         bool ExistHeadInDepartment(int headId);
         int GetStudentCount(int? studentDepartmentId);
+        IEnumerable<Department> GetDepartmentsByCollegeId(int collegeId);
     }
 }

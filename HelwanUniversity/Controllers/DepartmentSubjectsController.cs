@@ -49,6 +49,20 @@ namespace HelwanUniversity.Controllers
             }
             return RedirectToAction("Details", "Department", new { id = model.DepartmentId });
         }
+        public IActionResult Delete(int subjectId, int departmentId)
+        {
+            var link = DepartsubjectsRepository.DeleteRelation(subjectId, departmentId);
 
+            if (link == null)
+            {
+                TempData["ErrorMessage"] = "The relationship between the subject and department could not be found.";
+                return RedirectToAction("Details", "Department", new { id = departmentId });
+            }
+
+            DepartsubjectsRepository.Delete(link);
+            DepartsubjectsRepository.Save();
+
+            return RedirectToAction("Details", "Department", new { id = departmentId });
+        }
     }
 }
