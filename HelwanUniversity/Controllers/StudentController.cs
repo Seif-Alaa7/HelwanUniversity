@@ -1,7 +1,9 @@
 ﻿using Data.Repository;
 using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
+using System.Numerics;
 using ViewModels;
 
 namespace HelwanUniversity.Controllers
@@ -9,10 +11,12 @@ namespace HelwanUniversity.Controllers
     public class StudentController : Controller
     {
         private readonly IStudentRepository studentRepository;
+        private readonly IDepartmentRepository departmentRepository;
 
-        public StudentController(IStudentRepository studentRepository)
+        public StudentController(IStudentRepository studentRepository , IDepartmentRepository departmentRepository)
         {
             this.studentRepository = studentRepository;
+            this.departmentRepository = departmentRepository;
         }
         public IActionResult Index()
         {
@@ -26,6 +30,7 @@ namespace HelwanUniversity.Controllers
         public IActionResult Edit(int id)
         {
             var student = studentRepository.GetOne(id);
+            ViewBag.Departments = new SelectList(departmentRepository.GetAll(), "Id", "Name");
             var studentVM = new StudentVM
             {
                 Id = id,
@@ -61,11 +66,10 @@ namespace HelwanUniversity.Controllers
             student.Nationality = studentVM.Nationality;
             student.PaymentFees = studentVM.PaymentFees;
             student.PaymentFeesDate = studentVM.PaymentFeesDate;
-            student.Id = studentVM.Id;
 
             studentRepository.Update(student);
             studentRepository.Save();
-            return RedirectToAction("Index", "University");
+            return RedirectToAction("Details", new { id = student.Id });
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

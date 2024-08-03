@@ -2,6 +2,7 @@
 using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using System.Numerics;
 using ViewModels;
 
 namespace HelwanUniversity.Controllers
@@ -49,7 +50,7 @@ namespace HelwanUniversity.Controllers
 
             highBoardRepository.Update(highboard);
             highBoardRepository.Save();
-            return RedirectToAction("Index", "University");
+            return RedirectToAction("Details", new { id = highboard.Id });
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

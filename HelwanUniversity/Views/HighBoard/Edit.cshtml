@@ -1,0 +1,41 @@
+﻿@using Models.Enums
+@model ViewModels.HighBoardVM
+
+<h2>Edit</h2>
+
+<form asp-action="SaveEdit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="JobTitle" class="form-label">Job Title</label>
+        <select asp-for="JobTitle" class="form-select">
+            <option value="@JobTitle.VP_For_Finance">VP For Finance</option>
+            <option value="@JobTitle.DeanOfFaculty">Dean of Faculty</option>
+            <option value="@JobTitle.VicePrecident">Vice President</option>
+            <option value="@JobTitle.HeadOfDepartment">Head of Department</option>
+            <option value="@JobTitle.President">President</option>
+            <option value="@JobTitle.VP_For_AcademicAffairs">VP For Academic Affairs</option>
+        </select>
+    </div>
+
+    <div class="mb-4">
+        <input asp-for="Picture" type="file" class="form-control-file" id="profilePicture" style="display:none;" />
+        <div id="picturePreview" class="mt-2"></div>
+        <label for="profilePicture" class="custom-file-upload">
+            <i class="fa fa-upload"></i> Upload Profile Picture
+        </label>
+        <span asp-validation-for="Picture" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
