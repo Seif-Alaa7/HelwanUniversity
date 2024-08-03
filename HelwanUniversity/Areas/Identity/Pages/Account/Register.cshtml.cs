@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Data;
 using Data.Repository.IRepository;
+using Microsoft.IdentityModel.Tokens;
 using HelwanUniversity.Controllers;
 using HelwanUniversity.Vaildations;
 using Microsoft.AspNetCore.Authentication;
@@ -43,6 +44,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserStore<IdentityUser> _userStore;
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
@@ -54,6 +56,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
+            RoleManager<IdentityRole> roleManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
@@ -65,6 +68,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             )
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
@@ -106,6 +110,11 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            ///
+            [Required]
+            public string Role { get; set; }
+            public IEnumerable<SelectListItem> ListOfRoles { get; set; }
+
             [UniqueEmail]
             [Required]
             [EmailAddress]
@@ -179,6 +188,11 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            if (_roleManager.Roles.IsNullOrEmpty())
+            {
+                await _roleManager.CreateAsync(new("Admin"));
+                await _roleManager.CreateAsync(new("User"));
+            }
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
@@ -316,8 +330,8 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToPage();
+                    /*await _signInManager.SignInAsync(user, isPersistent: false);*/
+                    return RedirectToPage(/*"Login"*/);
                 }
             }
 
