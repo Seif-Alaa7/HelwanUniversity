@@ -13,6 +13,8 @@ namespace Data.Repository.IRepository
         bool Exist(DepartmentSubjects model);
         void Add(DepartmentSubjects model);
         void Save();
+        List<DepartmentSubjects> GetAll();
+        void Delete(DepartmentSubjects model);
 
     }
 }

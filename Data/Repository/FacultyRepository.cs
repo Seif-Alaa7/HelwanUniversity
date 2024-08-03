@@ -57,6 +57,11 @@ namespace Data.Repository
             }).ToList();
             return options;
         }
+        public bool ExistDeanInFaculty(int DeanId)
+        {
+            var existDeanInDepartment = context.Faculties.Any(x => x.DeanId == DeanId);
+            return existDeanInDepartment;
+        }
         public void Save()
         {
             context.SaveChanges();

@@ -29,7 +29,6 @@ namespace HelwanUniversity.Vaildations
                 else if (FacultyExists)
                 {
                     return new ValidationResult("This Faculty is already exists.");
-
                 }
                 else if (SubjectExists)
                 {
@@ -40,3 +39,4 @@ namespace HelwanUniversity.Vaildations
         }
     }
 }
+

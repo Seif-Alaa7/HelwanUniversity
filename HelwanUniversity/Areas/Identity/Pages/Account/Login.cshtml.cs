@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using ViewModels.Vaildations.ApplicationUserValid;
 using Data.Repository.IRepository;
+using Data.Repository;
 
 namespace HelwanUniversity.Areas.Identity.Pages.Account
 {
@@ -117,18 +118,31 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError("Input.Email", "Email does not exist.");
+
+                    var Imgs = uniFileRepository.GetAllImages();
+                    ViewData["TitleLogo"] = Imgs[0].File;
+                    ViewData["ImgSignIn"] = Imgs[3].File;
+                    return Page();
+                }
+
+                var result = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
+
                 if (result.RequiresTwoFactor)
                 {
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
                 }
+
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning("User account locked out.");
@@ -136,13 +150,19 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError("Input.Password", "Invalid password.");
+
+                    var Imgs = uniFileRepository.GetAllImages();
+                    ViewData["TitleLogo"] = Imgs[0].File;
+                    ViewData["ImgSignIn"] = Imgs[3].File;
                     return Page();
                 }
             }
-
-            // If we got this far, something failed, redisplay form
+            var imgs = uniFileRepository.GetAllImages();
+            ViewData["TitleLogo"] = imgs[0].File;
+            ViewData["ImgSignIn"] = imgs[3].File;
             return Page();
         }
     }
+
 }

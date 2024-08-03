@@ -86,7 +86,7 @@
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <label asp-for="Input.StudentNationality" class="form-label">Nationality</label>
-                                    <input asp-for="Input.StudentNationality" class="form-control" placeholder="Egyptian" />
+                                    <input asp-for="Input.StudentNationality" class="form-control" value="Egyptian" />
                                     <span asp-validation-for="Input.StudentNationality" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-4">
@@ -206,6 +206,10 @@
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script src="/js/Register.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
 }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>

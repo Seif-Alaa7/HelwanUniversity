@@ -17,5 +17,6 @@ namespace Data.Repository.IRepository
         void Add(Faculty faculty);
         List<SelectListItem> Select();
         void Save();
+        bool ExistDeanInFaculty(int DeanId);
     }
 }

@@ -115,5 +115,20 @@ namespace HelwanUniversity.Controllers
 
                 return RedirectToAction("Details", new {id = department.Id});
         }
+        public IActionResult Delete(int id)
+        {
+            var department = departmentRepository.GetOne(id);
+
+            var departmentSubjects = departmentSubjectsRepository.GetAll().Where(ds => ds.DepartmentId == id).ToList();
+            foreach(var Department in departmentSubjects)
+            {
+               departmentSubjectsRepository.Delete(Department);
+               departmentRepository.Save();
+            }
+            departmentRepository.Delete(department);
+            departmentRepository.Save();
+
+            return RedirectToAction("Details", "Faculty", new { id = department.FacultyId });
+        }
     }
 }

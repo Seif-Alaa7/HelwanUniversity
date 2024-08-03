@@ -66,11 +66,25 @@ namespace HelwanUniversity.Controllers
                         FacultyId = entity.FacultyId ?? 0,
                         Allowed = entity.Allowed ?? 0
                     };
+
+                    if (departmentRepository.ExistHeadInDepartment(entity.HeadId??0))
+                    {
+                        ModelState.AddModelError("HeadId", "This person is already a head of a registered department.");
+                        LoadPageData();
+                        return View("Add", entity);
+                    }
+
                     departmentRepository.Add(department);
                     departmentRepository.Save();
                     break;
 
                 case "FacultyVm":
+
+                    if (!ModelState.IsValid)
+                    {
+                        LoadPageData();
+                        return View("Add", entity);
+                    }
                     try
                     {
                         entity.LogoPath = await cloudinaryController.UploadFile(entity.Logo, string.Empty, "There was an error uploading the cinema logo. Please try again.");
@@ -85,6 +99,14 @@ namespace HelwanUniversity.Controllers
                             Description = entity.Description,
                             ViewCount = entity.ViewCount ?? 0
                         };
+
+                        if (facultyRepository.ExistDeanInFaculty(entity.DeanId ?? 0))
+                        {
+                            ModelState.AddModelError("DeanId", "This person is already a Dean of a registered Faculty.");
+                            LoadPageData();
+                            return View("Add", entity);
+                        }
+
                         facultyRepository.Add(faculty);
                         facultyRepository.Save();
                     }
@@ -119,7 +141,7 @@ namespace HelwanUniversity.Controllers
                     return View(entity);
             }
             TempData["SuccessMessage"] = "Success !";
-            return RedirectToAction("Index" , "Faculty");
+            return View(new AddEntity());
         }
         private void LoadPageData()
         {

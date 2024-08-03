@@ -145,6 +145,8 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             public string? StudentName { get; set; }
 
             public DateOnly? StudentBirthDate { get; set; }
+
+            [Required(ErrorMessage = "Nationality is required")]
             public string? StudentNationality { get; set; }
             public Gender StudentGender { get; set; }
             public Religion StudentReligion { get; set; }
@@ -213,6 +215,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                 switch (Input.UserType)
                 {
                     case UserType.Student:
+
                         var student = new Student
                         {
                             Name = Input.StudentName!,
@@ -227,7 +230,6 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                             PaymentFeesDate = Input.StudentPaymentFeesDate,
                             ApplicationUserId = userId
                         };
-
                         var department = departmentRepository.GetOne(Input.StudentDepartmentId ?? 0);
 
                         if (department.Allowed == departmentRepository.GetStudentCount(Input.StudentDepartmentId))
@@ -263,6 +265,13 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                             Picture = Input.PicturePath,
                             ApplicationUserId = userId
                         };
+
+                        if (Input.DoctorName == null)
+                        {
+                            ModelState.AddModelError("Input.DoctorName", "Name is Required");
+                            LoadPageData();
+                            return Page();
+                        }
                         _context.Doctors.Add(doctor);
                         break;
 
@@ -277,6 +286,12 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                             Department = Input.HighBoardDepartment,
                             ApplicationUserId = userId
                         };
+                        if (Input.HighBoardName == null)
+                        {
+                            ModelState.AddModelError("Input.HighBoardName", "Name is Required");
+                            LoadPageData();
+                            return Page();
+                        }
                         _context.HighBoards.Add(highBoard);
                         break;
                 }

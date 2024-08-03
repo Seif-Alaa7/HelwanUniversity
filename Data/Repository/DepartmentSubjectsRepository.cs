@@ -26,12 +26,21 @@ namespace Data.Repository
         }
         public bool Exist(DepartmentSubjects model)
         {
-            var ExistDepartmentSubject = context.DepartmentSubjects.Any(a => a.DepartmentId == model.DepartmentId && a.SubjectId == model.SubjectId); 
+            var ExistDepartmentSubject = context.DepartmentSubjects.Any(a => a.DepartmentId == model.DepartmentId && a.SubjectId == model.SubjectId);
             return ExistDepartmentSubject;
         }
         public void Add(DepartmentSubjects model)
         {
             context.DepartmentSubjects.Add(model);
+        }
+        public List<DepartmentSubjects> GetAll()
+            {
+                var list = context.DepartmentSubjects.ToList(); 
+               return list;
+            }
+        public void Delete(DepartmentSubjects model)
+        {
+            context.DepartmentSubjects.Remove(model);
         }
         public void Save()
         {

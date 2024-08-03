@@ -42,6 +42,8 @@ namespace HelwanUniversity.Controllers
             faculty.ViewCount++;
             facultyRepository.Save();
 
+            ViewData["Dean"] = highBoardRepository.GetOne(faculty.DeanId)?.Name;
+
             return View(faculty);
         }
         public IActionResult Edit(int id)
