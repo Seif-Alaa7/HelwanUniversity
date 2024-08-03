@@ -60,5 +60,33 @@ namespace Data.Repository
         {
             context.SaveChanges();
         }
+        public int GetStudentCount(int? studentDepartmentId)
+        {
+            if (studentDepartmentId == null)
+            {
+                throw new ArgumentNullException(nameof(studentDepartmentId), "Department ID cannot be null.");
+            }
+
+            var department = context.Departments
+                                    .Include(d => d.Students)
+                                    .SingleOrDefault(d => d.Id == studentDepartmentId);
+
+            if (department == null)
+            {
+                throw new InvalidOperationException($"Department with ID {studentDepartmentId} not found.");
+            }
+
+            return department.Students.Count;
+        }
+        public bool Exist(string Name)
+        {
+            var existDepartment = context.Departments.Any(d => d.Name == Name);
+            return existDepartment;
+        }
+        public bool ExistHeadInDepartment(int headId)
+        {
+            var existHeadInDepartment = context.Departments.Any(x => x.HeadId == headId);
+            return existHeadInDepartment;
+        }
     }
 }

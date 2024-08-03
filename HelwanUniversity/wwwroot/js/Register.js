@@ -13,6 +13,7 @@
         utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
     });
 });
+
 $(document).ready(function () {
     $('input[name="Input.UserType"]').change(function () {
         var selectedType = $(this).val().toLowerCase();

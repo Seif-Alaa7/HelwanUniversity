@@ -35,6 +35,7 @@ using ViewModels.Vaildations.ApplicationUserValid;
 using ViewModels.Vaildations.DoctorValid;
 using ViewModels.Vaildations.HighBoardValid;
 using ViewModels.Vaildations.StudentsValid;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace HelwanUniversity.Areas.Identity.Pages.Account
 {
@@ -148,8 +149,10 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             public Gender StudentGender { get; set; }
             public Religion StudentReligion { get; set; }
             public string? StudentAddress { get; set; }
+
+            [Phone]
             [UniqueSPhoneNumber]
-            public string? StudentPhoneNumber { get; set; }
+            public string StudentPhoneNumber { get; set; }
             public int? StudentDepartmentId { get; set; }
             public bool? StudentPaymentFees { get; set; }
             public DateTime? StudentAdmissionDate { get; set; }
@@ -224,6 +227,15 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                             PaymentFeesDate = Input.StudentPaymentFeesDate,
                             ApplicationUserId = userId
                         };
+
+                        var department = departmentRepository.GetOne(Input.StudentDepartmentId ?? 0);
+
+                        if (department.Allowed == departmentRepository.GetStudentCount(Input.StudentDepartmentId))
+                        {
+                            ModelState.AddModelError(string.Empty, "The department has reached its maximum allowed number of students.");
+                            LoadPageData(); 
+                            return Page(); 
+                        }
                         _context.Students.Add(student);
                         await _context.SaveChangesAsync(cancellationToken);
 
