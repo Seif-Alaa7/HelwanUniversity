@@ -18,5 +18,6 @@ namespace Data.Repository.IRepository
         List<SelectListItem> Select();
 
         void Save();
+        int GetStudentCount(int? studentDepartmentId);
     }
 }

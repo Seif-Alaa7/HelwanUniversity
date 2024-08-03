@@ -33,9 +33,14 @@
                 <br/>
                 <h3 class="section-title">Departments:</h3>
                 <ul class="department-list">
+
                     @foreach (var department in Model.Departments)
                     {
-                        <li>@department.Name</li>
+                        <li>
+                            @department.Name     <a asp-controller="Department" asp-action="Details" asp-route-id="@department.Id">
+                                                             <img width="30" height="30" src="https://img.icons8.com/wired/64/1A1A1A/about.png" alt="about" />
+                                                   </a>
+                        </li>
                     }
                 </ul>
             </div>

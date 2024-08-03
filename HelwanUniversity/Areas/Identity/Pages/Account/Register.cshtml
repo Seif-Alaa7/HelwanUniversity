@@ -74,7 +74,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label asp-for="Input.StudentPhoneNumber" class="form-label">Phone Number</label>
-                                    <input asp-for="Input.StudentPhoneNumber"  id="PhoneNumber" name="PhoneNumber" class="form-control" type="tel" />
+                                    <input asp-for="Input.StudentPhoneNumber" id="PhoneNumber" name="Input.StudentPhoneNumber" class="form-control" type="tel" />
                                     <span asp-validation-for="Input.StudentPhoneNumber" class="text-danger"></span>
                                 </div>
                             </div>
@@ -92,6 +92,7 @@
                                 <div class="col-md-4">
                                     <label asp-for="Input.StudentGender" class="form-label">Gender</label>
                                     <select asp-for="Input.StudentGender" class="form-select">
+                                        <option disabled><--Select--></></option>
                                         <option value="@Gender.Male">Male</option>
                                         <option value="@Gender.Female">Female</option>
                                     </select>
@@ -99,6 +100,7 @@
                                 <div class="col-md-4">
                                     <label asp-for="Input.StudentReligion" class="form-label">Religion</label>
                                     <select asp-for="Input.StudentReligion" class="form-select">
+                                        <option disabled><--Select--></></option>
                                         <option value="@Religion.Muslim">Muslim</option>
                                         <option value="@Religion.Christian">Christian</option>
                                         <option value="@Religion.Other">Other</option>
@@ -134,6 +136,7 @@
                                 <div class="col-md-6">
                                     <label asp-for="Input.DoctorJobTitle" class="form-label">Job Title</label>
                                     <select asp-for="Input.DoctorJobTitle" class="form-select">
+                                        <option disabled><--Select--></></option>
                                         <option value="@JobTitle.Prof_Doctor">Professor Doctor</option>
                                         <option value="@JobTitle.Doctor">Doctor</option>
                                     </select>
@@ -148,6 +151,7 @@
                                 <div class="col-md-6">
                                     <label asp-for="Input.DoctorGender" class="form-label">Gender</label>
                                     <select asp-for="Input.DoctorGender" class="form-select">
+                                        <option disabled><--Select--></></option>
                                         <option value="@Gender.Male">Male</option>
                                         <option value="@Gender.Female">Female</option>
                                     </select>
@@ -155,6 +159,7 @@
                                 <div class="col-md-6">
                                     <label asp-for="Input.DoctorReligion" class="form-label">Religion</label>
                                     <select asp-for="Input.DoctorReligion" class="form-select">
+                                        <option disabled><--Select--></></option>
                                         <option value="@Religion.Muslim">Muslim</option>
                                         <option value="@Religion.Christian">Christian</option>
                                         <option value="@Religion.Other">Other</option>
@@ -178,6 +183,7 @@
                             <div class="mb-3">
                                 <label asp-for="Input.HighBoardJobTitle" class="form-label">Job Title</label>
                                 <select asp-for="Input.HighBoardJobTitle" class="form-select">
+                                    <option disabled><--Select--></></option>
                                     <option value="@JobTitle.VP_For_Finance">VP For Finance</option>
                                     <option value="@JobTitle.DeanOfFaculty">Dean of Faculty</option>
                                     <option value="@JobTitle.VicePrecident">Vice President</option>
@@ -201,3 +207,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script src="/js/Register.js"></script>
 }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
