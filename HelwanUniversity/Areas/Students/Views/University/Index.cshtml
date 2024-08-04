@@ -80,19 +80,19 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link NavItems" style="color: white;" asp-area="" asp-controller="University" asp-action="Index">
+                            <a class="nav-link NavItems" style="color: white;" asp-area="Students" asp-controller="University" asp-action="Index">
                                 <img style="margin-bottom: 4px;" alt="svgImg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjUiIGhlaWdodD0iMjUiIHZpZXdCb3g9IjAsMCwyNTYsMjU2IgpzdHlsZT0iZmlsbDojMDAwMDAwOyI+CjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtcnVsZT0ibm9uemVybyIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS1kYXNoYXJyYXk9IiIgc3Ryb2tlLWRhc2hvZmZzZXQ9IjAiIGZvbnQtZmFtaWx5PSJub25lIiBmb250LXdlaWdodD0ibm9uZSIgZm9udC1zaXplPSJub25lIiB0ZXh0LWFuY2hvcj0ibm9uZSIgc3R5bGU9Im1peC1ibGVuZC1tb2RlOiBub3JtYWwiPjxnIHRyYW5zZm9ybT0ic2NhbGUoOCw4KSI+PHBhdGggZD0iTTE2LDIuNTkzNzVsLTAuNzE4NzUsMC42ODc1bC0xMywxM2wxLjQzNzUsMS40Mzc1bDEuMjgxMjUsLTEuMjgxMjV2MTEuNTYyNWg5di0xMGg0djEwaDl2LTExLjU2MjVsMS4yODEyNSwxLjI4MTI1bDEuNDM3NSwtMS40Mzc1bC0xMywtMTN6TTE2LDUuNDM3NWw5LDl2MTEuNTYyNWgtNXYtMTBoLTh2MTBoLTV2LTExLjU2MjV6Ij48L3BhdGg+PC9nPjwvZz4KPC9zdmc+" />
                                 الرئيسية
                                 </a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link NavItems" style="color: white;" asp-area="" asp-controller="Faculty" asp-action="Index">
+                            <a class="nav-link NavItems" style="color: white;" asp-area="Students" asp-controller="Faculty" asp-action="Index">
                                 <img style="margin-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/external-fauzidea-detailed-outline-fauzidea/64/FFFFFF/external-college-building-fauzidea-detailed-outline-fauzidea-2.png" alt="external-college-building-fauzidea-detailed-outline-fauzidea-2" />
                                 الكليات
                             </a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link NavItems" style="color: white;" asp-area="" asp-controller="UniFile" asp-action="News">
+                            <a class="nav-link NavItems" style="color: white;" asp-area="Students" asp-controller="UniFile" asp-action="News">
                                 <img style="margin-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/glyph-neue/64/FFFFFF/news.png" alt="news" />
                                 الاخبار
                                 </a>
@@ -159,7 +159,7 @@
                 <div class="col-lg-5">
                     <div class="py-5 px-4 masthead-cards">
                         <div class="d-flex">
-                            <a href="/University/Details" class="w-50 pr-3 pb-4">
+                            <a href="/Students/University/Details" class="w-50 pr-3 pb-4">
                                 <div class="card border-0 border-bottom-red shadow-lg shadow-hover">
                                     <div class="card-body text-center">
                                         <div class="text-center">
@@ -169,7 +169,7 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="/University/DisplayMap" class="w-50 pl-3 pb-4">
+                            <a href="/Students/University/DisplayMap" class="w-50 pl-3 pb-4">
                                 <div class="card border-0 border-bottom-blue shadow-lg shadow-hover">
                                     <div class="card-body text-center">
                                         <div class="text-center">
@@ -363,9 +363,9 @@
         <div class="footer-content">
             <p>&copy; 2024 Helwan University. All rights reserved.</p>
             <ul class="footer-links">
-                <li><a href="/University/Details">About Us</a></li>
+                <li><a href="/Students/University/Details">About Us</a></li>
                 <li><a href="@ViewBag.Mail">Contact Us</a></li>
-                <li><a href="\Home\Privacy">Privacy Policy</a></li>
+                <li><a href="/Students/Home/Privacy">Privacy Policy</a></li>
             </ul>
             <br />
 

@@ -1,0 +1,53 @@
+﻿@model Models.University
+
+@{
+    ViewData["Title"] = "AboutUs";
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" href="/css/DetailsUni.css" />
+
+</head>
+<body>
+    <div class="container">
+        <div class="university-header">
+            <img src="@ViewBag.LogoTitle" alt="University Logo" />
+            <p><strong>Our University Logo</strong></p>
+        </div>
+        <div class="university-details">
+            <h4>
+                @Model.Name</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2 text-Arabic">@Html.DisplayName("وصف الجامعة:")</dt>
+                <dd class="col-sm-10 text-Arabic" style="margin-top: 10px;">@Html.DisplayFor(model => model.Description)</dd>
+                <dt class="col-sm-2 text-Arabic">@Html.DisplayName("صورة للجامعة:")</dt>
+                <dd class="col-sm-10" style="margin-top: 20px;">
+                    <img src="@Model.MainPicture" alt="University Image" style="max-width: 100%; height: auto;" />
+                </dd>
+
+                <!-- Buttons FrontEnd -->
+                <dt class="col-sm-2 text-Arabic">@Html.DisplayName("تواصل معنا عبر الفيسبوك:")</dt>
+                <dd class="col-sm-10" style="margin-top: 10px;"><a href="@Model.FacebookPage" target="_blank">@Model.FacebookPage</a></dd>
+                <dt class="col-sm-2 text-Arabic">@Html.DisplayName("تواصل معنا عبر لينكدان:")</dt>
+                <dd class="col-sm-10" style="margin-top: 12px;"><a href="@Model.LinkedInPage" target="_blank">@Model.LinkedInPage</a></dd>
+                <dt class="col-sm-2 text-Arabic">@Html.DisplayName("صفحتنا الرئيسية:")</dt>
+                <dd class="col-sm-10" style="margin-top: 12px;"><a href="@Model.MainPage" target="_blank">@Model.MainPage</a></dd>
+
+
+
+                <dt class="col-sm-2 text-Arabic">@Html.DisplayName("تواصل معنا:")</dt>
+                <dd class="col-sm-10" style="margin-top: 10px;"><a href="mailto:@Model.ContactMail">@Model.ContactMail</a></dd>
+                <dt class="col-sm-2 text-Arabic">@Html.DisplayName("النشأة:")</dt>
+                <dd class="col-sm-10 text-Arabic" style="margin-top: 10px;">@Html.DisplayFor(model => model.HistoricalBackground)</dd>
+            </dl>
+        </div>
+        <div class="action-links">
+            <!-- Buttons FrontEnd -->
+            <a href="@Url.Action("Update","University")" class="edit-button">Edit</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -247,7 +247,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                 {
                     case UserType.Student:
 
-                        var student = new Student
+                        var student = new Models.Student
                         {
                             Name = Input.StudentName!,
                             Nationality = Input.StudentNationality!,
@@ -286,7 +286,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                         break;
 
                     case UserType.Doctor:
-                        var doctor = new Doctor
+                        var doctor = new Models.Doctor
                         {
                             Name = Input.DoctorName!,
                             Gender = Input.DoctorGender,

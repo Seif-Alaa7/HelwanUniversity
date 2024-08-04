@@ -31,7 +31,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             }
             else
             {
-                return RedirectToPage("/Index");
+                return RedirectToAction("Index", "University", new { area = "Students" });
             }
         }
     }
