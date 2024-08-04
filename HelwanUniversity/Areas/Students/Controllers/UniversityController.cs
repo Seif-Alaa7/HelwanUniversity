@@ -1,10 +1,5 @@
-﻿using CloudinaryDotNet.Actions;
-using CloudinaryDotNet;
-using Data.Repository.IRepository;
+﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using ViewModels;
-using Data.Repository;
-using HelwanUniversity.Controllers;
 
 namespace HelwanUniversity.Areas.Student.Controllers
 {
@@ -12,16 +7,14 @@ namespace HelwanUniversity.Areas.Student.Controllers
     public class UniversityController : Controller
     {
         private readonly IUniversityRepository universityRepository;
-        private readonly CloudinaryController _cloudinaryController;
         private readonly IUniFileRepository uniFileRepository;
         private readonly IHighBoardRepository highBoardRepository;
         private readonly IFacultyRepository facultyRepository;
         private readonly IDoctorRepository doctorRepository;
         private readonly IStudentRepository studentRepository;
-        public UniversityController(IUniversityRepository universityRepository, CloudinaryController _cloudinaryController, IUniFileRepository uniFileRepository, IHighBoardRepository highBoardRepository,IFacultyRepository facultyRepository,IDoctorRepository doctorRepository,IStudentRepository studentRepository)
+        public UniversityController(IUniversityRepository universityRepository, IUniFileRepository uniFileRepository, IHighBoardRepository highBoardRepository,IFacultyRepository facultyRepository,IDoctorRepository doctorRepository,IStudentRepository studentRepository)
         {
             this.universityRepository = universityRepository;
-            this._cloudinaryController = _cloudinaryController;
             this.uniFileRepository = uniFileRepository;
             this.highBoardRepository = highBoardRepository;
             this.facultyRepository = facultyRepository;
@@ -53,71 +46,7 @@ namespace HelwanUniversity.Areas.Student.Controllers
             return View(UNI);       
 
         }
-        public IActionResult Update()
-        {
-            var university = universityRepository.Get();
-
-            // Mapping
-            var universityVM = new UniversityVM
-            {
-                Name = university.Name,
-                Logo = university.Logo,
-                MainPicture = university.MainPicture,
-                Description = university.Description,
-                FacebookPage = university.FacebookPage,
-                LinkedInPage = university.LinkedInPage,
-                MainPage = university.MainPage,
-                ContactMail = university.ContactMail,
-                HistoricalBackground = university.HistoricalBackground,
-                ViewCount = university.ViewCount,
-            };
-
-            var Imgs = uniFileRepository.GetAllImages();
-            ViewData["ImgUpdate"] = Imgs[2].File;
-            return View(universityVM);
-
-        }
-        public async Task<IActionResult> SaveUpdate(UniversityVM newUniVm)
-        {
-                var uni = universityRepository.Get();
-                try
-                {
-                    newUniVm.Logo = await _cloudinaryController.UploadFile(newUniVm.LogoFile, uni.Logo, "An error occurred while uploading the logo. Please try again.");
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError(string.Empty, ex.Message);
-                    return View("Update", newUniVm);
-
-                }
-                try
-                {
-                    newUniVm.MainPicture = await _cloudinaryController.UploadFile(newUniVm.MainPictureFile, uni.MainPicture, "An error occurred while uploading the photo. Please try again.");
-
-                }
-            catch (Exception ex)
-                {
-                    ModelState.AddModelError(string.Empty, ex.Message);
-                    return View("Update", newUniVm);
-
-                }
-
-                uni.Name = newUniVm.Name;
-                uni.Logo = newUniVm.Logo;
-                uni.MainPicture = newUniVm.MainPicture;
-                uni.Description = newUniVm.Description;
-                uni.FacebookPage = newUniVm.FacebookPage;
-                uni.LinkedInPage = newUniVm.LinkedInPage;
-                uni.MainPage = newUniVm.MainPage;
-                uni.ContactMail = newUniVm.ContactMail;
-                uni.HistoricalBackground = newUniVm.HistoricalBackground;
-                uni.ViewCount = newUniVm.ViewCount;
-
-                universityRepository.Update(uni);
-                universityRepository.Save();
-
-                return RedirectToAction("Index");
-        }
+        
         public IActionResult DisplayMap()
         {
             var Imgs = uniFileRepository.GetAllImages();

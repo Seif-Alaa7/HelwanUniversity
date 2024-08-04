@@ -7,9 +7,11 @@ using ViewModels.UniFileVMs;
 using Data.Repository;
 using System.Net.Mime;
 using ViewModels.FacultyVMs;
+using HelwanUniversity.Controllers;
 
-namespace HelwanUniversity.Controllers
+namespace HelwanUniversity.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class UniFileController : Controller
     {
         private readonly IUniFileRepository uniFileRepository;
