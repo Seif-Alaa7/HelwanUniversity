@@ -1,0 +1,39 @@
+﻿@model ViewModels.BifurcationRequestVM
+
+@{
+    ViewData["Title"] = "AddRequest";
+}
+
+<h1>AddRequest</h1>
+
+<h4>BifurcationRequestVM</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SaveAdd" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="StudentId" class="form-control" />
+            @for (int i = 0; i < ViewBag.Counts; i++)
+            {
+                int y = i + 1;
+                <div class="form-group">
+                    <label asp-for="DepartmentIds[@i]" class="control-label">Department @y</label>
+                    <select asp-for="DepartmentIds[@i]" class="form-control" asp-items="@ViewBag.DepartmentsOfFaculty">
+                        <option disabled selected>Select</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="DepartmentIds[@i]"></span>
+                </div>
+            }
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

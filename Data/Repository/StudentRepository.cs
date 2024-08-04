@@ -49,6 +49,11 @@ namespace Data.Repository
         public void Save()
         {
             context.SaveChanges();
+        } 
+        public void Exist(string Name)
+        {
+
         }
+        
     }
 }

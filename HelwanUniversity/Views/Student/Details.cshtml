@@ -53,6 +53,9 @@
                         <a href="@Url.Action("Edit", "Student", new { id = Model.Id })" class="btn btn-primary mr-2">
                             <i class="fas fa-edit mr-1"></i> Edit
                         </a>
+                        <a href="@Url.ActionLink("AddRequest","BifurcationRequest", new { Facultyid = ViewBag.Faculty.Id , StudentId = Model.Id})" class="btn btn-primary mr-2">
+                            <i class="fas fa-edit mr-1"></i> Edit
+                        </a>
                         <form asp-action="Delete" asp-route-id="@Model.Id" method="post" style="display: inline;">
                             @Html.AntiForgeryToken()
                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد أنك تريد حذف هذا الطالب؟');">

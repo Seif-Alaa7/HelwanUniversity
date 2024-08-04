@@ -12,11 +12,13 @@ namespace HelwanUniversity.Controllers
     {
         private readonly IStudentRepository studentRepository;
         private readonly IDepartmentRepository departmentRepository;
+        private readonly IFacultyRepository faculty;
 
-        public StudentController(IStudentRepository studentRepository , IDepartmentRepository departmentRepository)
+        public StudentController(IStudentRepository studentRepository , IDepartmentRepository departmentRepository,IFacultyRepository faculty)
         {
             this.studentRepository = studentRepository;
             this.departmentRepository = departmentRepository;
+            this.faculty = faculty;
         }
         public IActionResult Index()
         {
@@ -25,6 +27,18 @@ namespace HelwanUniversity.Controllers
         public IActionResult Details(int id)
         {
             var studentDatails = studentRepository.GetOne(id);
+            var department = departmentRepository.DepartmentByStudent(id);
+
+            if (department != null)
+            {
+                var facultyData = faculty.FacultyByDepartment(department.Id);
+                ViewData["Faculty"] = facultyData;
+            }
+            else
+            {
+                ViewData["Faculty"] = null;
+            }
+
             return View(studentDatails);
         }
         public IActionResult Edit(int id)
@@ -54,6 +68,10 @@ namespace HelwanUniversity.Controllers
         {
             var student = studentRepository.GetOne(studentVM.Id);
 
+            if(studentVM.Name != student.Name)
+            {
+                var Exist = studentRepository
+            }
             student.PhoneNumber = studentVM.PhoneNumber;
             student.Address = studentVM.Address;
             student.AdmissionDate = studentVM.AdmissionDate;

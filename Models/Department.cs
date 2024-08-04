@@ -12,6 +12,6 @@
         public List<Student> Students { get; set; } = new List<Student>();
         public List<Subject> Subjects { get; set; } = new List<Subject>();
         public List<DepartmentSubjects> DepartmentSubjects { get; set; } = new List<DepartmentSubjects>();
-        public List<BifurcationRequest> BifurcationRequests { get; set; } = new List<BifurcationRequest>();
+       public List<BifurcationRequest> BifurcationRequests { get; set; } = new List<BifurcationRequest>(); 
     }
 }

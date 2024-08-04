@@ -276,7 +276,7 @@ namespace Data.Migrations
                     b.HasIndex("StudentId")
                         .IsUnique();
 
-                    b.ToTable("academicRecords");
+                    b.ToTable("academicRecords", (string)null);
                 });
 
             modelBuilder.Entity("Models.BifurcationRequest", b =>
@@ -297,7 +297,7 @@ namespace Data.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("BifurcationRequests");
+                    b.ToTable("BifurcationRequests", (string)null);
                 });
 
             modelBuilder.Entity("Models.Department", b =>
@@ -328,7 +328,7 @@ namespace Data.Migrations
                     b.HasIndex("HeadId")
                         .IsUnique();
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("Models.DepartmentSubjects", b =>
@@ -343,7 +343,7 @@ namespace Data.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("DepartmentSubjects");
+                    b.ToTable("DepartmentSubjects", (string)null);
                 });
 
             modelBuilder.Entity("Models.Doctor", b =>
@@ -382,7 +382,7 @@ namespace Data.Migrations
                     b.HasIndex("ApplicationUserId")
                         .IsUnique();
 
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctors", (string)null);
                 });
 
             modelBuilder.Entity("Models.Faculty", b =>
@@ -417,7 +417,7 @@ namespace Data.Migrations
                     b.HasIndex("DeanId")
                         .IsUnique();
 
-                    b.ToTable("Faculties");
+                    b.ToTable("Faculties", (string)null);
                 });
 
             modelBuilder.Entity("Models.HighBoard", b =>
@@ -450,7 +450,7 @@ namespace Data.Migrations
                     b.HasIndex("ApplicationUserId")
                         .IsUnique();
 
-                    b.ToTable("HighBoards");
+                    b.ToTable("HighBoards", (string)null);
                 });
 
             modelBuilder.Entity("Models.Student", b =>
@@ -510,7 +510,7 @@ namespace Data.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("Models.StudentSubjects", b =>
@@ -536,7 +536,7 @@ namespace Data.Migrations
 
                     b.HasIndex("SubjectId");
 
-                    b.ToTable("StudentSubjects");
+                    b.ToTable("StudentSubjects", (string)null);
                 });
 
             modelBuilder.Entity("Models.Subject", b =>
@@ -579,7 +579,7 @@ namespace Data.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Subjects");
+                    b.ToTable("Subjects", (string)null);
                 });
 
             modelBuilder.Entity("Models.UniFile", b =>
@@ -599,7 +599,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UniFiles");
+                    b.ToTable("UniFiles", (string)null);
                 });
 
             modelBuilder.Entity("Models.University", b =>
@@ -651,7 +651,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("University");
+                    b.ToTable("University", (string)null);
                 });
 
             modelBuilder.Entity("Models.ApplicationUser", b =>

@@ -25,8 +25,6 @@ namespace Data
         public DbSet<UniFile> UniFiles { get; set; }
         public DbSet<BifurcationRequest> BifurcationRequests { get; set; }
 
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -157,7 +155,7 @@ namespace Data
                 .HasOne(hb => hb.ApplicationUser)
                 .WithOne(u => u.HighBoard)
                 .HasForeignKey<HighBoard>(hb => hb.ApplicationUserId);
-
+            
             modelBuilder.Entity<StudentSubjects>().Property(t => t.DegreePoints).HasComputedColumnSql(@"CASE
                                   WHEN Grade IS NULL THEN NULL
                                   WHEN Grade = 0 THEN 4.0
