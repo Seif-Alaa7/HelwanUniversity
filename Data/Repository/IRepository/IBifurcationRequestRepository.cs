@@ -10,6 +10,6 @@ namespace Data.Repository.IRepository
     public interface IBifurcationRequestRepository
     {
         void Save();
-        public void Add(BifurcationRequest bifurcationRequest);
+        void Add(BifurcationRequest bifurcationRequest);
     }
 }

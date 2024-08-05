@@ -13,12 +13,12 @@
         <form asp-action="SaveAdd" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="StudentId" class="form-control" />
-            @for (int i = 0; i < ViewBag.Counts; i++)
+            @for (int i = 0; i < (int)ViewBag.Counts; i++)
             {
                 int y = i + 1;
                 <div class="form-group">
                     <label asp-for="DepartmentIds[@i]" class="control-label">Department @y</label>
-                    <select asp-for="DepartmentIds[@i]" class="form-control" asp-items="@ViewBag.DepartmentsOfFaculty">
+                    <select asp-for="DepartmentIds[@i]" class="form-control" asp-items="@(new SelectList(ViewBag.DepartmentsOfFaculty, "Value", "Text"))">
                         <option disabled selected>Select</option>
                     </select>
                     <span class="text-danger" asp-validation-for="DepartmentIds[@i]"></span>

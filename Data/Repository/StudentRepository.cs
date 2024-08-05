@@ -50,10 +50,15 @@ namespace Data.Repository
         {
             context.SaveChanges();
         } 
-        public void Exist(string Name)
+        public bool Exist(string Name)
         {
-
+           var EXIST = context.Students.Any(x => x.Name == Name);
+           return EXIST;
         }
-        
+        public bool ExistPhone (string Phone)
+        {
+            var EXIST = context.Students.Any(x => x.PhoneNumber == Phone);
+            return EXIST;
+        }
     }
 }

@@ -13,12 +13,14 @@ namespace HelwanUniversity.Controllers
         private readonly IStudentRepository studentRepository;
         private readonly IDepartmentRepository departmentRepository;
         private readonly IFacultyRepository faculty;
+        private readonly CloudinaryController cloudinaryController;
 
-        public StudentController(IStudentRepository studentRepository , IDepartmentRepository departmentRepository,IFacultyRepository faculty)
+        public StudentController(IStudentRepository studentRepository , IDepartmentRepository departmentRepository,IFacultyRepository faculty,CloudinaryController cloudinary)
         {
             this.studentRepository = studentRepository;
             this.departmentRepository = departmentRepository;
             this.faculty = faculty;
+            this.cloudinaryController = cloudinary;
         }
         public IActionResult Index()
         {
@@ -64,14 +66,42 @@ namespace HelwanUniversity.Controllers
             return View(studentVM);
         }
         [HttpPost]
-        public IActionResult SaveEdit(StudentVM studentVM)
+        public async Task<IActionResult> SaveEdit(StudentVM studentVM)
         {
             var student = studentRepository.GetOne(studentVM.Id);
 
             if(studentVM.Name != student.Name)
             {
-                var Exist = studentRepository
+                var Exist = studentRepository.Exist(studentVM.Name);
+                if (Exist)
+                {
+                    ModelState.AddModelError("Name", "This Name is Already Exist");
+                    ViewBag.Departments = new SelectList(departmentRepository.GetAll(), "Id", "Name");
+                    return View("Edit", studentVM);
+                }
             }
+            if(studentVM.PhoneNumber != student.PhoneNumber)
+            {
+                var Exist = studentRepository.ExistPhone(studentVM.PhoneNumber);
+                if (Exist)
+                {
+                    ModelState.AddModelError("PhoneNumber", "This Phone is Already Exist");
+                    ViewBag.Departments = new SelectList(departmentRepository.GetAll(), "Id", "Name");
+                    return View("Edit", studentVM);
+                }
+            }
+            try
+            {
+                studentVM.Picture = await cloudinaryController.UploadFile(studentVM.FormFile,student.Picture, "An error occurred while uploading the photo. Please try again.");
+
+            }
+            catch(Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                ViewBag.Departments = new SelectList(departmentRepository.GetAll(), "Id", "Name");
+                return View("Edit",studentVM);
+            }
+
             student.PhoneNumber = studentVM.PhoneNumber;
             student.Address = studentVM.Address;
             student.AdmissionDate = studentVM.AdmissionDate;

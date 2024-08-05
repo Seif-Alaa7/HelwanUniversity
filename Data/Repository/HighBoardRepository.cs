@@ -1,6 +1,7 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
+using Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +48,7 @@ namespace Data.Repository
         }
         public List<SelectListItem> selectDeans()
         {
-            var options =  context.HighBoards.Where(x => x.JobTitle == Models.Enums.JobTitle.DeanOfFaculty).Select(a => new SelectListItem
+            var options = context.HighBoards.Where(x => x.JobTitle == Models.Enums.JobTitle.DeanOfFaculty).Select(a => new SelectListItem
             {
                 Value = a.Id.ToString(),
                 Text = a.Name
@@ -56,7 +57,7 @@ namespace Data.Repository
         }
         public List<SelectListItem> selectHeads()
         {
-           var options = context.HighBoards.Where(x => x.JobTitle == Models.Enums.JobTitle.HeadOfDepartment).Select(a => new SelectListItem
+            var options = context.HighBoards.Where(x => x.JobTitle == Models.Enums.JobTitle.HeadOfDepartment).Select(a => new SelectListItem
             {
                 Value = a.Id.ToString(),
                 Text = a.Name
@@ -66,6 +67,16 @@ namespace Data.Repository
         public void Save()
         {
             context.SaveChanges();
+        }
+        public bool ExistName(string name)
+        {
+            var exist = context.HighBoards.Any(x => x.Name == name);
+            return exist;
+        }
+        public bool ExistJop(JobTitle JobTitle)
+        {
+            var exist = context.HighBoards.Any(x=>x.JobTitle == JobTitle);
+            return exist;
         }
     }
 }

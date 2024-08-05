@@ -3,16 +3,20 @@
 
 <h2>Edit</h2>
 
-<form asp-action="SaveEdit" method="post">
+<link rel="stylesheet" href="/css/EditPerson.css">
+
+<form asp-action="SaveEdit" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Id" />
 
     <div class="form-group">
-        <label asp-for="Name">Name</label>
+        <label asp-for="Name" class="form-label">Name</label>
         <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+
     </div>
 
     <div class="form-group">
-        <label asp-for="Description">Description</label>
+        <label asp-for="Description" class="form-label">Description</label>
         <textarea asp-for="Description" class="form-control" rows="3"></textarea>
     </div>
 
@@ -26,16 +30,31 @@
             <option value="@JobTitle.President">President</option>
             <option value="@JobTitle.VP_For_AcademicAffairs">VP For Academic Affairs</option>
         </select>
+        <span asp-validation-for="JobTitle" class="text-danger"></span>
     </div>
 
+    <div class="form-group" style="margin-top: 30px;">
+        <label style="font-size: 20px" class="control-label">Current Picture:</label>
+        <div id="currentPicturePreview">
+            <img src="@Model.Picture" alt="Current Image" class="img-fluid" />
+        </div>
+    </div>
+    <hr style="border: 1px solid #000">
     <div class="mb-4">
-        <input asp-for="Picture" type="file" class="form-control-file" id="profilePicture" style="display:none;" />
+        <input asp-for="FormFile" type="file" class="form-control-file" id="pictureInput" style="display:none;" />
         <div id="picturePreview" class="mt-2"></div>
-        <label for="profilePicture" class="custom-file-upload">
+        <label for="pictureInput" class="custom-file-upload">
             <i class="fa fa-upload"></i> Upload Profile Picture
         </label>
-        <span asp-validation-for="Picture" class="text-danger"></span>
+        <span asp-validation-for="FormFile" class="text-danger"></span>
     </div>
 
     <button type="submit" class="btn btn-primary">Save Changes</button>
 </form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+<script src="/js/File.js"></script>

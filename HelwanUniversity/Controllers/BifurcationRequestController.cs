@@ -22,11 +22,14 @@ namespace HelwanUniversity.Controllers
              {
                  var DepartmentCounts = departmentRepository.DepartmentsFaculty(Facultyid);
                  ViewData["Counts"] = DepartmentCounts;
+
+
                  ViewData["DepartmentsOfFaculty"] = departmentRepository.DepartmentsSelect(Facultyid);
 
                  var Request = new BifurcationRequestVM()
                  {
                      StudentId = StudentId,
+                     DepartmentIds = new List<int>(new int[DepartmentCounts])
                  };
                   return View(Request);
              }
@@ -51,8 +54,8 @@ namespace HelwanUniversity.Controllers
 
                 bifurcationRequestRepository.Add(bifurcationRequest);
             }
+            bifurcationRequestRepository.Save();
             return RedirectToAction("Details", "Student", new { id = request.StudentId });
         }
-
     }
 }

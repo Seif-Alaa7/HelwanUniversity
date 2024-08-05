@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
+using Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,7 @@ namespace Data.Repository.IRepository
         List<SelectListItem> selectDeans();
         List<SelectListItem> selectHeads();
         void Save();
+        bool ExistJop(JobTitle JobTitle);
+        bool ExistName(string name);
     }
 }
