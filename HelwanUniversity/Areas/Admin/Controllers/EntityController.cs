@@ -5,10 +5,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
+using HelwanUniversity.Controllers;
 using ViewModels;
 
-namespace HelwanUniversity.Controllers
+namespace HelwanUniversity.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class EntityController : Controller
     {
         private readonly ISubjectRepository subjectRepository;

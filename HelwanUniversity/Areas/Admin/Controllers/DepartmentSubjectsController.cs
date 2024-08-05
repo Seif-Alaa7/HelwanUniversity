@@ -1,10 +1,10 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Models;
-using ViewModels;
 
-namespace HelwanUniversity.Controllers
+namespace HelwanUniversity.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class DepartmentSubjectsController : Controller
     {
         private readonly IDepartmentRepository departmentRepository;
@@ -47,7 +47,7 @@ namespace HelwanUniversity.Controllers
                 DepartsubjectsRepository.Save();
 
             }
-            return RedirectToAction("Details", "Department", new { id = model.DepartmentId });
+            return RedirectToAction("Details", "Department", new { area = "Admin", id = model.DepartmentId });
         }
         public IActionResult Delete(int subjectId, int departmentId)
         {
@@ -56,13 +56,14 @@ namespace HelwanUniversity.Controllers
             if (link == null)
             {
                 TempData["ErrorMessage"] = "The relationship between the subject and department could not be found.";
-                return RedirectToAction("Details", "Department", new { id = departmentId });
+                return RedirectToAction("Details", "Department", new { area = "Admin", id = departmentId });
+
             }
 
             DepartsubjectsRepository.Delete(link);
             DepartsubjectsRepository.Save();
 
-            return RedirectToAction("Details", "Department", new { id = departmentId });
+            return RedirectToAction("Details", "Department", new { area = "Admin", id = departmentId });
         }
     }
 }

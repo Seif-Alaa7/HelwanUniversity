@@ -1,15 +1,11 @@
-﻿using Data.Repository;
-using Data.Repository.IRepository;
+﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis.Options;
 using Models;
-using Models.Enums;
-using Newtonsoft.Json.Linq;
 using ViewModels;
 
-namespace HelwanUniversity.Controllers
+namespace HelwanUniversity.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class SubjectController : Controller
     {
         private readonly ISubjectRepository subjectRepository;
