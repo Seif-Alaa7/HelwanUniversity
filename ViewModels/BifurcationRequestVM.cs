@@ -4,7 +4,6 @@
     {
         public int Id { get; set; }
         public int StudentId { get; set; }
-        public int DepartmentId { get; set; }
-        public int Rank { get; set; }
+        public List<int> DepartmentIds { get; set; } = new List<int>();
     }
 }

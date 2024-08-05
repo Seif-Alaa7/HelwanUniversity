@@ -66,5 +66,13 @@ namespace Data.Repository
         {
             context.SaveChanges();
         }
+        public Faculty? FacultyByDepartment(int DepartmentId)
+        {
+            var department = context.Departments
+                .Include(d => d.Faculty)
+                .FirstOrDefault(d => d.Id == DepartmentId);
+
+            return department?.Faculty;
+        }
     }
 }

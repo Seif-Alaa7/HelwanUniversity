@@ -11,10 +11,12 @@ namespace HelwanUniversity.Controllers
     public class DoctorController : Controller
     {
         private readonly IDoctorRepository doctorRepository;
+        private readonly CloudinaryController cloudinaryController;
 
-        public DoctorController(IDoctorRepository doctorRepository)
+        public DoctorController(IDoctorRepository doctorRepository, CloudinaryController cloudinaryController)
         {
             this.doctorRepository = doctorRepository;
+            this.cloudinaryController = cloudinaryController;
         }
         public IActionResult Index()
         {
@@ -41,10 +43,30 @@ namespace HelwanUniversity.Controllers
             return View(doctorVM);
         }
         [HttpPost]
-        public IActionResult SaveEdit(DoctorVM doctorVM)
+        public async Task<IActionResult> SaveEdit(DoctorVM doctorVM)
         {
             var doctor = doctorRepository.GetOne(doctorVM.Id);
 
+            if(doctor.Name != doctorVM.Name)
+            {
+                var exist = doctorRepository.ExistName(doctorVM.Name);
+                if(exist)
+                {
+                    ModelState.AddModelError("Name", "This Name is Already Exist");
+                    return View("Edit",doctorVM);  
+                }
+            }
+
+            try
+            {
+                doctorVM.Picture = await cloudinaryController.UploadFile(doctorVM.FormFile, doctor.Picture, "An error occurred while uploading the photo. Please try again.");
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View("Edit", doctorVM);
+            }
             doctor.Id = doctorVM.Id;
             doctor.Name = doctorVM.Name;
             doctor.Address = doctorVM.Address;
@@ -55,12 +77,14 @@ namespace HelwanUniversity.Controllers
 
             doctorRepository.Update(doctor);
             doctorRepository.Save();
+
             return RedirectToAction("Details", new { id = doctor.Id });
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
+            
             doctorRepository.Delete(id);
             doctorRepository.Save();
 

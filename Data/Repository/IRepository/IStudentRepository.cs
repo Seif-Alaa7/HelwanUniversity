@@ -15,5 +15,7 @@ namespace Data.Repository.IRepository
         void Update(Student student);
         void Add(Student student);
         void Save();
+        bool Exist(string Name);
+        bool ExistPhone(string Phone);
     }
 }

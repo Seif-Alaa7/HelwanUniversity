@@ -61,5 +61,10 @@ namespace Data.Repository
         {
             context.SaveChanges();
         }
+        public bool ExistName(string Name)
+        {
+            var exist = context.Doctors.Any(x => x.Name == Name);
+            return exist;
+        }
     }
 }

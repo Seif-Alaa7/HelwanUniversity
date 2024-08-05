@@ -17,5 +17,6 @@ namespace Data.Repository.IRepository
         void Add(Doctor doctor);
         List<SelectListItem> Select();
         void Save();
+        bool ExistName(string Name);
     }
 }

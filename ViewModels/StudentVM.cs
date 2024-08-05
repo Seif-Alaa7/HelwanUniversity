@@ -1,4 +1,6 @@
-﻿using Models.Enums;
+﻿using Microsoft.AspNetCore.Http;
+using Models.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ViewModels
 {
@@ -14,6 +16,8 @@ namespace ViewModels
         public string? PhoneNumber { get; set; }
         public int DepartmentId { get; set; }
         public string? Picture { get; set; }
+        [NotMapped]
+        public IFormFile? FormFile { get; set; }
         public DateTime AdmissionDate { get; set; } = DateTime.Now;
         public bool PaymentFees { get; set; }
         public DateTime? PaymentFeesDate { get; set; }
