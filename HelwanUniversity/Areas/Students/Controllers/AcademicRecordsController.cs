@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace HelwanUniversity.Controllers
+namespace HelwanUniversity.Areas.Students.Controllers
 {
-    public class StudentSubjectsController : Controller
+    [Area("Students")]
+    public class AcademicRecordsController : Controller
     {
         public IActionResult Index()
         {
