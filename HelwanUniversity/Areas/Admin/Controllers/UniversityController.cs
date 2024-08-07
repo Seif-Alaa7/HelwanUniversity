@@ -1,10 +1,7 @@
-﻿using CloudinaryDotNet.Actions;
-using CloudinaryDotNet;
+﻿using HelwanUniversity.Services;
 using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using ViewModels;
-using Data.Repository;
-using HelwanUniversity.Controllers;
 
 namespace HelwanUniversity.Areas.Admin.Controllers
 {
@@ -12,16 +9,16 @@ namespace HelwanUniversity.Areas.Admin.Controllers
     public class UniversityController : Controller
     {
         private readonly IUniversityRepository universityRepository;
-        private readonly CloudinaryController _cloudinaryController;
+        private readonly ICloudinaryService cloudinaryService;
         private readonly IUniFileRepository uniFileRepository;
         private readonly IHighBoardRepository highBoardRepository;
         private readonly IFacultyRepository facultyRepository;
         private readonly IDoctorRepository doctorRepository;
         private readonly IStudentRepository studentRepository;
-        public UniversityController(IUniversityRepository universityRepository, CloudinaryController _cloudinaryController, IUniFileRepository uniFileRepository, IHighBoardRepository highBoardRepository,IFacultyRepository facultyRepository,IDoctorRepository doctorRepository,IStudentRepository studentRepository)
+        public UniversityController(IUniversityRepository universityRepository, ICloudinaryService cloudinaryService, IUniFileRepository uniFileRepository, IHighBoardRepository highBoardRepository,IFacultyRepository facultyRepository,IDoctorRepository doctorRepository,IStudentRepository studentRepository)
         {
             this.universityRepository = universityRepository;
-            this._cloudinaryController = _cloudinaryController;
+            this.cloudinaryService = cloudinaryService;
             this.uniFileRepository = uniFileRepository;
             this.highBoardRepository = highBoardRepository;
             this.facultyRepository = facultyRepository;
@@ -82,7 +79,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
                 var uni = universityRepository.Get();
                 try
                 {
-                    newUniVm.Logo = await _cloudinaryController.UploadFile(newUniVm.LogoFile, uni.Logo, "An error occurred while uploading the logo. Please try again.");
+                    newUniVm.Logo = await cloudinaryService.UploadFile(newUniVm.LogoFile, uni.Logo, "An error occurred while uploading the logo. Please try again.");
                 }
                 catch (Exception ex)
                 {
@@ -92,7 +89,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
                 }
                 try
                 {
-                    newUniVm.MainPicture = await _cloudinaryController.UploadFile(newUniVm.MainPictureFile, uni.MainPicture, "An error occurred while uploading the photo. Please try again.");
+                    newUniVm.MainPicture = await cloudinaryService.UploadFile(newUniVm.MainPictureFile, uni.MainPicture, "An error occurred while uploading the photo. Please try again.");
 
                 }
             catch (Exception ex)

@@ -135,7 +135,25 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    var roles = await _signInManager.UserManager.GetRolesAsync(user);
+
+                    if (roles.Contains("Admin"))
+                    {
+                        return RedirectToAction("Index", "University", new { area = "Admin" });
+                    }
+                    else if (roles.Contains("Doctor"))
+                    {
+                        return RedirectToAction("Index", "University", new { area = "Doctors" });
+                    }
+                    else if (roles.Contains("Student"))
+                    {
+                        return RedirectToAction("Index", "University", new { area = "Students" });
+                    }
+                    else
+                    {
+                        // If the user has no role, redirect to a default area
+                        return RedirectToAction("Index", "Home", new { area = "Students" });
+                    }
                 }
 
                 if (result.RequiresTwoFactor)

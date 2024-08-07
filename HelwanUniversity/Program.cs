@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Data;
-using Models;
+using HelwanUniversity.Services;
 using Data.Repository.IRepository;
 using Data.Repository;
 using CloudinaryDotNet;
@@ -38,15 +38,14 @@ namespace HelwanUniversity
             builder.Services.AddScoped<IStudentSubjectsRepository, StudentSubjectsRepository>();
             builder.Services.AddScoped<IDepartmentSubjectsRepository, DepartmentSubjectsRepository>();
             builder.Services.AddScoped<IBifurcationRequestRepository, BifurcationRequestRepository>();
-            builder.Services.AddTransient<CloudinaryController>();
+            builder.Services.AddScoped<ICloudinaryService, CloudinaryService>();
 
             var cloudinaryAccount = new Account(
-                         builder.Configuration["Cloudinary:CloudName"],
-                         builder.Configuration["Cloudinary:ApiKey"],
-                         builder.Configuration["Cloudinary:ApiSecret"]
-                             );
+                builder.Configuration["Cloudinary:CloudName"],
+                builder.Configuration["Cloudinary:ApiKey"],
+                builder.Configuration["Cloudinary:ApiSecret"]
+            );
             var cloudinary = new Cloudinary(cloudinaryAccount);
-
             builder.Services.AddSingleton(cloudinary);
 
             var app = builder.Build();

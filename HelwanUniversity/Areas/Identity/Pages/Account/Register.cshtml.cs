@@ -38,6 +38,7 @@ using ViewModels.Vaildations.HighBoardValid;
 using ViewModels.Vaildations.StudentsValid;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using HelwanUniversity.Services;
 
 namespace HelwanUniversity.Areas.Identity.Pages.Account
 {
@@ -52,7 +53,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly IOptions<IdentityOptions> _identityOptions;
         private readonly ApplicationDbContext _context;
-        private readonly CloudinaryController cloudinaryController;
+        private readonly ICloudinaryService cloudinaryService;
         private readonly IDepartmentRepository departmentRepository;
 
         public RegisterModel(
@@ -64,7 +65,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             IEmailSender emailSender,
             IOptions<IdentityOptions> identityOptions,
             ApplicationDbContext context,
-            CloudinaryController cloudinaryController,
+            ICloudinaryService cloudinaryService,
             IDepartmentRepository department
             )
         {
@@ -77,7 +78,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             _emailSender = emailSender;
             _identityOptions = identityOptions;
             _context = context;
-            this.cloudinaryController = cloudinaryController;
+            this.cloudinaryService = cloudinaryService;
             this.departmentRepository = department;
             ;
         }
@@ -230,7 +231,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                 var userId = user.Id;
                 try
                 {
-                    Input.PicturePath = await cloudinaryController.UploadFile(Input.Picture, string.Empty, "There was an error uploading the file. Please try again.");
+                    Input.PicturePath = await cloudinaryService.UploadFile(Input.Picture, string.Empty, "There was an error uploading the file. Please try again.");
                 }
                 catch (Exception ex)
                 {

@@ -1,5 +1,6 @@
 ﻿using Data.Repository;
 using Data.Repository.IRepository;
+using HelwanUniversity.Services;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.Enums;
@@ -11,12 +12,12 @@ namespace HelwanUniversity.Controllers
     public class DoctorController : Controller
     {
         private readonly IDoctorRepository doctorRepository;
-        private readonly CloudinaryController cloudinaryController;
+        private readonly ICloudinaryService cloudinaryService;
 
-        public DoctorController(IDoctorRepository doctorRepository, CloudinaryController cloudinaryController)
+        public DoctorController(IDoctorRepository doctorRepository, ICloudinaryService cloudinaryService)
         {
             this.doctorRepository = doctorRepository;
-            this.cloudinaryController = cloudinaryController;
+            this.cloudinaryService = cloudinaryService;
         }
         public IActionResult Index()
         {
@@ -59,7 +60,7 @@ namespace HelwanUniversity.Controllers
 
             try
             {
-                doctorVM.Picture = await cloudinaryController.UploadFile(doctorVM.FormFile, doctor.Picture, "An error occurred while uploading the photo. Please try again.");
+                doctorVM.Picture = await cloudinaryService.UploadFile(doctorVM.FormFile, doctor.Picture, "An error occurred while uploading the photo. Please try again.");
 
             }
             catch (Exception ex)

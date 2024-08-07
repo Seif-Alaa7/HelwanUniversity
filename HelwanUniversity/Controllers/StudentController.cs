@@ -1,5 +1,6 @@
 ﻿using Data.Repository;
 using Data.Repository.IRepository;
+using HelwanUniversity.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
@@ -13,14 +14,14 @@ namespace HelwanUniversity.Controllers
         private readonly IStudentRepository studentRepository;
         private readonly IDepartmentRepository departmentRepository;
         private readonly IFacultyRepository faculty;
-        private readonly CloudinaryController cloudinaryController;
+        private readonly ICloudinaryService cloudinaryService;
 
-        public StudentController(IStudentRepository studentRepository , IDepartmentRepository departmentRepository,IFacultyRepository faculty,CloudinaryController cloudinary)
+        public StudentController(IStudentRepository studentRepository , IDepartmentRepository departmentRepository,IFacultyRepository faculty,ICloudinaryService cloudinaryService)
         {
             this.studentRepository = studentRepository;
             this.departmentRepository = departmentRepository;
             this.faculty = faculty;
-            this.cloudinaryController = cloudinary;
+            this.cloudinaryService = cloudinaryService;
         }
         public IActionResult Index()
         {
@@ -92,7 +93,7 @@ namespace HelwanUniversity.Controllers
             }
             try
             {
-                studentVM.Picture = await cloudinaryController.UploadFile(studentVM.FormFile,student.Picture, "An error occurred while uploading the photo. Please try again.");
+                studentVM.Picture = await cloudinaryService.UploadFile(studentVM.FormFile,student.Picture, "An error occurred while uploading the photo. Please try again.");
 
             }
             catch(Exception ex)

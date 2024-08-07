@@ -1,9 +1,7 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using ViewModels;
-using HelwanUniversity.Controllers;
 
-namespace HelwanUniversity.Areas.Doctor.Controllers
+namespace HelwanUniversity.Areas.Doctors.Controllers
 {
     [Area("Doctors")]
     public class UniversityController : Controller
@@ -14,7 +12,7 @@ namespace HelwanUniversity.Areas.Doctor.Controllers
         private readonly IFacultyRepository facultyRepository;
         private readonly IDoctorRepository doctorRepository;
         private readonly IStudentRepository studentRepository;
-        internal UniversityController(IUniversityRepository universityRepository, IUniFileRepository uniFileRepository, IHighBoardRepository highBoardRepository,IFacultyRepository facultyRepository,IDoctorRepository doctorRepository,IStudentRepository studentRepository)
+        public UniversityController(IUniversityRepository universityRepository, IUniFileRepository uniFileRepository, IHighBoardRepository highBoardRepository,IFacultyRepository facultyRepository,IDoctorRepository doctorRepository,IStudentRepository studentRepository)
         {
             this.universityRepository = universityRepository;
             this.uniFileRepository = uniFileRepository;

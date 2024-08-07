@@ -1,5 +1,6 @@
 ﻿using Data.Repository;
 using Data.Repository.IRepository;
+using HelwanUniversity.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
@@ -11,12 +12,12 @@ namespace HelwanUniversity.Controllers
     public class HighBoardController : Controller
     {
         private readonly IHighBoardRepository highBoardRepository;
-        private readonly CloudinaryController cloudinaryController;
+        private readonly ICloudinaryService cloudinaryService;
 
-        public HighBoardController(IHighBoardRepository highBoardRepository, CloudinaryController cloudinaryController)
+        public HighBoardController(IHighBoardRepository highBoardRepository, ICloudinaryService cloudinaryService)
         {
             this.highBoardRepository = highBoardRepository;
-            this.cloudinaryController = cloudinaryController;
+            this.cloudinaryService = cloudinaryService;
         }
         public IActionResult Index()
         {
@@ -74,7 +75,7 @@ namespace HelwanUniversity.Controllers
 
             try
             {
-                highBoardVM.Picture = await cloudinaryController.UploadFile(highBoardVM.FormFile, highboard.Picture, "An error occurred while uploading the photo. Please try again.");
+                highBoardVM.Picture = await cloudinaryService.UploadFile(highBoardVM.FormFile, highboard.Picture, "An error occurred while uploading the photo. Please try again.");
             }
             catch (Exception ex)
             {

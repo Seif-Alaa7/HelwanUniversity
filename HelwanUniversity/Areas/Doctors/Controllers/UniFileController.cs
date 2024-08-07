@@ -1,13 +1,5 @@
-﻿using CloudinaryDotNet.Actions;
-using CloudinaryDotNet;
-using Data.Repository.IRepository;
+﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using Models;
-using ViewModels.UniFileVMs;
-using Data.Repository;
-using System.Net.Mime;
-using ViewModels.FacultyVMs;
-using HelwanUniversity.Controllers;
 
 namespace HelwanUniversity.Areas.Doctors.Controllers
 {

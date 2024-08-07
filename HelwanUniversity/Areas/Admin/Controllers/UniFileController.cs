@@ -1,13 +1,8 @@
-﻿using CloudinaryDotNet.Actions;
-using CloudinaryDotNet;
-using Data.Repository.IRepository;
+﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using ViewModels.UniFileVMs;
-using Data.Repository;
-using System.Net.Mime;
-using ViewModels.FacultyVMs;
-using HelwanUniversity.Controllers;
+using HelwanUniversity.Services;
 
 namespace HelwanUniversity.Areas.Admin.Controllers
 {
@@ -15,13 +10,12 @@ namespace HelwanUniversity.Areas.Admin.Controllers
     public class UniFileController : Controller
     {
         private readonly IUniFileRepository uniFileRepository;
-        private readonly CloudinaryController _cloudinaryController;
+        private readonly ICloudinaryService cloudinaryService;
 
-        public UniFileController(IUniFileRepository uniFileRepository, CloudinaryController _cloudinaryController)
+        public UniFileController(IUniFileRepository uniFileRepository, ICloudinaryService cloudinaryService)
         {
             this.uniFileRepository = uniFileRepository;
-            this._cloudinaryController = _cloudinaryController;
-
+            this.cloudinaryService = cloudinaryService;
         }
 
         //Display image & Video
@@ -77,7 +71,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         {
             try
             {
-                uniFileVM.File = await _cloudinaryController.UploadFile(uniFileVM.ImgPath, string.Empty, "An error occurred while uploading the photo. Please try again.");
+                uniFileVM.File = await cloudinaryService.UploadFile(uniFileVM.ImgPath, string.Empty, "An error occurred while uploading the photo. Please try again.");
 
                 var file = new UniFile
                 {
@@ -157,7 +151,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
             try
             {
-                    newImgVM.File = await _cloudinaryController.UploadFile(newImgVM.ImgPath, IMG.File, "An error occurred while uploading the photo. Please try again.");
+                    newImgVM.File = await cloudinaryService.UploadFile(newImgVM.ImgPath, IMG.File, "An error occurred while uploading the photo. Please try again.");
 
                     //Update Change
                     IMG.File = newImgVM.File;

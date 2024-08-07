@@ -2,6 +2,7 @@
 using Data;
 using Data.Repository;
 using Data.Repository.IRepository;
+using HelwanUniversity.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
@@ -14,16 +15,16 @@ namespace HelwanUniversity.Controllers
     {
         private readonly IFacultyRepository facultyRepository;
         private readonly ApplicationDbContext context;
-        private readonly CloudinaryController cloudinaryController;
+        private readonly ICloudinaryService cloudinaryService;
         private readonly IHighBoardRepository highBoardRepository;
         private readonly IUniFileRepository uniFileRepository;
 
         public FacultyController(IFacultyRepository facultyRepository,ApplicationDbContext context,
-            CloudinaryController cloudinary, IHighBoardRepository highBoardRepository, IUniFileRepository uniFileRepository)
+            ICloudinaryService cloudinaryService, IHighBoardRepository highBoardRepository, IUniFileRepository uniFileRepository)
         {
             this.facultyRepository = facultyRepository;
             this.context = context;
-            this.cloudinaryController = cloudinary;
+            this.cloudinaryService = cloudinaryService;
             this.highBoardRepository = highBoardRepository;
             this.uniFileRepository = uniFileRepository;
         }
@@ -91,7 +92,7 @@ namespace HelwanUniversity.Controllers
             }
             try
             {
-                facultyvm.Logo = await cloudinaryController.UploadFile(facultyvm.LogoFile,Faculty.Logo, "An error occurred while uploading the logo. Please try again.");
+                facultyvm.Logo = await cloudinaryService.UploadFile(facultyvm.LogoFile,Faculty.Logo, "An error occurred while uploading the logo. Please try again.");
 
             }
             catch (Exception ex)
@@ -101,7 +102,7 @@ namespace HelwanUniversity.Controllers
             }
             try
             {
-                facultyvm.Picture = await cloudinaryController.UploadFile(facultyvm.PictureFile, Faculty.Picture, "An error occurred while uploading the logo. Please try again.");
+                facultyvm.Picture = await cloudinaryService.UploadFile(facultyvm.PictureFile, Faculty.Picture, "An error occurred while uploading the logo. Please try again.");
 
             }
             catch (Exception ex)

@@ -7,6 +7,7 @@ using Models;
 using System;
 using HelwanUniversity.Controllers;
 using ViewModels;
+using HelwanUniversity.Services;
 
 namespace HelwanUniversity.Areas.Admin.Controllers
 {
@@ -16,7 +17,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         private readonly ISubjectRepository subjectRepository;
         private readonly IFacultyRepository facultyRepository;
         private readonly ApplicationDbContext context;
-        private readonly CloudinaryController cloudinaryController;
+        private readonly ICloudinaryService cloudinaryService;
         private readonly IDepartmentRepository departmentRepository;
         private readonly IDoctorRepository doctorRepository;
         private readonly IHighBoardRepository highBoardRepository;
@@ -25,7 +26,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         public EntityController(ISubjectRepository subjectRepository ,
             IFacultyRepository facultyRepository, 
             ApplicationDbContext context,
-            CloudinaryController cloudinaryController,
+            ICloudinaryService cloudinaryService,
             IDepartmentRepository department,
             IDoctorRepository doctorRepository,
             IHighBoardRepository highBoardRepository
@@ -34,7 +35,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             this.subjectRepository = subjectRepository;
             this.facultyRepository = facultyRepository;
             this.context = context;
-            this.cloudinaryController = cloudinaryController;   
+            this.cloudinaryService = cloudinaryService;
             this.departmentRepository = department;
             this.doctorRepository = doctorRepository;
             this.highBoardRepository = highBoardRepository;
@@ -89,8 +90,8 @@ namespace HelwanUniversity.Areas.Admin.Controllers
                     }
                     try
                     {
-                        entity.LogoPath = await cloudinaryController.UploadFile(entity.Logo, string.Empty, "There was an error uploading the cinema logo. Please try again.");
-                        entity.PicturePath = await cloudinaryController.UploadFile(entity.Picture, string.Empty, "There was an error uploading the cinema Picture. Please try again.");
+                        entity.LogoPath = await cloudinaryService.UploadFile(entity.Logo, string.Empty, "There was an error uploading the cinema logo. Please try again.");
+                        entity.PicturePath = await cloudinaryService.UploadFile(entity.Picture, string.Empty, "There was an error uploading the cinema Picture. Please try again.");
 
                         var faculty = new Faculty
                         {
