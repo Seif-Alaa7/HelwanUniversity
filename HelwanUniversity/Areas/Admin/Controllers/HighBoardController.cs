@@ -1,14 +1,11 @@
-﻿using Data.Repository;
-using Data.Repository.IRepository;
+﻿using Data.Repository.IRepository;
 using HelwanUniversity.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Models;
-using System.Numerics;
 using ViewModels;
 
-namespace HelwanUniversity.Controllers
+namespace HelwanUniversity.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class HighBoardController : Controller
     {
         private readonly IHighBoardRepository highBoardRepository;

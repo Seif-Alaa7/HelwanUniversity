@@ -1,15 +1,12 @@
-﻿using Data.Repository;
-using Data.Repository.IRepository;
+﻿using Data.Repository.IRepository;
 using HelwanUniversity.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Models;
-using Models.Enums;
-using System.Numerics;
 using ViewModels;
 
-namespace HelwanUniversity.Controllers
+namespace HelwanUniversity.Areas.Doctors.Controllers
 {
+    [Area("Doctors")]
     public class StudentController : Controller
     {
         private readonly IStudentRepository studentRepository;

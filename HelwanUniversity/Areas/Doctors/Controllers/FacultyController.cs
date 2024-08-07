@@ -1,16 +1,13 @@
-﻿using CloudinaryDotNet;
-using Data;
-using Data.Repository;
+﻿using Data;
 using Data.Repository.IRepository;
 using HelwanUniversity.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
-using System;
 using ViewModels.FacultyVMs;
 
-namespace HelwanUniversity.Controllers
+namespace HelwanUniversity.Areas.Doctors.Controllers
 {
+    [Area("Doctors")]
     public class FacultyController : Controller
     {
         private readonly IFacultyRepository facultyRepository;

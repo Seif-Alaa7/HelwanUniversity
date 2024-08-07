@@ -1,0 +1,116 @@
+﻿@using Data.Repository.IRepository
+@inject IUniFileRepository UniFileRepository
+
+@{
+    var Images = UniFileRepository.GetAllImages();
+    ViewData["LogoTitle"] = Images[0].File;
+
+    string area = "";
+    if (User.IsInRole("Admin"))
+    {
+        area = "Admin";
+    }
+    else if (User.IsInRole("Students"))
+    {
+        area = "Students";
+    }
+    else if (User.IsInRole("Doctors"))
+    {
+        area = "Doctors";
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HelwanUniversity</title>
+    <link rel="icon" href="@ViewBag.LogoTitle" type="image/png">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/HelwanUniversity.styles.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="@area" asp-controller="University" asp-action="Index">
+                    <img src="@ViewBag.LogoTitle" alt="Logo" height="100" width="60" style="margin-right: 5px" />
+                </a>
+                <a class="navbar-brand" asp-area="@area" asp-controller="University" asp-action="Index">Helwan University</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item" style="margin-top: 5px">
+                            <a class="nav-link text-dark" asp-area="@area" asp-controller="University" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item" style="margin-top: 5px">
+                            <a class="nav-link text-dark" asp-area="@area" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown" style="margin-top:10px; margin-right:60px;">
+                            <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img style="margin-bottom: 10px;" width="55" height="55" src="https://img.icons8.com/3d-fluency/94/user-male-circle.png" alt="user-male-circle" />
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <a class="dropdown-item" style="color: black; text-decoration: none" asp-area="Identity" asp-controller="Account" asp-action="Manage">Account</a>
+                                    <div class="dropdown-divider"></div>
+                                    <form asp-area="Identity" asp-controller="Account" asp-action="Logout" method="post">
+                                        <button type="submit" class="dropdown-item text-danger" style="text-decoration: none">Logout</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <a class="dropdown-item d-flex align-items-center" style="color: black; text-decoration: none" asp-area="Identity" asp-controller="Account" asp-action="Login">
+                                        <img width="15" height="15" src="https://img.icons8.com/ios/50/1A1A1A/enter-2.png" alt="login-icon" />
+                                        <span style="margin-left: 10px;">Login</span>
+                                    </a>
+                                }
+                                @if (User.IsInRole("Admin"))
+                                    {
+                                        <a class="dropdown-item d-flex align-items-center" style="color: black; text-decoration: none" asp-area="Identity" asp-controller="Account" asp-action="Register">
+                                            <img width="20" height="20" src="https://img.icons8.com/ios/50/1A1A1A/add-user-male.png" alt="add-user-male" />
+                                            <span style="margin-left: 10px;">Register</span>
+                                        </a>
+                                        <a class="dropdown-item d-flex align-items-center" style="color: black; text-decoration: none" asp-area="Admin" asp-controller="Entity" asp-action="Add">
+                                            <img width="20" height="20" src="https://img.icons8.com/ios/50/1A1A1A/signing-a-document.png" alt="signing-a-document" />
+                                            <span style="margin-left: 10px;">Register Entity</span>
+                                        </a>
+                                    }
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - HelwanUniversity - <a style="text-decoration: none;" asp-area="@area" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

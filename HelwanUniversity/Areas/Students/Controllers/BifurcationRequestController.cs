@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using ViewModels;
+using HelwanUniversity.Controllers;
 
-namespace HelwanUniversity.Controllers
+namespace HelwanUniversity.Areas.Students.Controllers
 {
+    [Area("Students")]
     public class BifurcationRequestController : Controller
     {
         private readonly IDepartmentRepository departmentRepository;

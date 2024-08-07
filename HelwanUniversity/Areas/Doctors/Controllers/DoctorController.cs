@@ -1,15 +1,12 @@
 ﻿using Data;
-using Data.Repository;
 using Data.Repository.IRepository;
 using HelwanUniversity.Services;
 using Microsoft.AspNetCore.Mvc;
-using Models;
-using Models.Enums;
-using System.Net;
 using ViewModels;
 
-namespace HelwanUniversity.Controllers
+namespace HelwanUniversity.Areas.Doctors.Controllers
 {
+    [Area("Doctors")]
     public class DoctorController : Controller
     {
         private readonly IDoctorRepository doctorRepository;

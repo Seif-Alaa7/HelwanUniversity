@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using ViewModels;
 
-namespace HelwanUniversity.Controllers
+namespace HelwanUniversity.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class DepartmentController : Controller
     {
         private readonly IDepartmentRepository departmentRepository;
