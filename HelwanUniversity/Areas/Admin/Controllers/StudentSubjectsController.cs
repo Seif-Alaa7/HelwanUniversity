@@ -13,6 +13,7 @@ using ViewModels;
 
 namespace HelwanUniversity.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class StudentSubjectsController : Controller
     {
         private readonly IStudentSubjectsRepository studentSubjectsRepository;
