@@ -15,17 +15,17 @@ namespace HelwanUniversity.Controllers
         private readonly IStudentRepository studentRepository;
         private readonly IDepartmentRepository departmentRepository;
         private readonly IFacultyRepository faculty;
+        private readonly ICloudinaryService cloudinaryService;
         private readonly IUniversityRepository universityRepository;
         private readonly IAcademicRecordsRepository academicRecordsRepository;  
-        private readonly CloudinaryController cloudinaryController;
 
         public StudentController(IStudentRepository studentRepository , IDepartmentRepository departmentRepository,IFacultyRepository faculty,
-            CloudinaryController cloudinary,IUniversityRepository universityRepository,IAcademicRecordsRepository academicRecordsRepository)
+            ICloudinaryService cloudinaryService,IUniversityRepository universityRepository,IAcademicRecordsRepository academicRecordsRepository)
         {
             this.studentRepository = studentRepository;
             this.departmentRepository = departmentRepository;
             this.faculty = faculty;
-            this.cloudinaryController = cloudinary;
+            this.cloudinaryService = cloudinaryService;
             this.universityRepository = universityRepository;
             this.academicRecordsRepository = academicRecordsRepository;
         }

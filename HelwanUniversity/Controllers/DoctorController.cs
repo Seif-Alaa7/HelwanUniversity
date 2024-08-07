@@ -13,18 +13,18 @@ namespace HelwanUniversity.Controllers
     public class DoctorController : Controller
     {
         private readonly IDoctorRepository doctorRepository;
+        private readonly ICloudinaryService cloudinaryService;
         private readonly ISubjectRepository subjectRepository;
         private readonly IDepartmentRepository departmentRepository;
         private readonly IDepartmentSubjectsRepository departmentSubjectsRepository;
         private readonly ApplicationDbContext context;
-        private readonly CloudinaryController cloudinaryController;
 
-        public DoctorController(IDoctorRepository doctorRepository, CloudinaryController cloudinaryController,
+        public DoctorController(IDoctorRepository doctorRepository, ICloudinaryService cloudinaryService,
             ISubjectRepository subjectRepository, IDepartmentRepository departmentRepository,
             IDepartmentSubjectsRepository departmentSubjectsRepository,ApplicationDbContext context)
         {
             this.doctorRepository = doctorRepository;
-            this.cloudinaryController = cloudinaryController;
+            this.cloudinaryService = cloudinaryService;
             this.subjectRepository = subjectRepository;
             this.departmentRepository = departmentRepository;
             this.departmentSubjectsRepository = departmentSubjectsRepository;
