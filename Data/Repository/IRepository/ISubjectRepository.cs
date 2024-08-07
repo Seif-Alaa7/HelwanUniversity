@@ -18,5 +18,6 @@ namespace Data.Repository.IRepository
         List<SelectListItem> Select();
         void Save();
         bool ExistSubject(string Subject);
+        List<Subject> GetSubjects(int studentID);
     }
 }

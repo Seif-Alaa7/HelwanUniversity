@@ -1,4 +1,5 @@
 ﻿using Models;
+using Models.Enums;
 
 namespace Data.Repository.IRepository
 {
@@ -12,5 +13,7 @@ namespace Data.Repository.IRepository
         void Delete(DepartmentSubjects model);
         List<DepartmentSubjects> SubjectDepartments(int subjectId);
         DepartmentSubjects? DeleteRelation(int subjectId, int DepartmentId);
+        public List<DepartmentSubjects> StudentSubjects(Level level, Semester semester, int DepartmentId);
+
     }
 }

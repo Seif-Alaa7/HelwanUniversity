@@ -1,6 +1,7 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using Models;
+using Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +50,38 @@ namespace Data.Repository
         public void Save()
         {
             context.SaveChanges();
+        }
+        public decimal CalculateGpaSemester(int studentId, Semester semester)
+        {
+            var academicRecord = context.academicRecords
+                 .FirstOrDefault(ar => ar.StudentId == studentId && ar.Semester == semester);
+
+            if (academicRecord == null || academicRecord.RecordedHours == 0)
+                return 0;
+
+            return academicRecord.SemesterPoints / academicRecord.RecordedHours;
+        }
+        public decimal CalculateGPATotal(int studentId)
+        {
+            var academicRecord = context.academicRecords
+                .Where(ar => ar.StudentId == studentId)
+                .GroupBy(ar => ar.StudentId)
+                .Select(g => new
+                {
+                    TotalPoints = g.Sum(ar => ar.TotalPoints),
+                    TotalHours = g.Sum(ar => ar.TotalHours)
+                })
+                .FirstOrDefault();
+
+            if (academicRecord == null || academicRecord.TotalHours == 0)
+                return 0;
+
+            return academicRecord.TotalPoints / academicRecord.TotalHours;
+        }
+        public void DeleteByStudent(int studentId)
+        {
+           var link =  context.academicRecords.FirstOrDefault(x=>x.StudentId == studentId);
+           context.academicRecords.Remove(link);
         }
     }
 }

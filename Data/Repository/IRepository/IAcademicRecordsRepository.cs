@@ -1,4 +1,5 @@
 ﻿using Models;
+using Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,8 @@ namespace Data.Repository.IRepository
         void Update(AcademicRecords academicRecords);
         void Add(AcademicRecords academicRecords);
         void Save();
+        decimal CalculateGpaSemester(int studentId, Semester semester);
+        decimal CalculateGPATotal(int studentId);
+        void DeleteByStudent(int studentId);
     }
 }

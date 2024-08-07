@@ -13,14 +13,16 @@ namespace HelwanUniversity.Controllers
         private readonly IStudentRepository studentRepository;
         private readonly IDepartmentRepository departmentRepository;
         private readonly IFacultyRepository faculty;
+        private readonly IUniversityRepository universityRepository;
         private readonly CloudinaryController cloudinaryController;
 
-        public StudentController(IStudentRepository studentRepository , IDepartmentRepository departmentRepository,IFacultyRepository faculty,CloudinaryController cloudinary)
+        public StudentController(IStudentRepository studentRepository , IDepartmentRepository departmentRepository,IFacultyRepository faculty,CloudinaryController cloudinary,IUniversityRepository universityRepository)
         {
             this.studentRepository = studentRepository;
             this.departmentRepository = departmentRepository;
             this.faculty = faculty;
             this.cloudinaryController = cloudinary;
+            this.universityRepository = universityRepository;
         }
         public IActionResult Index()
         {
@@ -40,7 +42,7 @@ namespace HelwanUniversity.Controllers
             {
                 ViewData["Faculty"] = null;
             }
-
+            ViewData["FormBifurcation"] = universityRepository.Get().GoogleForm;
             return View(studentDatails);
         }
         public IActionResult Edit(int id)

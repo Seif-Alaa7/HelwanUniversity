@@ -35,7 +35,7 @@ namespace HelwanUniversity.Controllers
             ViewBag.Subjects = departmentSubjectsRepository.subjectsByDepartment(id);
             ViewData["Students"] = departmentRepository.GetStudentCount(id);
 
-          var studentsBySubject = new Dictionary<int, int>();
+         var studentsBySubject = new Dictionary<int, int>();
             foreach (var subject in ViewBag.Subjects)
             {
                 int studentCount = studentSubjectsRepository.StudentBySubject(subject.Subject.Id).Count;

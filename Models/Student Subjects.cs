@@ -10,7 +10,7 @@ namespace Models
         public int StudentId { get; set; }
         public int SubjectId { get; set; }
         public int? Degree { get; set; }
-        public Grade? Grade { get; private set; }
+        public Grade? Grade { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         public decimal DegreePoints
         {

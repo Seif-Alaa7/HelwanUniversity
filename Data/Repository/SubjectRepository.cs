@@ -1,6 +1,8 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Models;
+using Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,6 +65,25 @@ namespace Data.Repository
         {
             var exist = context.Subjects.Any(x => x.Name == Subject);
             return exist;
+        }
+        public List<Subject> GetSubjects(int studentID)
+        {
+            try
+            {
+                var subjects = context.StudentSubjects
+                                      .Where(x => x.StudentId == studentID)
+                                      .Include(ds => ds.Subject)
+                                      .AsNoTracking()
+                                      .ToList();
+
+                var list = subjects.Select(x => x.Subject).ToList();
+                return list;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while fetching subjects for student ID {studentID}", ex);
+            }
         }
     }
 }

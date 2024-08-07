@@ -1,6 +1,7 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using Models;
+using Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +56,13 @@ namespace Data.Repository
         {
             var Relation = context.DepartmentSubjects.FirstOrDefault(x => x.SubjectId == subjectId && x.DepartmentId == DepartmentId);
             return Relation;
+        }
+        public List<DepartmentSubjects> StudentSubjects(Level level, Semester semester, int DepartmentId)
+        {
+            var Subjects = context.DepartmentSubjects.Include(x => x.Subject).Where(x => x.DepartmentId == DepartmentId);
+            var Studentsubject = Subjects.Where(x => x.Subject.Level == level && x.Subject.Semester == semester).ToList();
+
+            return Studentsubject;
         }
     }
 }

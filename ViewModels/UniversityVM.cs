@@ -33,5 +33,6 @@ namespace ViewModels
         [Display(Name = "Historical Background")]
         public string HistoricalBackground { get; set; } = null!;
         public int ViewCount { get; set; }
+        public string GoogleForm { get; set; } = null!;
     }
 }
