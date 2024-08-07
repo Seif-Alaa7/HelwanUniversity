@@ -17,5 +17,7 @@ namespace Data.Repository.IRepository
         void Save();
         bool Exist(string Name);
         bool ExistPhone(string Phone);
+        List<Student> GetStudents(int id);
+        IQueryable<Student> StudentsBySubject(int id);
     }
 }

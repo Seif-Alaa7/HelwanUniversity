@@ -107,44 +107,19 @@ namespace HelwanUniversity.Controllers
         public IActionResult SubjectRegsitered(int id)
         {
             var Subjects = subjectRepository.GetSubjects(id);
-
-            var doctorDictionary = doctorRepository.GetAll()
-                            .ToDictionary(x => x.Id, x => x.Name);
-
-            var doctorNames = new Dictionary<int, string>();
-            foreach (var subject in Subjects)
-            {
-                string doctorName;
-                if (doctorDictionary.TryGetValue(subject.DoctorId, out doctorName))
-                {
-                    doctorNames[subject.DoctorId] = doctorName;
-                }
-            }
             var department = departmentRepository.DepartmentByStudent(id);
             ViewData["departmentName"] = department.Name;
-            ViewBag.DoctorNames = doctorNames;
+            ViewBag.DoctorNames = doctorRepository.GetName(Subjects);
             return View(Subjects);
         }
         public IActionResult DisplayDegrees(int id)
         {
             var studentSubjects = studentSubjectsRepository.FindStudent(id);
+
             var Subjects = subjectRepository.GetSubjects(id);
+            ViewBag.SubjectNames = subjectRepository.GetName(Subjects);
 
-            var SubjectsDictionary = subjectRepository.GetAll()
-                            .ToDictionary(x => x.Id, x => x.Name);
-
-            var SubjectNames = new Dictionary<int, string>();
-            foreach (var subject in Subjects)
-            {
-                string SubjectName;
-                if (SubjectsDictionary.TryGetValue(subject.Id, out SubjectName))
-                {
-                    SubjectNames[subject.Id] = SubjectName;
-                }
-            }
-            ViewBag.SubjectNames = SubjectNames;
-
-            var AcademicRecords = Context.academicRecords.FirstOrDefault(x => x.StudentId == id);
+            var AcademicRecords = academicRecordsRepository.GetStudent(id);
 
             ViewData["AcademicRecords"] = AcademicRecords;
 
@@ -175,6 +150,17 @@ namespace HelwanUniversity.Controllers
 
             return RedirectToAction("DisplayDegrees", new { id = modelVM.StudentId });
         }
+        public IActionResult StudentSubjectRegistered(int id)
+        {
+            ViewData["SubjectName"] = subjectRepository.GetName(id);
+            ViewData["Level"] = subjectRepository.GetLevel(id);
+            ViewData["Semester"] = subjectRepository.GetSemester(id);
+            ViewData["id"] = id;
+
+            var students = studentRepository.StudentsBySubject(id); 
+            return View(students);
+        }
+
         private void UpdateAcademicRecords(int studentId)
         {
             var creditHours = studentSubjectsRepository.CalculateCreditHours(studentId);

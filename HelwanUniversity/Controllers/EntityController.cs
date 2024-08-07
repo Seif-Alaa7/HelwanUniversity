@@ -49,12 +49,7 @@ namespace HelwanUniversity.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> Add(AddEntity entity)
-        {/*
-            if (!ModelState.IsValid)
-            {
-                LoadPageData();
-                return View(entity);
-            }*/
+        {
             switch (entity.EntityType)
             {
 

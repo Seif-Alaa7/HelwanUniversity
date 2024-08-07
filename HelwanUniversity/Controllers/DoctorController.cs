@@ -1,4 +1,5 @@
-﻿using Data.Repository;
+﻿using Data;
+using Data.Repository;
 using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -11,12 +12,22 @@ namespace HelwanUniversity.Controllers
     public class DoctorController : Controller
     {
         private readonly IDoctorRepository doctorRepository;
+        private readonly ISubjectRepository subjectRepository;
+        private readonly IDepartmentRepository departmentRepository;
+        private readonly IDepartmentSubjectsRepository departmentSubjectsRepository;
+        private readonly ApplicationDbContext context;
         private readonly CloudinaryController cloudinaryController;
 
-        public DoctorController(IDoctorRepository doctorRepository, CloudinaryController cloudinaryController)
+        public DoctorController(IDoctorRepository doctorRepository, CloudinaryController cloudinaryController,
+            ISubjectRepository subjectRepository, IDepartmentRepository departmentRepository,
+            IDepartmentSubjectsRepository departmentSubjectsRepository,ApplicationDbContext context)
         {
             this.doctorRepository = doctorRepository;
             this.cloudinaryController = cloudinaryController;
+            this.subjectRepository = subjectRepository;
+            this.departmentRepository = departmentRepository;
+            this.departmentSubjectsRepository = departmentSubjectsRepository;
+            this.context = context;
         }
         public IActionResult Index()
         {
@@ -90,5 +101,26 @@ namespace HelwanUniversity.Controllers
 
             return RedirectToAction("Index", "University");
         }
+        public IActionResult DisplaySubject(int id)
+        {
+            var subjects = subjectRepository.SubjectsByDoctor(id).ToList();
+
+            if (subjects == null || !subjects.Any())
+            {
+                ViewBag.Message = "There are No Subjects For this Doctor";
+                return View();
+            }
+
+            var subjectIds = subjectRepository.GetIds(subjects);
+            var departmentSubjects = departmentSubjectsRepository.GetDepartmentSubjects(subjectIds);
+            var departmentDictionary = departmentRepository.Dict();
+            ViewBag.SubjectDepartments = departmentSubjectsRepository.GetDepartmentsSubject(subjects,departmentSubjects);
+            ViewBag.DepartmentDictionary = departmentDictionary;
+
+            return View(subjects);
+        }
+
+
+
     }
 }

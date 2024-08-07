@@ -24,5 +24,6 @@ namespace Data.Repository.IRepository
         int DepartmentsFaculty(int Facultyid);
         Department? DepartmentByStudent(int StudentId);
         IQueryable<SelectListItem> DepartmentsSelect(int Facultyid);
+        Dictionary<int, string> Dict();
     }
 }

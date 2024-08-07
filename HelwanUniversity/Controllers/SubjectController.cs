@@ -134,21 +134,7 @@ namespace HelwanUniversity.Controllers
         public IActionResult ResultsRegisteration(int id)
         {
             var Subjects = subjectRepository.GetSubjects(id);
-
-            var doctorDictionary = doctorRepository.GetAll()
-                          .ToDictionary(x => x.Id, x => x.Name);
-
-            var doctorNames = new Dictionary<int, string>();
-            foreach (var subject in Subjects)
-            {
-                string doctorName;
-                if (doctorDictionary.TryGetValue(subject.DoctorId, out doctorName))
-                {
-                    doctorNames[subject.DoctorId] = doctorName;
-                }
-            }
-            ViewBag.DoctorNames = doctorNames;
-
+            ViewBag.DoctorNames = doctorRepository.GetName(Subjects);
             var department = departmentRepository.DepartmentByStudent(id);
             ViewData["StudentId"] = id;
             ViewData["departmentName"] = department.Name;

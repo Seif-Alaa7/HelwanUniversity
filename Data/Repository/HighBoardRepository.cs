@@ -78,5 +78,10 @@ namespace Data.Repository
             var exist = context.HighBoards.Any(x=>x.JobTitle == JobTitle);
             return exist;
         }
+        public string GetName(int id)
+        {
+            var name = context.HighBoards.FirstOrDefault(x=>x.Id == id)?.Name;
+            return name;
+        }
     }
 }

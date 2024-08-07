@@ -19,5 +19,7 @@ namespace Data.Repository.IRepository
         decimal CalculateGpaSemester(int studentId, Semester semester);
         decimal CalculateGPATotal(int studentId);
         void DeleteByStudent(int studentId);
+        AcademicRecords GetStudent(int id);
+        Dictionary<int, (Level Level, Semester Semester)> GetLevelANDSemester(List<Student> students);
     }
 }

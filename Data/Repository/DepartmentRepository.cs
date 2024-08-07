@@ -115,5 +115,11 @@ namespace Data.Repository
 
             return student?.Department;
         }
+        public Dictionary<int,string> Dict()
+        {
+           var Dict =  context.Departments
+                .ToList().ToDictionary(d => d.Id, d => d.Name);
+            return Dict;
+        }
     }
 }

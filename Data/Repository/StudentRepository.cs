@@ -60,5 +60,16 @@ namespace Data.Repository
             var EXIST = context.Students.Any(x => x.PhoneNumber == Phone);
             return EXIST;
         }
+        public List<Student> GetStudents(int id)
+        {
+            var students = context.Students.Where(x=>x.DepartmentId == id).ToList();    
+            return students;
+        }
+        public IQueryable<Student> StudentsBySubject(int id)
+        {
+            var list = context.StudentSubjects.Where(x => x.SubjectId == id).Select(x => x.Student);
+            return list;
+
+        }
     }
 }

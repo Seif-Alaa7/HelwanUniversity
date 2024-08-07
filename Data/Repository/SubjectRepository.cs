@@ -85,5 +85,46 @@ namespace Data.Repository
                 throw new Exception($"An error occurred while fetching subjects for student ID {studentID}", ex);
             }
         }
+        public IQueryable<Subject> SubjectsByDoctor(int id)
+        {
+            var Subjects = context.Subjects.Where(x => x.DoctorId == id);
+            return Subjects;
+        }
+        public string GetName(int id)
+        {
+            var name = context.Subjects.FirstOrDefault(x => x.Id == id)?.Name;
+            return name;
+        }
+        public Level GetLevel(int id)
+        {
+            var level = context.Subjects.FirstOrDefault(x => x.Id == id).Level;
+            return level;
+        }
+        public Semester GetSemester(int id)
+        {
+            var semester = context.Subjects.FirstOrDefault(x => x.Id == id).Semester;
+            return semester;
+        }
+        public Dictionary<int , string> GetName(List<Subject> subjects)
+        {
+            var SubjectsDictionary = context.Subjects
+                .ToList().ToDictionary(x => x.Id, x => x.Name);
+
+            var SubjectNames = new Dictionary<int, string>();
+            foreach (var subject in subjects)
+            {
+                string SubjectName;
+                if (SubjectsDictionary.TryGetValue(subject.Id, out SubjectName))
+                {
+                    SubjectNames[subject.Id] = SubjectName;
+                }
+            }
+            return SubjectNames;
+        }
+        public List<int> GetIds(List<Subject> subjects)
+        {
+            var Ids =  subjects.Select(s => s.Id).ToList();
+            return Ids;
+        }
     }
 }
