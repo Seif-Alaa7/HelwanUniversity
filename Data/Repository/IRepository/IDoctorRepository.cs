@@ -18,5 +18,8 @@ namespace Data.Repository.IRepository
         List<SelectListItem> Select();
         void Save();
         bool ExistName(string Name);
+        Dictionary<int, string> GetName(List<Subject> subjects);
+        Dictionary<int, string> Dict();
+        Dictionary<int, string> GetName(List<DepartmentSubjects> subjects);
     }
 }

@@ -66,5 +66,44 @@ namespace Data.Repository
             var exist = context.Doctors.Any(x => x.Name == Name);
             return exist;
         }
+        public Dictionary<int , string> GetName(List<Subject> subjects)
+        {
+            var doctorDictionary = context.Doctors
+                .ToList().ToDictionary(x => x.Id, x => x.Name);
+
+            var doctorNames = new Dictionary<int, string>();
+            foreach (var subject in subjects)
+            {
+                string doctorName;
+                if (doctorDictionary.TryGetValue(subject.DoctorId, out doctorName))
+                {
+                    doctorNames[subject.DoctorId] = doctorName;
+                }
+            }
+            return doctorNames;
+        }
+        public Dictionary<int, string> GetName(List<DepartmentSubjects> subjects)
+        {
+            var doctorDictionary = context.Doctors
+                .ToList().ToDictionary(x => x.Id, x => x.Name);
+
+            var doctorNames = new Dictionary<int, string>();
+            foreach (var subject in subjects)
+            {
+                string doctorName;
+                if (doctorDictionary.TryGetValue(subject.Subject.DoctorId, out doctorName))
+                {
+                    doctorNames[subject.Subject.DoctorId] = doctorName;
+                }
+            }
+            return doctorNames;
+        }
+        public Dictionary<int, string> Dict()
+        {
+            var Dict = context.Doctors
+                .ToList().ToDictionary(x => x.Id, x => x.Name);
+
+            return Dict;
+        }
     }
 }

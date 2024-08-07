@@ -1,20 +1,18 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Models.Enums;
 
 namespace Data.Repository
 {
     public class DepartmentSubjectsRepository : IDepartmentSubjectsRepository
     {
         private readonly ApplicationDbContext context;
-        public DepartmentSubjectsRepository(ApplicationDbContext context)
+        private readonly IStudentSubjectsRepository studentSubjectsRepository;
+        public DepartmentSubjectsRepository(ApplicationDbContext context, IStudentSubjectsRepository studentSubjectsRepository)
         {
             this.context = context;
+            this.studentSubjectsRepository = studentSubjectsRepository;
         }
         public List<DepartmentSubjects> subjectsByDepartment(int id)
         {
@@ -22,6 +20,7 @@ namespace Data.Repository
                           .Where(ds => ds.DepartmentId == id)
                           .Include(ds => ds.Subject)
                           .ToList();
+
             return subjects;
         }
         public bool Exist(DepartmentSubjects model)
@@ -55,6 +54,46 @@ namespace Data.Repository
         {
             var Relation = context.DepartmentSubjects.FirstOrDefault(x => x.SubjectId == subjectId && x.DepartmentId == DepartmentId);
             return Relation;
+        }
+        public List<DepartmentSubjects> StudentSubjects(Level level, Semester semester, int DepartmentId)
+        {
+            var Subjects = context.DepartmentSubjects.Include(x => x.Subject).Where(x => x.DepartmentId == DepartmentId);
+            var Studentsubject = Subjects.Where(x => x.Subject.Level == level && x.Subject.Semester == semester).ToList();
+
+            return Studentsubject;
+        }
+        public List<DepartmentSubjects> GetDepartmentSubjects(List<int> subjectIds)
+        {
+           var MOdels = context.DepartmentSubjects
+                .Where(ds => subjectIds.Contains(ds.SubjectId))
+                .ToList();
+
+           return MOdels;
+        }
+        public Dictionary<int,List<int>> GetDepartmentsSubject(List<Subject> subjects,List<DepartmentSubjects> departmentSubjects)
+        {
+            var subjectDepartments = new Dictionary<int, List<int>>();
+
+            foreach (var subject in subjects)
+            {
+                var departmentIds = departmentSubjects
+                    .Where(ds => ds.SubjectId == subject.Id)
+                    .Select(ds => ds.DepartmentId)
+                    .ToList();
+
+                subjectDepartments[subject.Id] = departmentIds;
+            }
+            return subjectDepartments;
+        }
+        public Dictionary<int,int> StudentCounts(List<DepartmentSubjects> subjects)
+        {
+            var studentsBySubject = new Dictionary<int, int>();
+            foreach (var subject in subjects)
+            {
+                int studentCount = studentSubjectsRepository.StudentBySubject(subject.Subject.Id).Count;
+                studentsBySubject[subject.Subject.Id] = studentCount;
+            }
+            return studentsBySubject;
         }
     }
 }

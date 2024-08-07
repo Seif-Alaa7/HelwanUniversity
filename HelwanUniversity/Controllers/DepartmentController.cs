@@ -29,30 +29,13 @@ namespace HelwanUniversity.Controllers
         public IActionResult Details(int id)
         {
             var Department = departmentRepository.GetOne(id);
-            var doctorDictionary = doctorRepository.GetAll()
-                               .ToDictionary(x => x.Id, x => x.Name);
-            ViewData["Head"] = highBoardRepository.GetOne(Department.HeadId)?.Name;
+
+            ViewData["Head"] = highBoardRepository.GetName(Department.HeadId);
             ViewBag.Subjects = departmentSubjectsRepository.subjectsByDepartment(id);
             ViewData["Students"] = departmentRepository.GetStudentCount(id);
 
-          var studentsBySubject = new Dictionary<int, int>();
-            foreach (var subject in ViewBag.Subjects)
-            {
-                int studentCount = studentSubjectsRepository.StudentBySubject(subject.Subject.Id).Count;
-                studentsBySubject[subject.Subject.Id] = studentCount;
-            }
-            ViewBag.StudentsBySubject = studentsBySubject;
-
-            var doctorNames = new Dictionary<int, string>();
-            foreach (var subject in ViewBag.Subjects)
-            {
-                string doctorName;
-                if (doctorDictionary.TryGetValue(subject.Subject.DoctorId, out doctorName))
-                {
-                    doctorNames[subject.Subject.DoctorId] = doctorName;
-                }
-            }
-            ViewBag.DoctorNames = doctorNames;
+            ViewBag.StudentsBySubject = departmentSubjectsRepository.StudentCounts(ViewBag.Subjects);
+            ViewBag.DoctorNames = doctorRepository.GetName(ViewBag.Subjects);
 
             return View(Department);
         }

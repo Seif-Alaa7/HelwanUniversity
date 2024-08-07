@@ -21,5 +21,6 @@ namespace Data.Repository.IRepository
         void Save();
         bool ExistJop(JobTitle JobTitle);
         bool ExistName(string name);
+        string GetName(int id);
     }
 }

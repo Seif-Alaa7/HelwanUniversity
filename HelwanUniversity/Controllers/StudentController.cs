@@ -4,6 +4,7 @@ using HelwanUniversity.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
+using Models.Enums;
 using System.Numerics;
 using ViewModels;
 
@@ -14,14 +15,19 @@ namespace HelwanUniversity.Controllers
         private readonly IStudentRepository studentRepository;
         private readonly IDepartmentRepository departmentRepository;
         private readonly IFacultyRepository faculty;
-        private readonly ICloudinaryService cloudinaryService;
+        private readonly IUniversityRepository universityRepository;
+        private readonly IAcademicRecordsRepository academicRecordsRepository;  
+        private readonly CloudinaryController cloudinaryController;
 
-        public StudentController(IStudentRepository studentRepository , IDepartmentRepository departmentRepository,IFacultyRepository faculty,ICloudinaryService cloudinaryService)
+        public StudentController(IStudentRepository studentRepository , IDepartmentRepository departmentRepository,IFacultyRepository faculty,
+            CloudinaryController cloudinary,IUniversityRepository universityRepository,IAcademicRecordsRepository academicRecordsRepository)
         {
             this.studentRepository = studentRepository;
             this.departmentRepository = departmentRepository;
             this.faculty = faculty;
-            this.cloudinaryService = cloudinaryService;
+            this.cloudinaryController = cloudinary;
+            this.universityRepository = universityRepository;
+            this.academicRecordsRepository = academicRecordsRepository;
         }
         public IActionResult Index()
         {
@@ -41,7 +47,7 @@ namespace HelwanUniversity.Controllers
             {
                 ViewData["Faculty"] = null;
             }
-
+            ViewData["FormBifurcation"] = universityRepository.Get().GoogleForm;
             return View(studentDatails);
         }
         public IActionResult Edit(int id)
@@ -127,7 +133,17 @@ namespace HelwanUniversity.Controllers
             studentRepository.Delete(id);
             studentRepository.Save();
 
-            return RedirectToAction("Index" , "University");
+            return RedirectToAction("Index", "University");
         }
+        public IActionResult StudentsByDepartment(int id)
+        {
+            var students = studentRepository.GetStudents(id).ToList();
+
+            ViewBag.Records = academicRecordsRepository.GetLevelANDSemester(students);
+            ViewData["DepartmentName"] = departmentRepository.GetOne(id)?.Name;
+
+            return View(students);
+        }
+
     }
 }

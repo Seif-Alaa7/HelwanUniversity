@@ -28,6 +28,7 @@
                     <h3 class="card-title mb-4 text-primary">@Model.Name</h3>
                     <div class="row">
                         <div class="col-md-6 mb-3">
+                            <p class="card-text"><i class="fas fa-id-badge mr-2"></i><strong>Id:</strong> @Model.Id</p>
                             <p class="card-text"><i class="fas fa-flag mr-2"></i><strong>Nationality:</strong> @Model.Nationality</p>
                             <p class="card-text"><i class="fas fa-venus-mars mr-2"></i><strong>Gender:</strong> @Model.Gender</p>
                             <p class="card-text"><i class="fas fa-pray mr-2"></i><strong>Religion:</strong> @Model.Religion</p>
@@ -53,9 +54,21 @@
                         <a href="@Url.Action("Edit", "Student", new { id = Model.Id })" class="btn btn-primary mr-2">
                             <i class="fas fa-edit mr-1"></i> Edit
                         </a>
-                        <a href="@Url.ActionLink("AddRequest","BifurcationRequest", new { Facultyid = ViewBag.Faculty.Id , StudentId = Model.Id})" class="btn btn-primary mr-2">
-                            <i class="fas fa-edit mr-1"></i> Edit
+                        <a href="@ViewBag.FormBifurcation" class="btn btn-primary mr-2">
+                            <i class="fas fa-edit mr-1"></i> Add Request
                         </a>
+                        <a href="@Url.ActionLink("DisplaySubjects","DepartmentSubjects", new { Facultyid = ViewBag.Faculty.Id , StudentId = Model.Id})" class="btn btn-primary mr-2">
+                            <i class="fas fa-edit mr-1"></i> Academic Registeration
+                        </a>
+                        <a href="@Url.ActionLink("SubjectRegsitered","StudentSubjects", new { id = Model.Id})" class="btn btn-primary mr-2">
+                            <i class="fas fa-edit mr-1"></i> Show Registerations
+                        </a>
+                        @if (Model.PaymentFees)
+                        {
+                            <a href="@Url.ActionLink("DisplayDegrees","StudentSubjects", new { id = Model.Id})" class="btn btn-primary mr-2">
+                                <i class="fas fa-edit mr-1"></i> Degrees
+                            </a>
+                        }
                         <form asp-action="Delete" asp-route-id="@Model.Id" method="post" style="display: inline;">
                             @Html.AntiForgeryToken()
                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد أنك تريد حذف هذا الطالب؟');">

@@ -66,6 +66,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
                 MainPage = university.MainPage,
                 ContactMail = university.ContactMail,
                 HistoricalBackground = university.HistoricalBackground,
+                GoogleForm = university.GoogleForm, 
                 ViewCount = university.ViewCount,
             };
 
@@ -85,7 +86,6 @@ namespace HelwanUniversity.Areas.Admin.Controllers
                 {
                     ModelState.AddModelError(string.Empty, ex.Message);
                     return View("Update", newUniVm);
-
                 }
                 try
                 {
@@ -108,6 +108,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
                 uni.MainPage = newUniVm.MainPage;
                 uni.ContactMail = newUniVm.ContactMail;
                 uni.HistoricalBackground = newUniVm.HistoricalBackground;
+                uni.GoogleForm = newUniVm.GoogleForm;
                 uni.ViewCount = newUniVm.ViewCount;
 
                 universityRepository.Update(uni);

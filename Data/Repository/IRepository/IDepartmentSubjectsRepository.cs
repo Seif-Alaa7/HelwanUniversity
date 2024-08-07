@@ -1,4 +1,6 @@
 ﻿using Models;
+using Models.Enums;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Data.Repository.IRepository
 {
@@ -12,5 +14,9 @@ namespace Data.Repository.IRepository
         void Delete(DepartmentSubjects model);
         List<DepartmentSubjects> SubjectDepartments(int subjectId);
         DepartmentSubjects? DeleteRelation(int subjectId, int DepartmentId);
+        public List<DepartmentSubjects> StudentSubjects(Level level, Semester semester, int DepartmentId);
+        List<DepartmentSubjects> GetDepartmentSubjects(List<int> subjectIds);
+        Dictionary<int, List<int>> GetDepartmentsSubject(List<Subject> subjects, List<DepartmentSubjects> departmentSubjects);
+        Dictionary<int, int> StudentCounts(List<DepartmentSubjects> subjects);
     }
 }

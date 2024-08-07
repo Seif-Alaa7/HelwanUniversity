@@ -24,9 +24,9 @@ namespace Models
             get => _GPATotal;
             set => _GPATotal = Math.Round(value, 3);
         }
-        public int CreditHours { get; private set; }
-        public int RecordedHours { get; private set; }
-        public int TotalHours { get; private set; }
+        public int CreditHours { get; set; }
+        public int RecordedHours { get; set; }
+        public int TotalHours { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         public decimal SemesterPoints
         {
@@ -39,8 +39,8 @@ namespace Models
             get => _TotalPoints;
             set => _TotalPoints = Math.Round(value, 3);
         }
-        public Level Level { get; private set; }
-        public Semester Semester { get; private set; }
+        public Level Level { get; set; }
+        public Semester Semester { get; set; }
         public Student Student { get; set; } = null!;
     }
 }

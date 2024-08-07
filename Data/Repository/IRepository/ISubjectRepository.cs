@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
+using Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,12 @@ namespace Data.Repository.IRepository
         List<SelectListItem> Select();
         void Save();
         bool ExistSubject(string Subject);
+        List<Subject> GetSubjects(int studentID);
+        IQueryable<Subject> SubjectsByDoctor(int id);
+        string GetName(int id);
+        Level GetLevel(int id);
+        Semester GetSemester(int id);
+        Dictionary<int, string> GetName(List<Subject> subjects);
+        List<int> GetIds(List<Subject> subjects);
     }
 }

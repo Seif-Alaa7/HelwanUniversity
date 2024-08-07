@@ -1,4 +1,5 @@
-﻿using Data.Repository.IRepository;
+﻿using Data.Repository;
+using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 
@@ -10,11 +11,13 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         private readonly IDepartmentRepository departmentRepository;
         private readonly ISubjectRepository subjectRepository;
         private readonly IDepartmentSubjectsRepository DepartsubjectsRepository;
-        public DepartmentSubjectsController(IDepartmentRepository department,ISubjectRepository subject,IDepartmentSubjectsRepository repository)
+        private readonly IAcademicRecordsRepository academicRecordsRepository;
+        public DepartmentSubjectsController(IDepartmentRepository department,ISubjectRepository subject,IDepartmentSubjectsRepository repository,IAcademicRecordsRepository academicRecordsRepository)
         {
             this.departmentRepository = department;
             this.subjectRepository = subject;
             this.DepartsubjectsRepository = repository;
+            this.academicRecordsRepository = academicRecordsRepository;
         }
         public IActionResult Index()
         {
@@ -64,6 +67,18 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             DepartsubjectsRepository.Save();
 
             return RedirectToAction("Details", "Department", new { area = "Admin", id = departmentId });
+        }
+        public IActionResult DisplaySubjects(int Studentid)
+        {
+
+            var department = departmentRepository.DepartmentByStudent(Studentid);
+            var level = academicRecordsRepository.GetAll().FirstOrDefault(x => x.StudentId == Studentid).Level;
+            var semester = academicRecordsRepository.GetAll().FirstOrDefault(x => x.StudentId == Studentid).Semester;
+
+            ViewData["StudentId"] = Studentid;
+            ViewData["departmentName"] = department.Name;
+            var StudentSubjects = DepartsubjectsRepository.StudentSubjects(level , semester ,department.Id);
+            return View(StudentSubjects);
         }
     }
 }
