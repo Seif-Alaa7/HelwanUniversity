@@ -71,7 +71,7 @@
     <header class="masthead">
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="Admin" asp-controller="University" asp-action="Index">
+                <a class="navbar-brand" asp-area="User" asp-controller="University" asp-action="Index">
                     <img class="Hulogo" src="@Model.Logo" alt="Logo" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,19 +80,19 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link NavItems" style="color: white;" asp-area="Admin" asp-controller="University" asp-action="Index">
+                            <a class="nav-link NavItems" style="color: white;" asp-area="User" asp-controller="University" asp-action="Index">
                                 <img style="margin-bottom: 4px;" alt="svgImg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjUiIGhlaWdodD0iMjUiIHZpZXdCb3g9IjAsMCwyNTYsMjU2IgpzdHlsZT0iZmlsbDojMDAwMDAwOyI+CjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtcnVsZT0ibm9uemVybyIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS1kYXNoYXJyYXk9IiIgc3Ryb2tlLWRhc2hvZmZzZXQ9IjAiIGZvbnQtZmFtaWx5PSJub25lIiBmb250LXdlaWdodD0ibm9uZSIgZm9udC1zaXplPSJub25lIiB0ZXh0LWFuY2hvcj0ibm9uZSIgc3R5bGU9Im1peC1ibGVuZC1tb2RlOiBub3JtYWwiPjxnIHRyYW5zZm9ybT0ic2NhbGUoOCw4KSI+PHBhdGggZD0iTTE2LDIuNTkzNzVsLTAuNzE4NzUsMC42ODc1bC0xMywxM2wxLjQzNzUsMS40Mzc1bDEuMjgxMjUsLTEuMjgxMjV2MTEuNTYyNWg5di0xMGg0djEwaDl2LTExLjU2MjVsMS4yODEyNSwxLjI4MTI1bDEuNDM3NSwtMS40Mzc1bC0xMywtMTN6TTE2LDUuNDM3NWw5LDl2MTEuNTYyNWgtNXYtMTBoLTh2MTBoLTV2LTExLjU2MjV6Ij48L3BhdGg+PC9nPjwvZz4KPC9zdmc+" />
                                 الرئيسية
                                 </a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link NavItems" style="color: white;" asp-area="Admin" asp-controller="Faculty" asp-action="Index">
+                            <a class="nav-link NavItems" style="color: white;" asp-area="User" asp-controller="Faculty" asp-action="Index">
                                 <img style="margin-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/external-fauzidea-detailed-outline-fauzidea/64/FFFFFF/external-college-building-fauzidea-detailed-outline-fauzidea-2.png" alt="external-college-building-fauzidea-detailed-outline-fauzidea-2" />
                                 الكليات
                             </a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link NavItems" style="color: white;" asp-area="Admin" asp-controller="UniFile" asp-action="News">
+                            <a class="nav-link NavItems" style="color: white;" asp-area="User" asp-controller="UniFile" asp-action="News">
                                 <img style="margin-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/glyph-neue/64/FFFFFF/news.png" alt="news" />
                                 الاخبار
                                 </a>
@@ -114,34 +114,10 @@
 
                             <!-- Account Icon -->
                             <div class="dropdown-menu" aria-labelledby="userDropdown">
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <a class="dropdown-item nonline-link" style="color: black;" href="/Identity/Account/Manage">Account</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item text-danger" style="text-decoration: none" href="/Identity/Account/Logout">Logout</a>
-                                }
-                                else
-                                {
-                                    @if (User.IsInRole("Admin"))
-                                    {
-                                        <a class="dropdown-item d-flex align-items-center" style="color: black; text-decoration: none" href="/Identity/Account/Register">
-                                            <img width="20" height="20" src="https://img.icons8.com/ios/50/1A1A1A/add-user-male.png" alt="add-user-male" />
-                                            <span style="margin-left: 10px;">Register</span>
-                                        </a>
-                                    }
-                                    <a class="dropdown-item d-flex align-items-center" style="color: black;text-decoration: none" href="/Identity/Account/Login">
-                                        <img width="15" height="15" src="https://img.icons8.com/ios/50/1A1A1A/enter-2.png" alt="login-icon" />
-                                        <span style="margin-left: 10px;">Login</span>
-                                    </a>
-                                    <a class="dropdown-item d-flex align-items-center" style="color: black;text-decoration: none" href="/Identity/Account/Register">
-                                        <img width="20" height="20" src="https://img.icons8.com/ios/50/1A1A1A/add-user-male.png" alt="add-user-male" />
-                                        <span style="margin-left: 10px;">Register</span>
-                                    </a>
-                                    <a class="dropdown-item d-flex align-items-center" style="color: black;text-decoration: none" href="/entity/add">
-                                        <img width="20" height="20" src="https://img.icons8.com/ios/50/1A1A1A/signing-a-document.png" alt="signing-a-document" />
-                                        <span style="margin-left: 10px;">Register Entity</span>
-                                    </a>
-                                }
+                                <a class="dropdown-item d-flex align-items-center" style="color: black;text-decoration: none" href="/Identity/Account/Login">
+                                    <img width="15" height="15" src="https://img.icons8.com/ios/50/1A1A1A/enter-2.png" alt="login-icon" />
+                                    <span style="margin-left: 10px;">Login</span>
+                                </a>
                             </div>
                         </li>
                     </ul>
@@ -159,7 +135,7 @@
                 <div class="col-lg-5">
                     <div class="py-5 px-4 masthead-cards">
                         <div class="d-flex">
-                            <a href="/Admin/University/Details" class="w-50 pr-3 pb-4">
+                            <a href="/User/University/Details" class="w-50 pr-3 pb-4">
                                 <div class="card border-0 border-bottom-red shadow-lg shadow-hover">
                                     <div class="card-body text-center">
                                         <div class="text-center">
@@ -169,7 +145,7 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="/Admin/University/DisplayMap" class="w-50 pl-3 pb-4">
+                            <a href="/User/University/DisplayMap" class="w-50 pl-3 pb-4">
                                 <div class="card border-0 border-bottom-blue shadow-lg shadow-hover">
                                     <div class="card-body text-center">
                                         <div class="text-center">
@@ -363,9 +339,9 @@
         <div class="footer-content">
             <p>&copy; 2024 Helwan University. All rights reserved.</p>
             <ul class="footer-links">
-                <li><a href="/Admin/University/Details">About Us</a></li>
+                <li><a href="/User/University/Details">About Us</a></li>
                 <li><a href="@ViewBag.Mail">Contact Us</a></li>
-                <li><a href="/Admin/Home/Privacy">Privacy Policy</a></li>
+                <li><a href="/User/Home/Privacy">Privacy Policy</a></li>
             </ul>
             <br />
 
