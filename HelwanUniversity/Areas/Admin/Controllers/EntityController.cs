@@ -127,6 +127,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
                     return View(entity);
             }
             TempData["SuccessMessage"] = "Success !";
+            LoadPageData();
             return View(new AddEntity());
         }
         private void LoadPageData()
