@@ -28,7 +28,9 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var Students = studentRepository.GetAll();
+            ViewData["DepartmentNames"] = departmentRepository.Dict();
+            return View(Students);
         }
         public IActionResult Details(int id)
         {
