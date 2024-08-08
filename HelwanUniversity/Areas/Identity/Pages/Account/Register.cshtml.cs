@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using Data;
 using Data.Repository.IRepository;
 using Microsoft.IdentityModel.Tokens;
-using HelwanUniversity.Controllers;
 using HelwanUniversity.Vaildations;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;

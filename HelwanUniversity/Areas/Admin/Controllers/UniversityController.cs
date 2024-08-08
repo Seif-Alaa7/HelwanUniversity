@@ -2,6 +2,7 @@
 using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using ViewModels;
+using System.Security.Claims;
 
 namespace HelwanUniversity.Areas.Admin.Controllers
 {
@@ -30,6 +31,13 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             var UNI = universityRepository.Get();
             var Images = uniFileRepository.GetAllImages();
             var Hboards = highBoardRepository.GetAll();
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var admin = highBoardRepository.GetAll().FirstOrDefault(h => h.ApplicationUserId == userId);
+            if (admin != null)
+            {
+                ViewData["Admin"] = admin; 
+            };
 
             //ViewData
             ViewData["LogoTitle"] = Images[0].File;

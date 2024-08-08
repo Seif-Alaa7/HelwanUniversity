@@ -34,3 +34,36 @@ body {
 .btn {
     font-size: 1em;
 }
+.action-link {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f8f9fa; /* Light background color */
+    color: #495057; /* Default icon color */
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 18px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+    .action-link:hover {
+        background-color: #e9ecef; /* Slightly darker background on hover */
+        color: #212529; /* Darker icon color on hover */
+        transform: scale(1.1); /* Slightly enlarge on hover */
+    }
+
+    .action-link:active {
+        transform: scale(0.95); /* Slightly shrink on click */
+    }
+
+.edit-link {
+    color: #ffc107; /* Yellow color for edit */
+}
+
+.delete-forever-link {
+    color: #dc3545; /* Red color for delete forever */
+}
+
+.delete-link {
+    color: #dc3545; /* Red color for delete from department */
+}

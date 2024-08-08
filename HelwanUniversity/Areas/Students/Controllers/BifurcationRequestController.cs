@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using ViewModels;
-using HelwanUniversity.Controllers;
 
 namespace HelwanUniversity.Areas.Students.Controllers
 {
