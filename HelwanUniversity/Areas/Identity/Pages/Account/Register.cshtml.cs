@@ -2,40 +2,29 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
 using Data;
 using Data.Repository.IRepository;
 using Microsoft.IdentityModel.Tokens;
+using HelwanUniversity.Controllers;
 using HelwanUniversity.Vaildations;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Models;
 using Models.Enums;
-using ViewModels;
 using ViewModels.Vaildations.ApplicationUserValid;
 using ViewModels.Vaildations.DoctorValid;
 using ViewModels.Vaildations.HighBoardValid;
 using ViewModels.Vaildations.StudentsValid;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using HelwanUniversity.Services;
 

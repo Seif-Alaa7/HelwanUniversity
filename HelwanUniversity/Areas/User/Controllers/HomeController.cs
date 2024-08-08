@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using System.Diagnostics;
 
-namespace HelwanUniversity.Areas.Students.Controllers
+namespace HelwanUniversity.Areas.User.Controllers
 {
-    [Area("Students")]
+    [Area("User")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
