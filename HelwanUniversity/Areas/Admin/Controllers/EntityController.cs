@@ -2,7 +2,6 @@
 using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Models;
-using System;
 using ViewModels;
 using HelwanUniversity.Services;
 
@@ -13,7 +12,6 @@ namespace HelwanUniversity.Areas.Admin.Controllers
     {
         private readonly ISubjectRepository subjectRepository;
         private readonly IFacultyRepository facultyRepository;
-        private readonly ApplicationDbContext context;
         private readonly ICloudinaryService cloudinaryService;
         private readonly IDepartmentRepository departmentRepository;
         private readonly IDoctorRepository doctorRepository;
@@ -22,7 +20,6 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
         public EntityController(ISubjectRepository subjectRepository ,
             IFacultyRepository facultyRepository, 
-            ApplicationDbContext context,
             ICloudinaryService cloudinaryService,
             IDepartmentRepository department,
             IDoctorRepository doctorRepository,
@@ -31,7 +28,6 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         {
             this.subjectRepository = subjectRepository;
             this.facultyRepository = facultyRepository;
-            this.context = context;
             this.cloudinaryService = cloudinaryService;
             this.departmentRepository = department;
             this.doctorRepository = doctorRepository;
@@ -75,11 +71,6 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
                 case "FacultyVm":
 
-                    if (!ModelState.IsValid)
-                    {
-                        LoadPageData();
-                        return View("Add", entity);
-                    }
                     try
                     {
                         entity.LogoPath = await cloudinaryService.UploadFile(entity.Logo, string.Empty, "There was an error uploading the cinema logo. Please try again.");
