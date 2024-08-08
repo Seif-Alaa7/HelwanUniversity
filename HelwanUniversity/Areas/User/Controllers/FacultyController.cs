@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using ViewModels.FacultyVMs;
 
-namespace HelwanUniversity.Areas.Students.Controllers
+namespace HelwanUniversity.Areas.User.Controllers
 {
-    [Area("Students")]
+    [Area("User")]
     public class FacultyController : Controller
     {
         private readonly IFacultyRepository facultyRepository;

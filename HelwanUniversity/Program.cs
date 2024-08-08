@@ -68,7 +68,7 @@ namespace HelwanUniversity
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{area=Students}/{controller=University}/{action=Index}/{id?}");
+                pattern: "{area=User}/{controller=University}/{action=Index}/{id?}");
 
             app.MapRazorPages();
 

@@ -11,16 +11,14 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
     public class FacultyController : Controller
     {
         private readonly IFacultyRepository facultyRepository;
-        private readonly ApplicationDbContext context;
         private readonly ICloudinaryService cloudinaryService;
         private readonly IHighBoardRepository highBoardRepository;
         private readonly IUniFileRepository uniFileRepository;
 
-        public FacultyController(IFacultyRepository facultyRepository,ApplicationDbContext context,
-            ICloudinaryService cloudinaryService, IHighBoardRepository highBoardRepository, IUniFileRepository uniFileRepository)
+        public FacultyController(IFacultyRepository facultyRepository,ICloudinaryService cloudinaryService,
+            IHighBoardRepository highBoardRepository, IUniFileRepository uniFileRepository)
         {
             this.facultyRepository = facultyRepository;
-            this.context = context;
             this.cloudinaryService = cloudinaryService;
             this.highBoardRepository = highBoardRepository;
             this.uniFileRepository = uniFileRepository;
