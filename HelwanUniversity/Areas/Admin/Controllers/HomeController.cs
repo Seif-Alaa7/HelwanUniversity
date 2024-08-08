@@ -1,9 +1,6 @@
-using Data.Repository;
-using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using System.Diagnostics;
-using HelwanUniversity.Controllers;
 
 namespace HelwanUniversity.Areas.Admin.Controllers
 {
