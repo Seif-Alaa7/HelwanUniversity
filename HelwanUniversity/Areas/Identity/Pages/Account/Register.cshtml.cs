@@ -9,7 +9,6 @@ using System.Text.Encodings.Web;
 using Data;
 using Data.Repository.IRepository;
 using Microsoft.IdentityModel.Tokens;
-using HelwanUniversity.Controllers;
 using HelwanUniversity.Vaildations;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;

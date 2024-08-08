@@ -1,8 +1,10 @@
 ﻿@model ViewModels.AddEntity
 @using Models.Enums
-
 @{
     ViewData["Title"] = "Academic Entities Registration";
+}
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -18,7 +20,7 @@
                     </h2>
                 </div>
                 <div class="card-body">
-                    <form id="addEntityForm" asp-action="Add" method="post" enctype="multipart/form-data">
+                    <form id="addEntityForm" asp-area="Admin" asp-action="Add" method="post" enctype="multipart/form-data">
                         @if (TempData["SuccessMessage"] != null)
                         {
                             <div class="alert alert-success alert-dismissible fade show" role="alert">

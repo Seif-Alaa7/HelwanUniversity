@@ -3,12 +3,26 @@
 @{
     ViewData["Title"] = "Log out";
 }
+@{
+    if (User.IsInRole("Admin"))
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    }
+    else if (User.IsInRole("Students"))
+    {
+        Layout = "~/Areas/Students/Views/Shared/_Layout.cshtml";
 
+    }
+    else
+    {
+        Layout = "~/Areas/Doctors/Views/Shared/_Layout.cshtml";
+    }
+}
 <div class="container mt-5">
     <h1 class="text-center">@ViewData["Title"]</h1>
     <div class="text-center mt-4">
         <p class="lead">Logging out...</p>
-        <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "University", new { area = "Students" })" method="post"></form>
+        <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "University", new { area = "User" })" method="post"></form>
     </div>
 </div>
 
