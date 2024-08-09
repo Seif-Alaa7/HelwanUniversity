@@ -35,18 +35,9 @@
                         </div>
                     </div>
                     <div class="mt-4">
-                        <a href="@Url.Action("Edit", "Doctor", new { id = Model.Id })" class="btn btn-primary mr-2">
-                            <i class="fas fa-edit mr-1"></i> Edit
-                        </a>
                         <a href="@Url.ActionLink("DisplaySubject", "Doctor", new { id = Model.Id })" class="btn btn-primary mr-2">
                             <i class="fas fa-edit mr-1"></i> Subjects
                         </a>
-                        <form asp-action="Delete" asp-route-id="@Model.Id" method="post" style="display: inline;">
-                            @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد أنك تريد حذف هذا الدكتور؟');">
-                                Delete
-                            </button>
-                        </form>
                     </div>
                 </div>
             </div>

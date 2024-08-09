@@ -71,7 +71,7 @@
     <header class="masthead">
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="University" asp-action="Index">
+                <a class="navbar-brand" asp-area="Students" asp-controller="University" asp-action="Index">
                     <img class="Hulogo" src="@Model.Logo" alt="Logo" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,34 +114,9 @@
 
                             <!-- Account Icon -->
                             <div class="dropdown-menu" aria-labelledby="userDropdown">
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <a class="dropdown-item nonline-link" style="color: black;" href="/Identity/Account/Manage">Account</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item text-danger" style="text-decoration: none" href="/Identity/Account/Logout">Logout</a>
-                                }
-                                else
-                                {
-                                    @if (User.IsInRole("Admin"))
-                                    {
-                                        <a class="dropdown-item d-flex align-items-center" style="color: black; text-decoration: none" href="/Identity/Account/Register">
-                                            <img width="20" height="20" src="https://img.icons8.com/ios/50/1A1A1A/add-user-male.png" alt="add-user-male" />
-                                            <span style="margin-left: 10px;">Register</span>
-                                        </a>
-                                    }
-                                    <a class="dropdown-item d-flex align-items-center" style="color: black;text-decoration: none" href="/Identity/Account/Login">
-                                        <img width="15" height="15" src="https://img.icons8.com/ios/50/1A1A1A/enter-2.png" alt="login-icon" />
-                                        <span style="margin-left: 10px;">Login</span>
-                                    </a>
-                                    <a class="dropdown-item d-flex align-items-center" style="color: black;text-decoration: none" href="/Identity/Account/Register">
-                                        <img width="20" height="20" src="https://img.icons8.com/ios/50/1A1A1A/add-user-male.png" alt="add-user-male" />
-                                        <span style="margin-left: 10px;">Register</span>
-                                    </a>
-                                    <a class="dropdown-item d-flex align-items-center" style="color: black;text-decoration: none" href="/entity/add">
-                                        <img width="20" height="20" src="https://img.icons8.com/ios/50/1A1A1A/signing-a-document.png" alt="signing-a-document" />
-                                        <span style="margin-left: 10px;">Register Entity</span>
-                                    </a>
-                                }
+                                <a class="dropdown-item nonline-link" style="color: black;" href="/Identity/Account/Manage">Account</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-danger" style="text-decoration: none" href="/Identity/Account/Logout">Logout</a>
                             </div>
                         </li>
                     </ul>

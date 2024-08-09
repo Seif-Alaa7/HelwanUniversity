@@ -14,16 +14,11 @@ namespace HelwanUniversity.Areas.Students.Controllers
 
         }
 
-        //Display image & Video
+        //Display News
         public IActionResult News()
         {
             var videos = uniFileRepository.GetAllVideos();
             return View(videos);
         }
-        public IActionResult EmbededLink()
-        {
-            return View();
-        }
-        
     }
 }

@@ -1,5 +1,9 @@
 ﻿@using Data.Repository.IRepository
 @inject IUniFileRepository UniFileRepository
+@{
+    var Images = UniFileRepository.GetAllImages();
+    ViewData["LogoTitle"] = Images[0].File;
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
