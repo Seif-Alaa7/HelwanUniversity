@@ -23,6 +23,7 @@ namespace Data.Repository
 
             return subjects;
         }
+
         public bool Exist(DepartmentSubjects model)
         {
             var ExistDepartmentSubject = context.DepartmentSubjects.Any(a => a.DepartmentId == model.DepartmentId && a.SubjectId == model.SubjectId);

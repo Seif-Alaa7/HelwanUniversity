@@ -1,7 +1,9 @@
-﻿using Data.Repository.IRepository;
+﻿using Data.Repository;
+using Data.Repository.IRepository;
 using HelwanUniversity.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Models;
 using ViewModels;
 
 namespace HelwanUniversity.Areas.Admin.Controllers
@@ -11,7 +13,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
     {
         private readonly IStudentRepository studentRepository;
         private readonly IDepartmentRepository departmentRepository;
-        private readonly IFacultyRepository faculty;
+        private readonly IFacultyRepository facultyRepository;
         private readonly ICloudinaryService cloudinaryService;
         private readonly IUniversityRepository universityRepository;
         private readonly IAcademicRecordsRepository academicRecordsRepository;  
@@ -21,7 +23,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         {
             this.studentRepository = studentRepository;
             this.departmentRepository = departmentRepository;
-            this.faculty = faculty;
+            this.facultyRepository = faculty;
             this.cloudinaryService = cloudinaryService;
             this.universityRepository = universityRepository;
             this.academicRecordsRepository = academicRecordsRepository;
@@ -30,6 +32,10 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         {
             var Students = studentRepository.GetAll();
             ViewData["DepartmentNames"] = departmentRepository.Dict();
+
+            ViewBag.FacultyNames = facultyRepository.GetNames(Students);
+            ViewData["Records"] = academicRecordsRepository.GetLevelANDSemester(Students);
+
             return View(Students);
         }
         public IActionResult Details(int id)
@@ -39,14 +45,15 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
             if (department != null)
             {
-                var facultyData = faculty.FacultyByDepartment(department.Id);
+                var facultyData = facultyRepository.FacultyByDepartment(department.Id);
                 ViewData["Faculty"] = facultyData;
             }
             else
             {
                 ViewData["Faculty"] = null;
             }
-            ViewData["FormBifurcation"] = universityRepository.Get().GoogleForm;
+            ViewData["FormBifurcation"] = universityRepository.Get().GoogleForm;  
+
             return View(studentDatails);
         }
         public IActionResult Edit(int id)
@@ -143,6 +150,5 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
             return View(students);
         }
-
     }
 }

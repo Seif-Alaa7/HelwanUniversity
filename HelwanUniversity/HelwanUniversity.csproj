@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\Views\AcademicRecords\" />
     <Folder Include="Areas\Doctors\Views\DepartmentSubjects\" />
     <Folder Include="Areas\Students\Views\DepartmentSubjects\" />
   </ItemGroup>

@@ -27,5 +27,6 @@ namespace Data.Repository.IRepository
         StudentSubjects GetOne(int studentID, int subjectID);
         IQueryable<StudentSubjects> FindStudent(int StudentID);
         void Delete(StudentSubjects model);
+        List<StudentSubjects> GetAll();
     }
 }

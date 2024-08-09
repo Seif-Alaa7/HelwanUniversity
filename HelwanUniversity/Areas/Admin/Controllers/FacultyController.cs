@@ -14,13 +14,15 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         private readonly ICloudinaryService cloudinaryService;
         private readonly IHighBoardRepository highBoardRepository;
         private readonly IUniFileRepository uniFileRepository;
+        private readonly IDepartmentRepository departmentRepository;
 
         public FacultyController(IFacultyRepository facultyRepository,ICloudinaryService cloudinaryService,
-            IHighBoardRepository highBoardRepository, IUniFileRepository uniFileRepository)
+            IHighBoardRepository highBoardRepository, IUniFileRepository uniFileRepository,IDepartmentRepository departmentRepository)
         {
             this.facultyRepository = facultyRepository;
             this.cloudinaryService = cloudinaryService;
             this.highBoardRepository = highBoardRepository;
+            this.departmentRepository = departmentRepository;
             this.uniFileRepository = uniFileRepository;
         }
         public IActionResult Index()
@@ -124,6 +126,12 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             facultyRepository.Save();
 
             return RedirectToAction("Index");
+        }
+        public IActionResult AllFaculities()
+        {
+            var faculties = facultyRepository.GetAll().ToList();
+            ViewBag.DepartmentsByFaculty = departmentRepository.GetDepartmentsByFaculty(faculties);
+            return View(faculties);
         }
         
     }

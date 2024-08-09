@@ -37,11 +37,9 @@
                     <td>@Html.DisplayFor(modelItem => item.Id)</td>
                     <td>@Html.DisplayFor(modelItem => item.Name)</td>
                     <td>
-                        <!-- Register Results Icon -->
                         <a href="@Url.Action("AddDegree", "StudentSubjects", new { Studentid = item.Id , Subjectid = ViewBag.id })" title="Register Results">
                             <i class="fas fa-clipboard-list icon-lg icon-spacing"></i>
                         </a>
-                        <!-- Show Results Icon -->
                         <a href="@Url.Action("DisplayDegrees", "StudentSubjects", new { id = item.Id })" title="Show Results">
                             <i class="fas fa-eye icon-lg"></i>
                         </a>

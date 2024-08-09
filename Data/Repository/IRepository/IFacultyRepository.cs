@@ -19,6 +19,8 @@ namespace Data.Repository.IRepository
         void Save();
         bool ExistDeanInFaculty(int DeanId);
         Faculty? FacultyByDepartment(int DepartmentId);
+        Dictionary<int, string> GetNames(List<Student> Students);
+        string GetName(int id);
 
     }
 }

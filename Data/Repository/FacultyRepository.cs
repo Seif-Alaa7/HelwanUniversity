@@ -74,5 +74,32 @@ namespace Data.Repository
 
             return department?.Faculty;
         }
+        public Dictionary<int, string> GetNames(List<Student> students)
+        {
+            var facultyNames = new Dictionary<int, string>();
+
+            foreach (var student in students)
+            {
+                var department = context.Departments
+                    .Include(d => d.Faculty)
+                    .FirstOrDefault(d => d.Id == student.DepartmentId);
+
+                if (department != null && department.Faculty != null)
+                {
+                    facultyNames[student.DepartmentId] = department.Faculty.Name;
+                }
+                else
+                {
+                    facultyNames[student.DepartmentId] = "N/A";
+                }
+            }
+
+            return facultyNames;
+        }
+        public string GetName(int id)
+        {
+            var name = context.Faculties.FirstOrDefault(d => d.Id == id)?.Name;
+            return name;
+        }
     }
 }

@@ -126,5 +126,16 @@ namespace Data.Repository
             var Ids =  subjects.Select(s => s.Id).ToList();
             return Ids;
         }
+        public List<Subject> SubjectsByDepartment(int Departmentid, Level level)
+        {
+            var subjects = context.DepartmentSubjects
+                .Where(ds => ds.DepartmentId == Departmentid)
+                .Include(ds => ds.Subject) 
+                .Where(ds => ds.Subject.Level == level) 
+                .Select(ds => ds.Subject) 
+                .ToList();
+
+            return subjects;
+        }
     }
 }

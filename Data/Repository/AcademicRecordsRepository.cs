@@ -103,5 +103,15 @@ namespace Data.Repository
             }
             return records;
         }
+        public IQueryable<AcademicRecords> GetStudents(int Departmentid,int Facultyid,Level level)
+        {
+            var list = context.academicRecords
+                  .Include(ar => ar.Student)
+                  .Where(ar => ar.Student.DepartmentId == Departmentid
+                               && ar.Level == level
+                               && ar.Student.Department.FacultyId == Facultyid);
+
+            return list;
+        }
     }
 }

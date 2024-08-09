@@ -21,5 +21,6 @@ namespace Data.Repository.IRepository
         void DeleteByStudent(int studentId);
         AcademicRecords GetStudent(int id);
         Dictionary<int, (Level Level, Semester Semester)> GetLevelANDSemester(List<Student> students);
+        IQueryable<AcademicRecords> GetStudents(int Departmentid, int Facultyid, Level level);
     }
 }

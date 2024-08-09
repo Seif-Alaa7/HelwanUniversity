@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Data.Repository;
+using Data.Repository.IRepository;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Models;
+using Models.Enums;
 
 namespace HelwanUniversity.Areas.Admin.Controllers
 {

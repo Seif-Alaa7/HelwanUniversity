@@ -17,6 +17,10 @@ namespace Data.Repository
         {
             this.context = context;
         }
+         public List<StudentSubjects> GetAll() 
+        { 
+            return context.StudentSubjects.ToList();    
+        }
         public List<StudentSubjects> StudentBySubject(int id)
         {
             var students = context.StudentSubjects
@@ -52,7 +56,6 @@ namespace Data.Repository
         { 
             context.Remove(model);
         }
-
         public IQueryable<StudentSubjects> FindStudent(int StudentID)
         {
             var studentSubjects = context.StudentSubjects.Where(x=>x.StudentId==StudentID);

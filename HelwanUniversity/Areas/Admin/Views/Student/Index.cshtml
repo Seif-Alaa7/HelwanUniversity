@@ -1,71 +1,122 @@
-﻿@{
+﻿@using Models.Enums;
+@{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var records = ViewBag.Records as Dictionary<int, (Level Level, Semester Semester)>;
 }
+<link rel="stylesheet" href="/css/Student.css">
 
 @model IEnumerable<Models.Student>
 
 @{
     ViewData["Title"] = "Index";
 }
-
-<button type="button" class="btn btn-primary">Results</button>
-
 <h1 class="text-center">All Students</h1>
-<br/>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayName("Department")
-            </th>
-            <th>
-                @Html.DisplayName("Payment Fees")
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                  @ViewBag.DepartmentNames[item.DepartmentId]
-            </td>
-            @if(item.PaymentFees)
+<br />
+
+<div class="filter-container">
+    <input type="text" id="idFilter" class="filter-input" placeholder="Filter by ID" />
+    <input type="text" id="nameFilter" class="filter-input" placeholder="Filter by Name" />
+    <select id="levelFilter" class="filter-select">
+        <option value="">Select Level</option>
+        @foreach (var level in Enum.GetValues(typeof(Level)).Cast<Level>())
+        {
+            <option value="@level">@level</option>
+        }
+    </select>
+    <select id="semesterFilter" class="filter-select">
+        <option value="">Select Semester</option>
+        @foreach (var semester in Enum.GetValues(typeof(Semester)).Cast<Semester>())
+        {
+            <option value="@semester">@semester</option>
+        }
+    </select>
+    <select id="facultyFilter" class="filter-select">
+        <option value="">Select Faculty</option>
+        @foreach (var faculty in ViewBag.FacultyNames)
+        {
+            <option value="@faculty.Key">@faculty.Value</option>
+        }
+    </select>
+    <select id="departmentFilter" class="filter-select">
+        <option value="">Select Department</option>
+        @foreach (var department in ViewBag.DepartmentNames)
+        {
+            <option value="@department.Key">@department.Value</option>
+        }
+    </select>
+    <button class="filter-button" onclick="applyFilters()">Apply Filters</button>
+</div>
+
+<div class="table-container">
+    <table id="studentsTable" class="table-custom">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                <th>@Html.DisplayName("Level")</th>
+                <th>@Html.DisplayName("Semester")</th>
+                <th>@Html.DisplayName("Faculty")</th>
+                <th>@Html.DisplayName("Department")</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
             {
-                <td>
-                        @Html.DisplayName("Paid")
-                </td>
-                }
-                else
-                {
+                <tr data-id="@item.Id"
+                    data-name="@item.Name"
+                    data-level="@records[item.Id].Level"
+                    data-semester="@records[item.Id].Semester"
+                    data-faculty="@ViewBag.FacultyNames[item.DepartmentId]"
+                    data-department="@ViewBag.DepartmentNames[item.DepartmentId]">
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
                     <td>
-                        @Html.DisplayName("UnPaid")
+                        @if (records != null && records.ContainsKey(item.Id))
+                        {
+                            @records[item.Id].Level
+                        }
+                        else
+                        {
+                            @:N/A
+                        }
                     </td>
-                }
-            <td>
-                @Html.ActionLink("i", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("-", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                    <td>
+                        @if (records != null && records.ContainsKey(item.Id))
+                        {
+                            @records[item.Id].Semester
+                        }
+                        else
+                        {
+                            @:N/A
+                        }
+                    </td>
+                    <td>@ViewBag.FacultyNames[item.DepartmentId]</td>
+                    <td>@ViewBag.DepartmentNames[item.DepartmentId]</td>
+                    <td>
+                        <a href="@Url.Action("Details", "Student", new { id = @item.Id })" class="action-link text-decoration-none">
+                            <img width="25" height="25" src="https://img.icons8.com/ios/50/1A1A1A/info--v1.png" alt="info--v1" />
+                        </a>
+                        <a href="@Url.Action("Edit", "Student", new { id = @item.Id })" class="action-link text-decoration-none">
+                            <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/1A1A1A/create-new--v2.png" alt="create-new--v2" />
+                        </a>
+                        <a href="@Url.Action("Delete", "Student", new { id = @item.Id })" class="action-link text-decoration-none">
+                            <img width="25" height="25" src="https://img.icons8.com/ios-filled/50/FA5252/delete-trash.png" alt="delete-trash" />
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script src="/js/student.js"></script>
+
+
+
+
+
+
+
+
+

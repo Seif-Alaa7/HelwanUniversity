@@ -1,5 +1,6 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Models;
@@ -120,6 +121,47 @@ namespace Data.Repository
            var Dict =  context.Departments
                 .ToList().ToDictionary(d => d.Id, d => d.Name);
             return Dict;
+        }
+        public Dictionary<int, List<(int Id, string Name)>> GetDepartmentsByFaculty(List<Faculty> facultyList)
+        {
+            var departmentsByFaculty = new Dictionary<int, List<(int Id, string Name)>>();
+
+            foreach (var faculty in facultyList)
+            {
+                var departments = context.Departments
+                    .Where(d => d.FacultyId == faculty.Id)
+                    .Select(d => new { d.Id, d.Name })
+                    .ToList();
+
+                if (departments.Any())
+                {
+                    departmentsByFaculty[faculty.Id] = departments
+                        .Select(d => (d.Id, d.Name))
+                        .ToList();
+                }
+                else
+                {
+                    departmentsByFaculty[faculty.Id] = new List<(int Id, string Name)>
+            {
+                (0, "N/A") 
+            };
+                }
+            }
+
+            return departmentsByFaculty;
+        }
+        public string GetName(int id)
+        {
+            var name = context.Departments.FirstOrDefault(x => x.Id == id)?.Name;
+            return name;
+               
+        }
+        public Department DepartmentIncludeFaculty(int id)
+        {
+           var list =   context.Departments
+                .Include(d => d.Faculty)
+                .FirstOrDefault(d => d.Id == id);
+            return list;
         }
     }
 }
