@@ -34,17 +34,6 @@
                         <a href="@Url.Action("Details", "Faculty", new { id = faculty.Id })" class="btn btn-primary btn-custom">
                             <i class="fas fa-info-circle"></i>
                         </a>
-                        <a href="@Url.Action("Edit", "Faculty", new { id = faculty.Id })" class="btn btn-warning btn-custom">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <form asp-action="Delete" method="post" class="d-inline">
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" name="id" value="@faculty.Id" />
-                            <button type="submit" class="btn btn-danger btn-custom" onclick="return confirm('هل أنت متأكد أنك تريد حذف هذه الكلية؟');">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </form>
-
                     </div>
                 </div>
             </div>

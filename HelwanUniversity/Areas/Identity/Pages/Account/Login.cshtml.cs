@@ -141,18 +141,18 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                     {
                         return RedirectToAction("Index", "University", new { area = "Admin" });
                     }
-                    else if (roles.Contains("Doctor"))
+                    else if (roles.Contains("Doctors"))
                     {
                         return RedirectToAction("Index", "University", new { area = "Doctors" });
                     }
-                    else if (roles.Contains("Student"))
+                    else if (roles.Contains("Students"))
                     {
                         return RedirectToAction("Index", "University", new { area = "Students" });
                     }
                     else
                     {
                         // If the user has no role, redirect to a default area
-                        return RedirectToAction("Index", "Home", new { area = "Students" });
+                        return RedirectToAction("Index", "University", new { area = "User" });
                     }
                 }
 

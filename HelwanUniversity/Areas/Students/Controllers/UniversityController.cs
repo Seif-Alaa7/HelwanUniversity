@@ -1,7 +1,7 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HelwanUniversity.Areas.Student.Controllers
+namespace HelwanUniversity.Areas.Students.Controllers
 {
     [Area("students")]
     public class UniversityController : Controller
