@@ -1,6 +1,4 @@
-﻿using Data.Repository.IRepository;
-using Microsoft.AspNetCore.Mvc;
-using Models;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace HelwanUniversity.Areas.Students.Controllers
 {

@@ -13,7 +13,6 @@ namespace HelwanUniversity.Areas.Students.Controllers
             this.uniFileRepository = uniFileRepository;
 
         }
-
         //Display News
         public IActionResult News()
         {
