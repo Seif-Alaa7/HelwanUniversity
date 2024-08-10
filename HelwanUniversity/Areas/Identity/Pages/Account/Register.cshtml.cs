@@ -177,20 +177,22 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            if (_roleManager.Roles.IsNullOrEmpty())
+            if (!_roleManager.Roles.Any())
             {
-                await _roleManager.CreateAsync(new("Admin"));
-                await _roleManager.CreateAsync(new("Students"));
-                await _roleManager.CreateAsync(new("Doctors"));
+                await _roleManager.CreateAsync(new IdentityRole("Admin"));
+                await _roleManager.CreateAsync(new IdentityRole("Student"));
+                await _roleManager.CreateAsync(new IdentityRole("Doctor"));
             }
+
             Input = new InputModel
             {
                 ListOfRoles = _roleManager.Roles.Select(e => new SelectListItem
                 {
                     Text = e.Name,
-                    Value = e.Name
-                })
+                    Value = e.Id
+                }).ToList()
             };
+
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
@@ -200,7 +202,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(CancellationToken cancellationToken = default)
         {
             if (!ModelState.IsValid)
-            {
+            {?
                 LoadPageData();
                 return Page();
             }

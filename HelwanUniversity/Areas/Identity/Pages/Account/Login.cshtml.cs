@@ -133,11 +133,11 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                     {
                         return RedirectToAction("Index", "University", new { area = "Admin" });
                     }
-                    else if (roles.Contains("Doctors"))
+                    else if (roles.Contains("Doctor"))
                     {
                         return RedirectToAction("Index", "University", new { area = "Doctors" });
                     }
-                    else if (roles.Contains("Students"))
+                    else if (roles.Contains("Student"))
                     {
                         return RedirectToAction("Index", "University", new { area = "Students" });
                     }
