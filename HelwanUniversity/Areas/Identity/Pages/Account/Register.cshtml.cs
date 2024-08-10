@@ -9,7 +9,6 @@ using System.Text.Encodings.Web;
 using Data;
 using Data.Repository.IRepository;
 using Microsoft.IdentityModel.Tokens;
-using HelwanUniversity.Vaildations;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -181,8 +180,8 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             if (_roleManager.Roles.IsNullOrEmpty())
             {
                 await _roleManager.CreateAsync(new("Admin"));
-                await _roleManager.CreateAsync(new("Student"));
-                await _roleManager.CreateAsync(new("Doctor"));
+                await _roleManager.CreateAsync(new("Students"));
+                await _roleManager.CreateAsync(new("Doctors"));
             }
             Input = new InputModel
             {
@@ -347,16 +346,6 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
 
             LoadPageData();
             return Page();
-
-            if (_userManager.Options.SignIn.RequireConfirmedAccount)
-            {
-                return RedirectToPage("RegisterConfirmation", new { email = Input.Email });
-            }
-            else
-            {
-                // await _signInManager.SignInAsync(user, isPersistent: false);
-                return RedirectToPage("Login");
-            }
         }
 
         private void LoadPageData()
