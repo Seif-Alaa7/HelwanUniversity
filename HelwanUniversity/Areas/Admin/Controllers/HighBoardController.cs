@@ -1,6 +1,10 @@
 ﻿using Data.Repository.IRepository;
 using HelwanUniversity.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Models;
+using System.Collections.Generic;
+using System.Net.WebSockets;
 using ViewModels;
 
 namespace HelwanUniversity.Areas.Admin.Controllers
@@ -10,11 +14,16 @@ namespace HelwanUniversity.Areas.Admin.Controllers
     {
         private readonly IHighBoardRepository highBoardRepository;
         private readonly ICloudinaryService cloudinaryService;
+        private readonly IFacultyRepository facultyRepository;
+        private readonly IDepartmentRepository departmentRepository;
 
-        public HighBoardController(IHighBoardRepository highBoardRepository, ICloudinaryService cloudinaryService)
+        public HighBoardController(IHighBoardRepository highBoardRepository,
+            ICloudinaryService cloudinaryService,IFacultyRepository facultyRepository,IDepartmentRepository departmentRepository)
         {
             this.highBoardRepository = highBoardRepository;
             this.cloudinaryService = cloudinaryService;
+            this.facultyRepository = facultyRepository;
+            this.departmentRepository = departmentRepository;   
         }
         public IActionResult Index()
         {
@@ -87,7 +96,18 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
             highBoardRepository.Update(highboard);
             highBoardRepository.Save();
-            return RedirectToAction("Index");
+
+            if(highboard.JobTitle == Models.Enums.JobTitle.DeanOfFaculty)
+            {
+                return RedirectToAction("DisplayDean");
+            }
+            else if(highboard.JobTitle == Models.Enums.JobTitle.HeadOfDepartment)
+            {
+                return RedirectToAction("DisplayHead");
+            }
+            else{
+                return RedirectToAction("Index");
+            }
         }
 
 
@@ -95,18 +115,47 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
-            highBoardRepository.Delete(id);
-            highBoardRepository.Save();
+            var highBoard = highBoardRepository.GetOne(id);
+            var jop = highBoard.JobTitle;
 
+            if (jop == Models.Enums.JobTitle.DeanOfFaculty)
+            {
+                var faculty = facultyRepository.GetFacultybyDean(id);
+                facultyRepository.Delete(faculty);
+                facultyRepository.Save();
+
+                highBoardRepository.Delete(id);
+                highBoardRepository.Save();
+
+                return RedirectToAction("DisplayDean");
+            }
+            else if (jop == Models.Enums.JobTitle.HeadOfDepartment)
+            {
+                var department = departmentRepository.GetDepartbyHead(id);
+                departmentRepository.Delete(department);
+                departmentRepository.Save();
+
+                highBoardRepository.Delete(id);
+                highBoardRepository.Save();
+                return RedirectToAction("DisplayHead");
+            }
             return RedirectToAction("Index");
         }
         public IActionResult DisplayDean()
         {
-            return View();
+            var deans = highBoardRepository.GetDeans();
+            var facultiies = facultyRepository.GetAll();
+            ViewBag.Faculty = facultyRepository.GetFaculty(facultiies);
+
+            return View(deans);
         }
         public IActionResult DisplayHead()
         {
-            return View();
+            var Heads = highBoardRepository.GetHeads();
+            var Departments = departmentRepository.GetAll();    
+            ViewBag.Department = departmentRepository.GetDepartments(Departments);
+
+            return View(Heads);
         }
     }
 }

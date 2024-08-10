@@ -101,5 +101,26 @@ namespace Data.Repository
             var name = context.Faculties.FirstOrDefault(d => d.Id == id)?.Name;
             return name;
         }
+        public Dictionary<int,string> GetFaculty(List<Faculty> faculties)
+        {
+            var FacultyDictionary = context.Faculties
+               .ToList().ToDictionary(x => x.DeanId, x => x.Name);
+
+            var FacultyNames = new Dictionary<int, string>();
+            foreach (var Faculty in faculties)
+            {
+                string FacultyName;
+                if (FacultyDictionary.TryGetValue(Faculty.DeanId, out FacultyName))
+                {
+                    FacultyNames[Faculty.DeanId] = FacultyName;
+                }
+            }
+            return FacultyNames;
+        }
+        public Faculty GetFacultybyDean(int id)
+        {
+            var Faculty = context.Faculties.FirstOrDefault(x=>x.DeanId == id);
+            return Faculty;
+        }
     }
 }

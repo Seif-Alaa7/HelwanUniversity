@@ -23,5 +23,7 @@ namespace Data.Repository.IRepository
         bool ExistName(string name);
         string GetName(int id);
         HighBoard GetPresident();
+        IQueryable<HighBoard> GetHeads();
+        IQueryable<HighBoard> GetDeans();
     }
 }

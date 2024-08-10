@@ -1,5 +1,6 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Models;
 using Models.Enums;
 using System;
@@ -88,5 +89,16 @@ namespace Data.Repository
             var president = context.HighBoards.FirstOrDefault(x=>x.JobTitle == JobTitle.President);
             return president;
         }
+        public IQueryable<HighBoard> GetHeads()
+        {
+            var Heads = context.HighBoards.Where(x => x.JobTitle == JobTitle.HeadOfDepartment);
+            return Heads;
+        }
+        public IQueryable<HighBoard> GetDeans()
+        {
+            var Deans = context.HighBoards.Where(x => x.JobTitle == JobTitle.DeanOfFaculty);
+            return Deans;
+        }
+
     }
 }
