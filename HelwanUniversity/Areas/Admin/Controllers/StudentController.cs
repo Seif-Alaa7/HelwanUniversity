@@ -139,7 +139,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             studentRepository.Delete(id);
             studentRepository.Save();
 
-            return RedirectToAction("Index", "University");
+            return RedirectToAction("Index");
         }
         public IActionResult StudentsByDepartment(int id)
         {

@@ -18,12 +18,9 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            return View();
-        }
-        public IActionResult Details(int id)
-        {
-            var HighboardDatails = highBoardRepository.GetOne(id);
-            return View(HighboardDatails);
+            var Highboards = highBoardRepository.GetAll();
+            ViewData["President"] = highBoardRepository.GetPresident();
+            return View(Highboards);
         }
         public IActionResult Edit(int id)
         {
@@ -90,7 +87,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
             highBoardRepository.Update(highboard);
             highBoardRepository.Save();
-            return RedirectToAction("Details", new { id = highboard.Id });
+            return RedirectToAction("Index");
         }
 
 
@@ -101,7 +98,15 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             highBoardRepository.Delete(id);
             highBoardRepository.Save();
 
-            return RedirectToAction("Index" , "University");
+            return RedirectToAction("Index");
+        }
+        public IActionResult DisplayDean()
+        {
+            return View();
+        }
+        public IActionResult DisplayHead()
+        {
+            return View();
         }
     }
 }

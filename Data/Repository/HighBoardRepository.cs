@@ -83,5 +83,10 @@ namespace Data.Repository
             var name = context.HighBoards.FirstOrDefault(x=>x.Id == id)?.Name;
             return name;
         }
+        public HighBoard GetPresident()
+        {
+            var president = context.HighBoards.FirstOrDefault(x=>x.JobTitle == JobTitle.President);
+            return president;
+        }
     }
 }

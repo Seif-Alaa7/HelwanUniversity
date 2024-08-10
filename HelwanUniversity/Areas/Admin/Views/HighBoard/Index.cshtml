@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Models.HighBoard>
+
+@{
+    ViewData["Title"] = "HighBoard";
+}
+
+<h1 class="text-center" style="font-size: 80px;">@ViewData["Title"]</h1>
+<br/>
+<link rel="stylesheet" href="/css/Highboard.css">
+
+<div class="container">
+    <!-- صندوق الرئيس -->
+    <div class="box president-box">
+        <div class="imgBox">
+            <img src="@ViewBag.President.Picture" alt="@ViewBag.President.Name">
+        </div>
+        <div class="content">
+            <h2>
+                @ViewBag.President.Name<br>
+                <span>President</span><br />
+                <span>@ViewBag.President.Description</span><br/>
+                <a href="@Url.Action("Edit", "Highboard", new { id = @ViewBag.President.Id })" class="action-link text-decoration-none mx-1">
+                    <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/1A1A1A/create-new--v2.png" alt="Edit" />
+                </a>
+                <form asp-action="Delete" asp-route-id="@ViewBag.President.Id" method="post" style="display: inline;" class="mx-1">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Leader?');">
+                        <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/FFFFFF/trash.png" alt="trash" />
+                    </button>
+                </form>
+            </h2>
+        </div>
+    </div>
+
+    <!-- صندوق نواب الرئيس -->
+    <div class="vice-presidents">
+        @foreach (var item in Model.Where(i => i.JobTitle == Models.Enums.JobTitle.VicePrecident))
+        {
+            <div class="box">
+                <div class="imgBox">
+                    <img src="@item.Picture" alt="@item.Name">
+                </div>
+                <div class="content">
+                    <h2>
+                        @item.Name<br>
+                        <span>@item.JobTitle</span><br />
+                        <span>@item.Description</span><br/>
+                        <a href="@Url.Action("Edit", "Highboard", new { id = @item.Id })" class="action-link text-decoration-none mx-1">
+                            <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/1A1A1A/create-new--v2.png" alt="Edit" />
+                        </a>
+                        <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display: inline;" class="mx-1">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Leader?');">
+                                <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/FFFFFF/trash.png" alt="trash" />
+                            </button>
+                        </form>
+                    </h2>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- باقي المناصب -->
+    <div class="other-positions">
+        @foreach (var item in Model)
+        {
+            if (item.JobTitle != Models.Enums.JobTitle.HeadOfDepartment && item.JobTitle != Models.Enums.JobTitle.Doctor &&
+            item.JobTitle != Models.Enums.JobTitle.DeanOfFaculty && item.JobTitle != Models.Enums.JobTitle.Prof_Doctor &&
+            item.JobTitle != Models.Enums.JobTitle.President && item.JobTitle != Models.Enums.JobTitle.VicePrecident)
+            {
+                <div class="box">
+                    <div class="imgBox">
+                        <img src="@item.Picture" alt="@item.Name">
+                    </div>
+                    <div class="content">
+                        <h2>
+                            @item.Name<br>
+                            <span>@item.JobTitle</span><br />
+                            <span>@item.Description</span><br/>
+                            <a href="@Url.Action("Edit","Highboard", new { id = @item.Id })" class="action-link text-decoration-none mx-1">
+                                <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/1A1A1A/create-new--v2.png" alt="Edit" />
+                            </a>
+                            <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display: inline;" class="mx-1">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Leader?');">
+                                    <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/FFFFFF/trash.png" alt="trash" />
+                                </button>
+                            </form>
+                        </h2>
+                    </div>
+                </div>
+            };
+        }
+    </div>
+</div>
+
+
+

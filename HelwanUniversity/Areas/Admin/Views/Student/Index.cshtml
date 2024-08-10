@@ -34,14 +34,14 @@
         <option value="">Select Faculty</option>
         @foreach (var faculty in ViewBag.FacultyNames)
         {
-            <option value="@faculty.Key">@faculty.Value</option>
+            <option value="@faculty.Value.ToLower()">@faculty.Value</option>
         }
     </select>
     <select id="departmentFilter" class="filter-select">
         <option value="">Select Department</option>
         @foreach (var department in ViewBag.DepartmentNames)
         {
-            <option value="@department.Key">@department.Value</option>
+            <option value="@department.Value.ToLower()">@department.Value</option>
         }
     </select>
     <button class="filter-button" onclick="applyFilters()">Apply Filters</button>
@@ -67,8 +67,8 @@
                     data-name="@item.Name"
                     data-level="@records[item.Id].Level"
                     data-semester="@records[item.Id].Semester"
-                    data-faculty="@ViewBag.FacultyNames[item.DepartmentId]"
-                    data-department="@ViewBag.DepartmentNames[item.DepartmentId]">
+                    data-faculty="@ViewBag.FacultyNames[item.DepartmentId].ToLower()"
+                    data-department="@ViewBag.DepartmentNames[item.DepartmentId].ToLower()">
                     <td>@Html.DisplayFor(modelItem => item.Id)</td>
                     <td>@Html.DisplayFor(modelItem => item.Name)</td>
                     <td>
@@ -100,9 +100,10 @@
                         <a href="@Url.Action("Edit", "Student", new { id = @item.Id })" class="action-link text-decoration-none">
                             <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/1A1A1A/create-new--v2.png" alt="create-new--v2" />
                         </a>
-                        <a href="@Url.Action("Delete", "Student", new { id = @item.Id })" class="action-link text-decoration-none">
-                            <img width="25" height="25" src="https://img.icons8.com/ios-filled/50/FA5252/delete-trash.png" alt="delete-trash" />
-                        </a>
+                        <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display: inline;" class="mx-1">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Student?');">Delete</button>
+                        </form>
                     </td>
                 </tr>
             }

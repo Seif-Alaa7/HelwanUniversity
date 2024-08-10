@@ -33,12 +33,13 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             var Hboards = highBoardRepository.GetAll();
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             var admin = highBoardRepository.GetAll().FirstOrDefault(h => h.ApplicationUserId == userId);
             if (admin != null)
             {
-                ViewData["Admin"] = admin; 
+                ViewData["Admin"] = admin;
             };
-
+            
             //ViewData
             ViewData["LogoTitle"] = Images[0].File;
             ViewData["Images"] = Images;

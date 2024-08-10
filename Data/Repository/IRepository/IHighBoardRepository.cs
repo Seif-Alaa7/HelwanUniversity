@@ -22,5 +22,6 @@ namespace Data.Repository.IRepository
         bool ExistJop(JobTitle JobTitle);
         bool ExistName(string name);
         string GetName(int id);
+        HighBoard GetPresident();
     }
 }

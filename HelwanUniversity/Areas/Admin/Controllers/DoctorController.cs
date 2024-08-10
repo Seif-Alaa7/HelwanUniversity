@@ -2,6 +2,7 @@
 using Data.Repository.IRepository;
 using HelwanUniversity.Services;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 using ViewModels;
 
 namespace HelwanUniversity.Areas.Admin.Controllers
@@ -29,7 +30,13 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var Doctors = doctorRepository.GetAll();
+
+            ViewBag.Subjects = doctorRepository.GetSubjects(Doctors);
+            ViewBag.DoctorDepartments = doctorRepository.GetDepartments(Doctors);
+            ViewBag.DoctorColleges = doctorRepository.GetColleges(Doctors);
+
+            return View(Doctors);
         }
         public IActionResult Details(int id)
         {
@@ -97,7 +104,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             doctorRepository.Delete(id);
             doctorRepository.Save();
 
-            return RedirectToAction("Index", "University");
+            return RedirectToAction("Index");
         }
         public IActionResult DisplaySubject(int id)
         {

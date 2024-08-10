@@ -105,5 +105,68 @@ namespace Data.Repository
 
             return Dict;
         }
+        public Dictionary<int,List<string>> GetSubjects(List<Doctor> Doctors)
+        {
+            var subjectsDoctor = new Dictionary<int, List<string>>();
+
+            foreach (var Doctor in Doctors)
+            {
+                var SubjectNames = context.Subjects
+                    .Where(ds => ds.DoctorId == Doctor.Id)
+                    .Select(ds => ds.Name)
+                    .ToList();
+
+                subjectsDoctor[Doctor.Id] = SubjectNames;
+            }
+            return subjectsDoctor;
+        }
+        public Dictionary<int, List<string>> GetDepartments(List<Doctor> doctors)
+        {
+            var doctorDepartments = new Dictionary<int, List<string>>();
+
+            foreach (var doctor in doctors)
+            {
+                var departmentIds = context.DepartmentSubjects
+                    .Where(ds => ds.Subject.DoctorId == doctor.Id)
+                    .Select(ds => ds.DepartmentId)
+                    .Distinct()
+                    .ToList();
+
+                var departments = context.Departments
+                    .Where(d => departmentIds.Contains(d.Id))
+                    .Select(d => d.Name)
+                    .ToList();
+
+                doctorDepartments[doctor.Id] = departments;
+            }
+            return doctorDepartments;
+        }
+        public Dictionary<int, List<string>> GetColleges(List<Doctor> doctors)
+        {
+            var doctorColleges = new Dictionary<int, List<string>>();
+
+            foreach (var doctor in doctors)
+            {
+                var departmentIds = context.DepartmentSubjects
+                    .Where(ds => ds.Subject.DoctorId == doctor.Id)
+                    .Select(ds => ds.DepartmentId)
+                    .Distinct()
+                    .ToList();
+
+                var collegeIds = context.Departments
+                    .Where(d => departmentIds.Contains(d.Id))
+                    .Select(d => d.FacultyId)
+                    .Distinct()
+                    .ToList();
+
+                var colleges = context.Faculties
+                    .Where(c => collegeIds.Contains(c.Id))
+                    .Select(c => c.Name)
+                    .ToList();
+
+                doctorColleges[doctor.Id] = colleges;
+            }
+            return doctorColleges;
+        }
     }
 }
