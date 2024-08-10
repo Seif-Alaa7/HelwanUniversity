@@ -202,7 +202,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(CancellationToken cancellationToken = default)
         {
             if (!ModelState.IsValid)
-            {?
+            {
                 LoadPageData();
                 return Page();
             }
