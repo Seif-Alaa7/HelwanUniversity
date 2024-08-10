@@ -21,6 +21,7 @@ namespace Data.Repository.IRepository
         Faculty? FacultyByDepartment(int DepartmentId);
         Dictionary<int, string> GetNames(List<Student> Students);
         string GetName(int id);
-
+        Dictionary<int, string> GetFaculty(List<Faculty> faculties);
+        Faculty GetFacultybyDean(int id);
     }
 }

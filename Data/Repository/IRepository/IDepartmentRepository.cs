@@ -28,5 +28,7 @@ namespace Data.Repository.IRepository
         Dictionary<int, List<(int Id, string Name)>> GetDepartmentsByFaculty(List<Faculty> facultyList);
         string GetName(int id);
         Department DepartmentIncludeFaculty(int id);
+        Dictionary<int, string> GetDepartments(List<Department> departments);
+        Department GetDepartbyHead(int id);
     }
 }

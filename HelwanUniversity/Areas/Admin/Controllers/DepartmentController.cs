@@ -1,5 +1,6 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 using ViewModels;
 
 namespace HelwanUniversity.Areas.Admin.Controllers

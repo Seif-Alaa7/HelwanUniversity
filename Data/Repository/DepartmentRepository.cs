@@ -163,5 +163,26 @@ namespace Data.Repository
                 .FirstOrDefault(d => d.Id == id);
             return list;
         }
+        public Dictionary<int, string> GetDepartments(List<Department> departments)
+        {
+            var DepartmentDictionary = context.Departments
+               .ToList().ToDictionary(x => x.HeadId, x => x.Name);
+
+            var DepartmentNames = new Dictionary<int, string>();
+            foreach (var Depaerment in departments)
+            {
+                string DepartmentName;
+                if (DepartmentDictionary.TryGetValue(Depaerment.HeadId, out DepartmentName))
+                {
+                    DepartmentNames[Depaerment.HeadId] = DepartmentName;
+                }
+            }
+            return DepartmentNames;
+        }
+        public Department GetDepartbyHead(int id)
+        {
+            var department = context.Departments.FirstOrDefault(x => x.HeadId == id);
+            return department;
+        }
     }
 }

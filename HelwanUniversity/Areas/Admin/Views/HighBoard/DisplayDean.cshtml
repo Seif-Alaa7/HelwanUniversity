@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Models.HighBoard>
+
+@{
+    ViewData["Title"] = "All Deans";
+}
+
+<h1 class="text-center my-4" style="color: #4A90E2; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    All Deans
+</h1>
+
+<input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search by name" class="form-control mb-4" style="border-radius: 25px; border: 2px solid #4A90E2;">
+
+<table class="table table-hover table-striped" id="deansTable" style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+    <thead class="thead-light">
+        <tr>
+            <th>Picture</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Faculty</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr style="transition: background-color 0.3s;">
+                <td>
+                    <img src="@item.Picture" alt="Current Image" class="img-fluid rounded-circle" style="width: 80px; height: 80px; border: 2px solid #4A90E2;">
+                </td>
+                <td class="name-column" style="vertical-align: middle;">@Html.DisplayFor(modelItem => item.Name)</td>
+                <td style="vertical-align: middle;">@Html.DisplayFor(modelItem => item.Description)</td>
+                <td>@ViewBag.Faculty[item.Id]</td>
+                <td style="vertical-align: middle;">
+                    @Html.ActionLink(
+                             "Edit",
+                             "Edit",
+                             new { id = item.Id },
+                             new { @class = "btn btn-primary btn-sm rounded-pill px-3" }
+                             )
+                    <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display: inline;" class="mx-1">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger btn-sm rounded-pill px-3" onclick="return confirm('Are you sure you want to delete this Dean?');">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function filterTable() {
+        var input = document.getElementById("searchInput");
+        var filter = input.value.toUpperCase();
+        var table = document.getElementById("deansTable");
+        var tr = table.getElementsByTagName("tr");
+
+        for (var i = 1; i < tr.length; i++) {
+            var td = tr[i].getElementsByClassName("name-column")[0];
+            if (td) {
+                var txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
