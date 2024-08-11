@@ -116,6 +116,8 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         public IActionResult Delete(int id)
         {
             var highBoard = highBoardRepository.GetOne(id);
+            var UserId = highBoard.ApplicationUserId;
+
             var jop = highBoard.JobTitle;
 
             if (jop == Models.Enums.JobTitle.DeanOfFaculty)
@@ -125,6 +127,9 @@ namespace HelwanUniversity.Areas.Admin.Controllers
                 facultyRepository.Save();
 
                 highBoardRepository.Delete(id);
+                highBoardRepository.Save();
+
+                highBoardRepository.DeleteUser(UserId);
                 highBoardRepository.Save();
 
                 return RedirectToAction("DisplayDean");
@@ -137,9 +142,22 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
                 highBoardRepository.Delete(id);
                 highBoardRepository.Save();
+
+                highBoardRepository.DeleteUser(UserId);
+                highBoardRepository.Save();
+
                 return RedirectToAction("DisplayHead");
             }
-            return RedirectToAction("Index");
+            else
+            {
+                highBoardRepository.Delete(id);
+                highBoardRepository.Save();
+
+                highBoardRepository.DeleteUser(UserId);
+                highBoardRepository.Save();
+
+                return RedirectToAction("Index");
+            }
         }
         public IActionResult DisplayDean()
         {

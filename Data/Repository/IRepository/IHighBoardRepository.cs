@@ -25,5 +25,6 @@ namespace Data.Repository.IRepository
         HighBoard GetPresident();
         IQueryable<HighBoard> GetHeads();
         IQueryable<HighBoard> GetDeans();
+        void DeleteUser(string id);
     }
 }

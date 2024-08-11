@@ -31,7 +31,14 @@ namespace Data.Repository
             var student = GetOne(id);
             context.Students.Remove(student);
         }
-
+        public void DeleteUser(string id)
+        {
+            var user = context.Users.SingleOrDefault(u => u.Id == id);
+            if (user != null)
+            {
+                context.Users.Remove(user);
+            }
+        }
         public Student GetOne(int Id)
         {
             var student = context.Students
@@ -69,7 +76,6 @@ namespace Data.Repository
         {
             var list = context.StudentSubjects.Where(x => x.SubjectId == id).Select(x => x.Student);
             return list;
-
         }
     }
 }

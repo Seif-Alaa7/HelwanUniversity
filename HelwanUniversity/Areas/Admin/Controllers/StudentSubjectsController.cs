@@ -22,13 +22,11 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         private readonly IStudentRepository studentRepository;
         private readonly IDoctorRepository doctorRepository;
         private readonly IDepartmentRepository departmentRepository;
-        private readonly ApplicationDbContext Context;
-        public StudentSubjectsController(IStudentSubjectsRepository studentSubjectsRepository, ApplicationDbContext context,
+        public StudentSubjectsController(IStudentSubjectsRepository studentSubjectsRepository,
             IAcademicRecordsRepository academicRecordsRepository, ISubjectRepository subjectRepository, IStudentRepository studentRepository,
             IDoctorRepository doctorRepository, IDepartmentRepository departmentRepository)
         {
             this.studentSubjectsRepository = studentSubjectsRepository;
-            this.Context = context;
             this.academicRecordsRepository = academicRecordsRepository;
             this.subjectRepository = subjectRepository;
             this.studentRepository = studentRepository;
@@ -174,7 +172,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             var gpaSemester = academicRecordsRepository.CalculateGpaSemester(studentId, semester);
             var gpaTotal = academicRecordsRepository.CalculateGPATotal(studentId);
 
-            var academicRecords = Context.academicRecords.FirstOrDefault(x => x.StudentId == studentId);
+            var academicRecords = academicRecordsRepository.GetStudent(studentId);
 
             if (academicRecords != null)
             {

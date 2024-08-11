@@ -1,9 +1,11 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,6 +33,14 @@ namespace Data.Repository
         {
             var doctor = GetOne(id);
             context.Doctors.Remove(doctor);
+        }
+        public void DeleteUser(string id)
+        {
+            var user = context.Users.SingleOrDefault(u => u.Id == id);
+            if (user != null)
+            {
+                context.Users.Remove(user);
+            }
         }
 
         public Doctor GetOne(int Id)

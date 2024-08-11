@@ -13,17 +13,10 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
             this.uniFileRepository = uniFileRepository;
 
         }
-
-        //Display image & Video
         public IActionResult News()
         {
             var videos = uniFileRepository.GetAllVideos();
             return View(videos);
         }
-        public IActionResult EmbededLink()
-        {
-            return View();
-        }
-        
     }
 }

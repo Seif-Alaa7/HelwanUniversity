@@ -1,5 +1,7 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
+using Models;
+using System.Security.Claims;
 
 namespace HelwanUniversity.Areas.Doctors.Controllers
 {
@@ -27,7 +29,20 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
             var Images = uniFileRepository.GetAllImages();
             var Hboards = highBoardRepository.GetAll();
 
-            //ViewData
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var Highboard = highBoardRepository.GetAll().FirstOrDefault(h => h.ApplicationUserId == userId);
+            var Doctor = doctorRepository.GetAll().FirstOrDefault(h=>h.ApplicationUserId == userId);
+            if (Doctor != null)
+            {
+                ViewData["Doctor"] = Doctor;
+            }
+            else
+            {
+                ViewData["Doctor"] = Highboard;
+            }
+                //ViewData
             ViewData["LogoTitle"] = Images[0].File;
             ViewData["Images"] = Images;
             ViewData["Mail"] = $"mailto:{UNI.ContactMail}";

@@ -34,6 +34,14 @@ namespace Data.Repository
             var highBoard = GetOne(id);
             context.HighBoards.Remove(highBoard);
         }
+        public void DeleteUser(string id)
+        {
+            var user = context.Users.SingleOrDefault(u => u.Id == id);
+            if (user != null)
+            {
+                context.Users.Remove(user);
+            }
+        }
 
         public HighBoard GetOne(int Id)
         {

@@ -100,8 +100,13 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
-            
+            var doctor = doctorRepository.GetOne(id);
+            var UserId = doctor.ApplicationUserId;
+
             doctorRepository.Delete(id);
+            doctorRepository.Save();
+
+            doctorRepository.DeleteUser(UserId);
             doctorRepository.Save();
 
             return RedirectToAction("Index");
