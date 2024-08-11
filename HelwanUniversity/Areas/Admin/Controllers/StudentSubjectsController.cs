@@ -1,14 +1,8 @@
-﻿using Data;
-using Data.Repository;
-using Data.Repository.IRepository;
+﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using Models;
 using Models.Enums;
-using System.Data;
+using Data;
 using ViewModels;
 
 namespace HelwanUniversity.Areas.Admin.Controllers
@@ -18,18 +12,17 @@ namespace HelwanUniversity.Areas.Admin.Controllers
     {
         private readonly IStudentSubjectsRepository studentSubjectsRepository;
         private readonly IAcademicRecordsRepository academicRecordsRepository;
+        private readonly ApplicationDbContext context;
         private readonly ISubjectRepository subjectRepository;
         private readonly IStudentRepository studentRepository;
         private readonly IDoctorRepository doctorRepository;
         private readonly IDepartmentRepository departmentRepository;
-        private readonly ApplicationDbContext Context;
-        public StudentSubjectsController(IStudentSubjectsRepository studentSubjectsRepository, ApplicationDbContext context,
-            IAcademicRecordsRepository academicRecordsRepository, ISubjectRepository subjectRepository, IStudentRepository studentRepository,
-            IDoctorRepository doctorRepository, IDepartmentRepository departmentRepository)
+        public StudentSubjectsController(IStudentSubjectsRepository studentSubjectsRepository,IAcademicRecordsRepository academicRecordsRepository,
+            ApplicationDbContext context ,ISubjectRepository subjectRepository, IStudentRepository studentRepository,IDoctorRepository doctorRepository, IDepartmentRepository departmentRepository)
         {
             this.studentSubjectsRepository = studentSubjectsRepository;
-            this.Context = context;
             this.academicRecordsRepository = academicRecordsRepository;
+            this.context = context;
             this.subjectRepository = subjectRepository;
             this.studentRepository = studentRepository;
             this.doctorRepository = doctorRepository;
@@ -174,7 +167,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             var gpaSemester = academicRecordsRepository.CalculateGpaSemester(studentId, semester);
             var gpaTotal = academicRecordsRepository.CalculateGPATotal(studentId);
 
-            var academicRecords = Context.academicRecords.FirstOrDefault(x => x.StudentId == studentId);
+            var academicRecords = context.academicRecords.FirstOrDefault(x => x.StudentId == studentId);
 
             if (academicRecords != null)
             {
