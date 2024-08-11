@@ -12,7 +12,9 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         private readonly ISubjectRepository subjectRepository;
         private readonly IDepartmentSubjectsRepository DepartsubjectsRepository;
         private readonly IAcademicRecordsRepository academicRecordsRepository;
-        public DepartmentSubjectsController(IDepartmentRepository department,ISubjectRepository subject,IDepartmentSubjectsRepository repository,IAcademicRecordsRepository academicRecordsRepository)
+        public DepartmentSubjectsController(IDepartmentRepository department,ISubjectRepository subject,
+            IDepartmentSubjectsRepository repository
+            ,IAcademicRecordsRepository academicRecordsRepository)
         {
             this.departmentRepository = department;
             this.subjectRepository = subject;

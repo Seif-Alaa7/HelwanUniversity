@@ -15,18 +15,16 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         private readonly ISubjectRepository subjectRepository;
         private readonly IDepartmentRepository departmentRepository;
         private readonly IDepartmentSubjectsRepository departmentSubjectsRepository;
-        private readonly ApplicationDbContext context;
 
         public DoctorController(IDoctorRepository doctorRepository, ICloudinaryService cloudinaryService,
             ISubjectRepository subjectRepository, IDepartmentRepository departmentRepository,
-            IDepartmentSubjectsRepository departmentSubjectsRepository,ApplicationDbContext context)
+            IDepartmentSubjectsRepository departmentSubjectsRepository)
         {
             this.doctorRepository = doctorRepository;
             this.cloudinaryService = cloudinaryService;
             this.subjectRepository = subjectRepository;
             this.departmentRepository = departmentRepository;
             this.departmentSubjectsRepository = departmentSubjectsRepository;
-            this.context = context;
         }
         public IActionResult Index()
         {
