@@ -135,6 +135,5 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
             return View(Subjects);
         }
-
     }
 }

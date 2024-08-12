@@ -42,7 +42,7 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
             if (subjects == null || !subjects.Any())
             {
                 ViewBag.Message = "There are No Subjects For this Doctor";
-                return View();
+                return NotFound();
             }
 
             var subjectIds = subjectRepository.GetIds(subjects);

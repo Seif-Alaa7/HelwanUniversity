@@ -14,7 +14,10 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
         private readonly IFacultyRepository facultyRepository;
         private readonly IDoctorRepository doctorRepository;
         private readonly IStudentRepository studentRepository;
-        public UniversityController(IUniversityRepository universityRepository, IUniFileRepository uniFileRepository, IHighBoardRepository highBoardRepository,IFacultyRepository facultyRepository,IDoctorRepository doctorRepository,IStudentRepository studentRepository)
+        private readonly IDepartmentRepository departmentRepository;
+        public UniversityController(IUniversityRepository universityRepository, IUniFileRepository uniFileRepository, 
+            IHighBoardRepository highBoardRepository,IFacultyRepository facultyRepository,IDoctorRepository doctorRepository,
+            IStudentRepository studentRepository,IDepartmentRepository departmentRepository)
         {
             this.universityRepository = universityRepository;
             this.uniFileRepository = uniFileRepository;
@@ -22,6 +25,7 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
             this.facultyRepository = facultyRepository;
             this.doctorRepository = doctorRepository;
             this.studentRepository = studentRepository;
+            this.departmentRepository = departmentRepository;
         }
         public IActionResult Index()
         {
@@ -41,6 +45,14 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
             else
             {
                 ViewData["Doctor"] = Highboard;
+                if(Highboard.JobTitle == Models.Enums.JobTitle.HeadOfDepartment)
+                {
+                    ViewData["Department"] = departmentRepository.GetDepartbyHead(Highboard.Id);
+                }
+                else
+                {
+                    ViewData["Department"] = string.Empty;
+                }
             }
                 //ViewData
             ViewData["LogoTitle"] = Images[0].File;
