@@ -38,6 +38,6 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
             ViewData["Dean"] = highBoardRepository.GetOne(faculty.DeanId)?.Name;
 
             return View(faculty);
-        }      
+        }
     }
 }

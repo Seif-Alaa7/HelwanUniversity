@@ -33,6 +33,5 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
             var StudentSubjects = DepartsubjectsRepository.StudentSubjects(level, semester, department.Id);
             return View(StudentSubjects);
         }
-
     }
 }
