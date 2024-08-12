@@ -15,19 +15,6 @@
     var Images = UniFileRepository.GetAllImages();
     ViewData["LogoTitle"] = Images[0].File;
 
-    string area = "";
-    if (User.IsInRole("Admin"))
-    {
-        area = "Admin";
-    }
-    else if (User.IsInRole("Students"))
-    {
-        area = "Students";
-    }
-    else if (User.IsInRole("Doctors"))
-    {
-        area = "Doctors";
-    }
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -47,10 +34,10 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="@area" asp-controller="University" asp-action="Index">
+                <a class="navbar-brand" asp-area="Admin" asp-controller="University" asp-action="Index">
                     <img src="@ViewBag.LogoTitle" alt="Logo" height="300" width="60" style="margin-right: 5px" />
                 </a>
-                <a class="navbar-brand" asp-area="@area" asp-controller="University" asp-action="Index">Helwan University</a>
+                <a class="navbar-brand" asp-area="Admin" asp-controller="University" asp-action="Index">Helwan University</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -74,6 +61,40 @@
                                 <img style="margin-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/external-fauzidea-detailed-outline-fauzidea/64/036bb8/external-college-building-fauzidea-detailed-outline-fauzidea-2.png" alt="external-college-building-fauzidea-detailed-outline-fauzidea-2" alt="external-college-building-fauzidea-detailed-outline-fauzidea-2" " alt="external-college-building-fauzidea-detailed-outline-fauzidea-2" />
                                 الكليات
                             </a>
+                        </li>
+                        <li class="nav-item dropdown" style="margin-left: 30px;">
+                            <a class="nav-link dropdown-toggle" href="#" id="membersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img style="margin-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/pulsar-color/48/group.png" alt="members" />
+                                Members
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="membersDropdown">
+                                <li>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Student" asp-action="Index">
+                                        <i class="fas fa-user-graduate"></i> Students
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Doctor" asp-action="Index">
+                                        <i class="fas fa-user-md"></i> Doctors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="HighBoard" asp-action="Index">
+                                        <i class="fas fa-users"></i> Highboard
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="HighBoard" asp-action="DisplayDean">
+                                        <i class="fas fa-user-tie"></i> Deans
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="HighBoard" asp-action="DisplayHead">
+                                        <i class="fas fa-user-cog"></i> Heads
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -126,7 +147,7 @@
     </div>
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - HelwanUniversity - <a style="text-decoration: none;" asp-area="@area" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - HelwanUniversity - <a style="text-decoration: none;" asp-area="Admin" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

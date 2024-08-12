@@ -10,16 +10,14 @@ namespace HelwanUniversity.Areas.Students.Controllers
         private readonly IDepartmentRepository departmentRepository;
         private readonly IFacultyRepository faculty;
         private readonly IUniversityRepository universityRepository;
-        private readonly IAcademicRecordsRepository academicRecordsRepository;  
 
         public StudentController(IStudentRepository studentRepository , IDepartmentRepository departmentRepository
-            ,IFacultyRepository faculty, IUniversityRepository universityRepository,IAcademicRecordsRepository academicRecordsRepository)
+            ,IFacultyRepository faculty, IUniversityRepository universityRepository)
         {
             this.studentRepository = studentRepository;
             this.departmentRepository = departmentRepository;
             this.faculty = faculty;
             this.universityRepository = universityRepository;
-            this.academicRecordsRepository = academicRecordsRepository;
         }
         public IActionResult Index()
         {
@@ -42,15 +40,5 @@ namespace HelwanUniversity.Areas.Students.Controllers
             ViewData["FormBifurcation"] = universityRepository.Get().GoogleForm;
             return View(studentDatails);
         }
-        public IActionResult StudentsByDepartment(int id)
-        {
-            var students = studentRepository.GetStudents(id).ToList();
-
-            ViewBag.Records = academicRecordsRepository.GetLevelANDSemester(students);
-            ViewData["DepartmentName"] = departmentRepository.GetOne(id)?.Name;
-
-            return View(students);
-        }
-
     }
 }
