@@ -1,12 +1,6 @@
-﻿#nullable disable
-
-using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 
 namespace HelwanUniversity.Areas.Identity.Pages.Account
 {
@@ -31,7 +25,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             }
             else
             {
-                return RedirectToAction("Index", "University", new { area = "Students" });
+                return RedirectToAction("Index", "University", new { area = "User" });
             }
         }
     }
