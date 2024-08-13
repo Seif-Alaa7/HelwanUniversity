@@ -23,7 +23,6 @@ namespace Data
         public DbSet<University> University { get; set; }
         public DbSet<AcademicRecords> academicRecords { get; set; }
         public DbSet<UniFile> UniFiles { get; set; }
-        public DbSet<BifurcationRequest> BifurcationRequests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -73,30 +72,12 @@ namespace Data
                 .HasPrincipalKey(e => e.Id)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Student>()
-                .HasMany(s => s.BifurcationRequests)
-                .WithOne(br => br.Student)
-                .HasForeignKey(br => br.StudentId)
-                .HasPrincipalKey(e => e.Id)
-                .OnDelete(DeleteBehavior.Cascade);
-
             modelBuilder.Entity<Department>()
                 .HasOne(d => d.HighBoard)
                 .WithOne(h => h.Department)
                 .HasForeignKey<Department>(d => d.HeadId)
                 .HasPrincipalKey<HighBoard>(h => h.Id)
                 .OnDelete(DeleteBehavior.NoAction);
-
-
-            modelBuilder.Entity<Department>()
-                .HasMany(d => d.BifurcationRequests)
-                .WithOne(br => br.Department)
-                .HasForeignKey(br => br.DepartmentId)
-                .HasPrincipalKey(e => e.Id)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<BifurcationRequest>()
-                .HasKey(br => new { br.StudentId, br.DepartmentId });
 
             // Many To Many
             modelBuilder.Entity<Department>()

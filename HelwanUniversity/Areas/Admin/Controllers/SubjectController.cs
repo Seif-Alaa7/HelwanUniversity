@@ -63,6 +63,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
             return View(subjectVM);
         }
+        [HttpPost]
         public IActionResult SaveEdit(SubjectVM model)
         {
             var subject = subjectRepository.GetOne(model.Id);
@@ -82,6 +83,8 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             subject.summerStatus = model.summerStatus;
             subject.subjectType = model.subjectType;
             subject.Salary = model.Salary;
+            subject.SubjectHours = model.SubjectHours;
+            subject.DoctorId = model.DoctorId;
 
             subjectRepository.Update(subject);
             subjectRepository.Save();

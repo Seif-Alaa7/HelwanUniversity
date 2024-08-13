@@ -18,8 +18,7 @@ namespace Models
         public bool PaymentFees { get; set; }
         public DateTime? PaymentFeesDate { get; set; }
         public List<Subject> Subjects { get; set; } = new List<Subject>();
-        public List<StudentSubjects> StudentSubjects { get; set; } = new List<StudentSubjects>();
-       public List<BifurcationRequest> BifurcationRequests { get; set; } = new List<BifurcationRequest>();  
+        public List<StudentSubjects> StudentSubjects { get; set; } = new List<StudentSubjects>(); 
         public Department Department { get; set; } = null!;
         public AcademicRecords AcademicRecords { get; set; } = null!;
         public string ApplicationUserId { get; set; } = null!;
