@@ -73,7 +73,7 @@
                                 <img style="margin-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/pulsar-color/48/news.png" alt="news" />
                                 الاخبار
                             </a>
-                        </li>
+                        </li> 
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown" style="margin-top:10px; margin-right:60px;">
@@ -100,6 +100,10 @@
 
                                     {
                                         <p class="text-muted text-center" style="margin-top: 2px;">Head of Department</p>
+                                    }
+                                    else if (ViewBag.Doctor.JobTitle == Models.Enums.JobTitle.VP_For_Finance)
+                                    {
+                                        <p class="text-muted text-center" style="margin-top: 2px;">VP For Finance</p>
                                     }
                                 }
                                 else
@@ -141,6 +145,17 @@
                                         <a class="dropdown-item d-flex align-items-center" style="color: black; text-decoration: none" asp-area="Doctors" asp-controller="Student" asp-action="StudentsByDepartment" asp-route-id="@ViewBag.Department.Id">
                                             <img width="15" height="15" src="https://img.icons8.com/parakeet-line/48/1A1A1A/safety-collection-place.png" alt="add-user-male" />
                                             <span style="font-size: 12px;">Department Students</span>
+                                        </a>
+                                        <a class="dropdown-item d-flex align-items-center" style="color: black; text-decoration: none" asp-area="Doctors" asp-controller="HighBoard" asp-action="Details" asp-route-id="@highBoard.Id">
+                                            <img width="20" height="20" src="https://img.icons8.com/parakeet-line/48/1A1A1A/person-male.png" alt="book--v1" />
+                                            <span style="margin-left: 2px;">Personal Data</span>
+                                        </a>
+                                    }
+                                    else if (ViewBag.Doctor.JobTitle == Models.Enums.JobTitle.VP_For_Finance)
+                                    {
+                                        <a class="dropdown-item d-flex align-items-center" style="color: black; text-decoration: none" asp-area="Doctors" asp-controller="Student" asp-action="FeesStatus">
+                                            <img width="25" height="25" src="https://img.icons8.com/parakeet-line/48/1A1A1A/safety-collection-place.png" alt="add-user-male" />
+                                            <span style="margin-left: 2px;">Fees Status</span>
                                         </a>
                                         <a class="dropdown-item d-flex align-items-center" style="color: black; text-decoration: none" asp-area="Doctors" asp-controller="HighBoard" asp-action="Details" asp-route-id="@highBoard.Id">
                                             <img width="20" height="20" src="https://img.icons8.com/parakeet-line/48/1A1A1A/person-male.png" alt="book--v1" />

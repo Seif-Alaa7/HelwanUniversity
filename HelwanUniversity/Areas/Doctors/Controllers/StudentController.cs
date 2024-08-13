@@ -13,7 +13,6 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
     {
         private readonly IStudentRepository studentRepository;
         private readonly IDepartmentRepository departmentRepository;
-        private readonly IFacultyRepository faculty;
         private readonly ICloudinaryService cloudinaryService;
         private readonly IUniversityRepository universityRepository;
         private readonly IAcademicRecordsRepository academicRecordsRepository;  
@@ -27,7 +26,6 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
         {
             this.studentRepository = studentRepository;
             this.departmentRepository = departmentRepository;
-            this.faculty = faculty;
             this.cloudinaryService = cloudinaryService;
             this.universityRepository = universityRepository;
             this.academicRecordsRepository = academicRecordsRepository;
@@ -46,7 +44,7 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
 
             if (department != null)
             {
-                var facultyData = faculty.FacultyByDepartment(department.Id);
+                var facultyData = facultyRepository.FacultyByDepartment(department.Id);
                 ViewData["Faculty"] = facultyData;
             }
             else
@@ -84,6 +82,44 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
             ViewData["FacultyName"] = facultyRepository.FacultyByDepartment(id).Name;
 
             return View(students);
+        }
+        public IActionResult FeesStatus()
+        {
+            var students = studentRepository.GetAll();
+
+            ViewData["DepartmentNames"] = departmentRepository.Dict();
+
+            ViewBag.FacultyNames = facultyRepository.GetNames(students);
+            ViewData["Records"] = academicRecordsRepository.GetLevelANDSemester(students);
+
+            ViewBag.TotalCount = students.Count();
+            return View(students);
+        }
+
+        public IActionResult FeesPaid()
+        {
+            var students = studentRepository.TrueFees();
+
+            ViewData["DepartmentNames"] = departmentRepository.Dict();
+
+            ViewBag.FacultyNames = facultyRepository.GetNames(students);
+            ViewData["Records"] = academicRecordsRepository.GetLevelANDSemester(students);
+
+            ViewBag.TotalCount = students.Count();
+            return View("FeesStatus", students);
+        }
+
+        public IActionResult FeesUnpaid()
+        {
+            var students = studentRepository.FalseFees();
+
+            ViewData["DepartmentNames"] = departmentRepository.Dict();
+
+            ViewBag.FacultyNames = facultyRepository.GetNames(students);
+            ViewData["Records"] = academicRecordsRepository.GetLevelANDSemester(students);
+
+            ViewBag.TotalCount = students.Count();
+            return View("FeesStatus", students);
         }
     }
 }

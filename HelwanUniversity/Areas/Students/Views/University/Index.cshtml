@@ -114,9 +114,32 @@
 
                             <!-- Account Icon -->
                             <div class="dropdown-menu" aria-labelledby="userDropdown">
-                                <a class="dropdown-item nonline-link" style="color: black;" href="/Identity/Account/Manage">Account</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-danger" style="text-decoration: none" href="/Identity/Account/Logout">Logout</a>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <div class="dropdown-item text-center">
+                                        <img class="img-thumbnail rounded-circle"
+                                             width="100"
+                                             height="100"
+                                             src="@ViewBag.Student.Picture"
+                                             alt="student-icon" />
+                                    </div>
+                                    <p class="mt-2 mb-0 text-center">@ViewBag.Student.Name</p>
+                                    <p class="text-muted text-center" style="margin-top: 2px;">Student</p>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item d-flex align-items-center" style="color: black; text-decoration: none" href="/Identity/Account/Manage">
+                                        <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/1A1A1A/user-male-circle.png" alt="add-user-male" />
+                                        <span style="margin-left: 2px;">Account</span>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" style="color: black; text-decoration: none" asp-area="Students" asp-controller="Student" asp-action="Index" asp-route-id="@ViewBag.Student.Id">
+                                        <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/1A1A1A/student-male--v1.png" alt="student--v1" />
+                                        <span style="margin-left: 2px;">Student Portal</span>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-danger d-flex align-items-center" style="color: black;text-decoration: none" href="/Identity/Account/Logout">
+                                        <img width="20" height="20" src="https://img.icons8.com/ios/50/logout-rounded--v1.png" alt="logout-rounded--v1" />
+                                        <span style="margin-left: 10px;">Logout</span>
+                                    </a>
+                                }
                             </div>
                         </li>
                     </ul>

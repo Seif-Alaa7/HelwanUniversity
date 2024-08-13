@@ -77,5 +77,15 @@ namespace Data.Repository
             var list = context.StudentSubjects.Where(x => x.SubjectId == id).Select(x => x.Student);
             return list;
         }
+        public List<Student> TrueFees()
+        {
+            var Students = context.Students.Where(x=>x.PaymentFees == true).ToList();
+            return Students;
+        }
+        public List<Student> FalseFees()
+        {
+            var Students = context.Students.Where(x => x.PaymentFees == false).ToList();
+            return Students;
+        }
     }
 }

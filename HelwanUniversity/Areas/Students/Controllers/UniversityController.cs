@@ -1,5 +1,6 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace HelwanUniversity.Areas.Students.Controllers
 {
@@ -12,7 +13,9 @@ namespace HelwanUniversity.Areas.Students.Controllers
         private readonly IFacultyRepository facultyRepository;
         private readonly IDoctorRepository doctorRepository;
         private readonly IStudentRepository studentRepository;
-        public UniversityController(IUniversityRepository universityRepository, IUniFileRepository uniFileRepository, IHighBoardRepository highBoardRepository,IFacultyRepository facultyRepository,IDoctorRepository doctorRepository,IStudentRepository studentRepository)
+        public UniversityController(IUniversityRepository universityRepository, IUniFileRepository uniFileRepository,
+            IHighBoardRepository highBoardRepository,IFacultyRepository facultyRepository,
+            IDoctorRepository doctorRepository,IStudentRepository studentRepository)
         {
             this.universityRepository = universityRepository;
             this.uniFileRepository = uniFileRepository;
@@ -26,6 +29,14 @@ namespace HelwanUniversity.Areas.Students.Controllers
             var UNI = universityRepository.Get();
             var Images = uniFileRepository.GetAllImages();
             var Hboards = highBoardRepository.GetAll();
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var Student = studentRepository.GetAll().FirstOrDefault(h => h.ApplicationUserId == userId);
+            if (Student != null)
+            {
+                ViewData["Student"] = Student;
+            };
 
             //ViewData
             ViewData["LogoTitle"] = Images[0].File;

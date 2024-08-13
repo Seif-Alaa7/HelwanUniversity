@@ -20,5 +20,7 @@ namespace Data.Repository.IRepository
         List<Student> GetStudents(int id);
         IQueryable<Student> StudentsBySubject(int id);
         public void DeleteUser(string id);
+        List<Student> TrueFees();
+        List<Student> FalseFees();
     }
 }
