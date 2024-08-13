@@ -45,23 +45,19 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
             else
             {
                 ViewData["Doctor"] = Highboard;
-                if(Highboard.JobTitle == Models.Enums.JobTitle.HeadOfDepartment)
+                if(Highboard != null && Highboard.JobTitle == Models.Enums.JobTitle.HeadOfDepartment)
                 {
                     ViewData["Department"] = departmentRepository.GetDepartbyHead(Highboard.Id);
                 }
-                else
-                {
-                    ViewData["Department"] = string.Empty;
-                }
             }
-                //ViewData
+           //ViewData
             ViewData["LogoTitle"] = Images[0].File;
             ViewData["Images"] = Images;
             ViewData["Mail"] = $"mailto:{UNI.ContactMail}";
-            ViewData["President"]= Hboards.FirstOrDefault(a=>a.JobTitle == Models.Enums.JobTitle.President);
-            ViewData["VicePresidents"]= Hboards.Where(a=>a.JobTitle == Models.Enums.JobTitle.VicePrecident).ToList();
-            ViewData["VPAcademicAffairs"] = Hboards.FirstOrDefault(a => a.JobTitle == Models.Enums.JobTitle.VP_For_AcademicAffairs);
 
+            ViewData["President"] = Hboards.FirstOrDefault(a => a.JobTitle == Models.Enums.JobTitle.President);
+            ViewData["VicePresidents"] = Hboards.Where(a => a.JobTitle == Models.Enums.JobTitle.VicePrecident).ToList();
+            ViewData["VPAcademicAffairs"] = Hboards.FirstOrDefault(a => a.JobTitle == Models.Enums.JobTitle.VP_For_AcademicAffairs);
             //Counts
             ViewData["FacultyCounts"] = facultyRepository.GetAll().Count();
             ViewData["DoctorCounts"] = doctorRepository.GetAll().Count();
