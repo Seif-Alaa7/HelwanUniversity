@@ -13,9 +13,13 @@
         Layout = "~/Areas/Students/Views/Shared/_Layout.cshtml";
 
     }
-    else
+    else if (User.IsInRole("Doctor"))
     {
         Layout = "~/Areas/Doctors/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
     }
 }
 <div class="container mt-5">

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.Enums;
-using Data;
 
 namespace HelwanUniversity.Areas.Students.Controllers
 {
@@ -11,17 +10,15 @@ namespace HelwanUniversity.Areas.Students.Controllers
     {
         private readonly IStudentSubjectsRepository studentSubjectsRepository;
         private readonly IAcademicRecordsRepository academicRecordsRepository;
-        private readonly ApplicationDbContext context;
         private readonly ISubjectRepository subjectRepository;
         private readonly IStudentRepository studentRepository;
         private readonly IDoctorRepository doctorRepository;
         private readonly IDepartmentRepository departmentRepository;
         public StudentSubjectsController(IStudentSubjectsRepository studentSubjectsRepository, IAcademicRecordsRepository academicRecordsRepository,
-            ApplicationDbContext context ,ISubjectRepository subjectRepository, IStudentRepository studentRepository, IDoctorRepository doctorRepository, IDepartmentRepository departmentRepository)
+            ISubjectRepository subjectRepository, IStudentRepository studentRepository, IDoctorRepository doctorRepository, IDepartmentRepository departmentRepository)
         {
             this.studentSubjectsRepository = studentSubjectsRepository;
             this.academicRecordsRepository = academicRecordsRepository;
-            this.context = context;
             this.subjectRepository = subjectRepository;
             this.studentRepository = studentRepository;
             this.doctorRepository = doctorRepository;
@@ -118,16 +115,6 @@ namespace HelwanUniversity.Areas.Students.Controllers
 
             return View(studentSubjects);
         }
-        public IActionResult StudentSubjectRegistered(int id)
-        {
-            ViewData["SubjectName"] = subjectRepository.GetName(id);
-            ViewData["Level"] = subjectRepository.GetLevel(id);
-            ViewData["Semester"] = subjectRepository.GetSemester(id);
-            ViewData["id"] = id;
-
-            var students = studentRepository.StudentsBySubject(id);
-            return View(students);
-        }
 
         private void UpdateAcademicRecords(int studentId)
         {
@@ -141,7 +128,7 @@ namespace HelwanUniversity.Areas.Students.Controllers
             var gpaSemester = academicRecordsRepository.CalculateGpaSemester(studentId, semester);
             var gpaTotal = academicRecordsRepository.CalculateGPATotal(studentId);
 
-            var academicRecords = context.academicRecords.FirstOrDefault(x => x.StudentId == studentId);
+            var academicRecords = academicRecordsRepository.GetStudent(studentId);
 
             if (academicRecords != null)
             {
