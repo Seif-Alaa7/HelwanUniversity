@@ -64,6 +64,7 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
 
             return View(ModelVM);
         }
+        [HttpPost]
         public async Task<IActionResult> SaveChange(Picture ModelVM)
         {
             var doctor = doctorRepository.GetOne(ModelVM.Id);

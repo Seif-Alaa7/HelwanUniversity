@@ -1,1 +1,60 @@
-﻿
+﻿@{
+    var studentName = ViewBag.Student?.Name ?? "Student Name";
+    var studentId = ViewBag.Student?.Id ?? "Student ID";
+    var studentPicture = ViewBag.Student?.Picture ?? "/images/default-avatar.png";
+}
+
+<div id="nav-bar" class="closed">
+    <div id="nav-header">
+        <a id="nav-title" asp-area="Students" asp-controller="Home" asp-action="Index">
+            H<i class="fas fa-university"></i>U
+        </a>
+        <label for="nav-toggle" id="nav-toggle-label">
+            <span id="nav-toggle-burger"></span>
+        </label>
+        <hr>
+    </div>
+    <div id="nav-content">
+        <a class="nav-button" asp-area="Students" asp-controller="Home" asp-action="Index">
+            <i class="fas fa-home"></i><span>Home</span>
+        </a>
+        <a class="nav-button" asp-area="Students" asp-controller="Faculty" asp-action="Index">
+            <i class="fas fa-school"></i><span>Faculties</span>
+        </a>
+        <a class="nav-button" asp-area="Students" asp-controller="News" asp-action="Index">
+            <i class="fas fa-newspaper"></i><span>News</span>
+        </a>
+        <hr>
+        <a class="nav-button" asp-area="Students" asp-controller="Profile" asp-action="Index">
+            <i class="fas fa-user"></i><span>Profile</span>
+        </a>
+        <a class="nav-button" asp-area="Students" asp-controller="Courses" asp-action="Index">
+            <i class="fas fa-book"></i><span>Courses</span>
+        </a>
+        <a class="nav-button" asp-area="Students" asp-controller="Schedule" asp-action="Index">
+            <i class="fas fa-calendar-alt"></i><span>Schedule</span>
+        </a>
+        <a class="nav-button" asp-area="Students" asp-controller="Grades" asp-action="Index">
+            <i class="fas fa-graduation-cap"></i><span>Grades</span>
+        </a>
+        <hr>
+        <a class="nav-button" asp-area="Students" asp-controller="Settings" asp-action="Index">
+            <i class="fas fa-cog"></i><span>Settings</span>
+        </a>
+        <div id="nav-content-highlight"></div>
+    </div>
+    <div id="nav-footer">
+        <div id="nav-footer-heading">
+            <div id="nav-footer-avatar">
+                <img src="@studentPicture" alt="Student Picture" />
+            </div>
+            <div id="nav-footer-titlebox">
+                <a id="nav-footer-title" asp-area="Students" asp-controller="Profile" asp-action="Index">@studentName</a>
+                <span id="nav-footer-subtitle">Student</span>
+            </div>
+        </div>
+        <div id="nav-footer-content">
+            Student ID: @studentId
+        </div>
+    </div>
+</div>

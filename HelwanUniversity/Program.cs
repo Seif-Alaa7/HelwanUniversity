@@ -37,7 +37,6 @@ namespace HelwanUniversity
             builder.Services.AddScoped<IUniFileRepository, UniFileRepository>();
             builder.Services.AddScoped<IStudentSubjectsRepository, StudentSubjectsRepository>();
             builder.Services.AddScoped<IDepartmentSubjectsRepository, DepartmentSubjectsRepository>();
-            builder.Services.AddScoped<IBifurcationRequestRepository, BifurcationRequestRepository>();
             builder.Services.AddScoped<ICloudinaryService, CloudinaryService>();
 
             var cloudinaryAccount = new Account(
