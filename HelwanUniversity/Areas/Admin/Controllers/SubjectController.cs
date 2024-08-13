@@ -10,18 +10,21 @@ namespace HelwanUniversity.Areas.Admin.Controllers
     {
         private readonly ISubjectRepository subjectRepository;
         private readonly IDoctorRepository doctorRepository;
+        private readonly IUniFileRepository uniFileRepository;
         private readonly IDepartmentRepository departmentRepository;
         private readonly IDepartmentSubjectsRepository departmentSubjectsRepository;
         private readonly IAcademicRecordsRepository academicRecordsRepository;
-        public SubjectController(ISubjectRepository subject,IDoctorRepository doctorRepository,
-            IUniFileRepository uniFileRepository,IDepartmentRepository department,
-            IDepartmentSubjectsRepository department1,IAcademicRecordsRepository academicRecords)
+
+        public SubjectController(ISubjectRepository subjectRepository,IDoctorRepository doctorRepository,
+            IUniFileRepository uniFileRepository,IDepartmentRepository departmentRepository,
+            IDepartmentSubjectsRepository departmentSubjectsRepository,IAcademicRecordsRepository academicRecordsRepository)
         {
-            this.subjectRepository = subject;
+            this.subjectRepository = subjectRepository;
             this.doctorRepository = doctorRepository;
-            this.departmentRepository = department;
-            this.departmentSubjectsRepository = department1;
-            this.academicRecordsRepository = academicRecords;
+            this.uniFileRepository = uniFileRepository;
+            this.departmentRepository = departmentRepository;
+            this.departmentSubjectsRepository = departmentSubjectsRepository;
+            this.academicRecordsRepository = academicRecordsRepository;
         }
         public IActionResult Index()
         {

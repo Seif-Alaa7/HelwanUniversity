@@ -1,14 +1,7 @@
-﻿using Data;
-using Data.Repository;
-using Data.Repository.IRepository;
+﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using Models;
 using Models.Enums;
-using System.Data;
 using ViewModels;
 
 namespace HelwanUniversity.Areas.Admin.Controllers

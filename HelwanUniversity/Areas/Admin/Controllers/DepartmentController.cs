@@ -13,14 +13,15 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         private readonly IDepartmentSubjectsRepository departmentSubjectsRepository;
         private readonly IDoctorRepository doctorRepository;
         private readonly IFacultyRepository facultyRepository;
+
         public DepartmentController(IDepartmentRepository departmentRepository,IHighBoardRepository highBoardRepository,
-            IDepartmentSubjectsRepository departmentSubjects,IDoctorRepository doctorRepository,IFacultyRepository faculty)
+            IDepartmentSubjectsRepository departmentSubjectsRepository,IDoctorRepository doctorRepository,IFacultyRepository facultyRepository)
         {
             this.departmentRepository = departmentRepository;
             this.highBoardRepository = highBoardRepository;
-            this.departmentSubjectsRepository = departmentSubjects;
+            this.departmentSubjectsRepository = departmentSubjectsRepository;
             this.doctorRepository = doctorRepository;
-            this.facultyRepository = faculty;
+            this.facultyRepository = facultyRepository;
         }
         public IActionResult Index()
         {

@@ -1,5 +1,4 @@
-﻿using Data;
-using Data.Repository.IRepository;
+﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using ViewModels;
@@ -21,7 +20,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         public EntityController(ISubjectRepository subjectRepository ,
             IFacultyRepository facultyRepository, 
             ICloudinaryService cloudinaryService,
-            IDepartmentRepository department,
+            IDepartmentRepository departmentRepository,
             IDoctorRepository doctorRepository,
             IHighBoardRepository highBoardRepository
             )
@@ -29,7 +28,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             this.subjectRepository = subjectRepository;
             this.facultyRepository = facultyRepository;
             this.cloudinaryService = cloudinaryService;
-            this.departmentRepository = department;
+            this.departmentRepository = departmentRepository;
             this.doctorRepository = doctorRepository;
             this.highBoardRepository = highBoardRepository;
         }

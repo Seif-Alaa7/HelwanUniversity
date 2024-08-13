@@ -1,6 +1,5 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 
 namespace HelwanUniversity.Areas.Doctors.Controllers
 {
@@ -8,13 +7,13 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
     public class DepartmentSubjectsController : Controller
     {
         private readonly IDepartmentRepository departmentRepository;
-        private readonly IDepartmentSubjectsRepository DepartsubjectsRepository;
+        private readonly IDepartmentSubjectsRepository departmentSubjectsRepository;
         private readonly IAcademicRecordsRepository academicRecordsRepository;
-        public DepartmentSubjectsController(IDepartmentRepository department, IDepartmentSubjectsRepository repository
+        public DepartmentSubjectsController(IDepartmentRepository departmentRepository, IDepartmentSubjectsRepository departmentSubjectsRepository
             , IAcademicRecordsRepository academicRecordsRepository)
         {
-            this.departmentRepository = department;
-            this.DepartsubjectsRepository = repository;
+            this.departmentRepository = departmentRepository;
+            this.departmentSubjectsRepository = departmentSubjectsRepository;
             this.academicRecordsRepository = academicRecordsRepository;
         }
         public IActionResult Index()
@@ -30,7 +29,7 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
 
             ViewData["StudentId"] = Studentid;
             ViewData["departmentName"] = department.Name;
-            var StudentSubjects = DepartsubjectsRepository.StudentSubjects(level, semester, department.Id);
+            var StudentSubjects = departmentSubjectsRepository.StudentSubjects(level, semester, department.Id);
             return View(StudentSubjects);
         }
     }

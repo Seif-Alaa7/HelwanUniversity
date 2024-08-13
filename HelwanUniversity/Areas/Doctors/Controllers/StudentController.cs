@@ -22,7 +22,7 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
         public StudentController(IStudentRepository studentRepository , IDepartmentRepository departmentRepository,IFacultyRepository faculty,
             ICloudinaryService cloudinaryService,IUniversityRepository universityRepository,
             IAcademicRecordsRepository academicRecordsRepository,
-            IFacultyRepository facultyRepository,IHighBoardRepository highBoardRepository,IDoctorRepository doctor)
+            IFacultyRepository facultyRepository,IHighBoardRepository highBoardRepository,IDoctorRepository doctorRepository)
         {
             this.studentRepository = studentRepository;
             this.departmentRepository = departmentRepository;
@@ -31,7 +31,7 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
             this.academicRecordsRepository = academicRecordsRepository;
             this.facultyRepository = facultyRepository;
             this.highBoardRepository = highBoardRepository;
-            this.doctorRepository = doctor;
+            this.doctorRepository = doctorRepository;
         }
         public IActionResult Index()
         {

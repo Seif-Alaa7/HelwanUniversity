@@ -1,7 +1,5 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using Models;
-using ViewModels;
 
 namespace HelwanUniversity.Areas.Doctors.Controllers
 {
@@ -11,12 +9,13 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
         private readonly ISubjectRepository subjectRepository;
         private readonly IDoctorRepository doctorRepository;
         private readonly IDepartmentRepository departmentRepository;
-        public SubjectController(ISubjectRepository subject,IDoctorRepository doctorRepository,
-            IUniFileRepository uniFileRepository,IDepartmentRepository department)
+
+        public SubjectController(ISubjectRepository subjectRepository,IDoctorRepository doctorRepository,
+            IDepartmentRepository departmentRepository)
         {
-            this.subjectRepository = subject;
+            this.subjectRepository = subjectRepository;
             this.doctorRepository = doctorRepository;
-            this.departmentRepository = department;
+            this.departmentRepository = departmentRepository;
         }
         public IActionResult Index()
         {

@@ -1,6 +1,5 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 using System.Security.Claims;
 
 namespace HelwanUniversity.Areas.Doctors.Controllers

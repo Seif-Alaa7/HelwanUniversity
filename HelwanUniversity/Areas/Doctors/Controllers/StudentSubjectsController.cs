@@ -1,5 +1,4 @@
 ﻿using Data.Repository.IRepository;
-using Data;
 using Microsoft.AspNetCore.Mvc;
 using Models.Enums;
 using Models;
@@ -16,6 +15,7 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
         private readonly IStudentRepository studentRepository;
         private readonly IDoctorRepository doctorRepository;
         private readonly IDepartmentRepository departmentRepository;
+
         public StudentSubjectsController(IStudentSubjectsRepository studentSubjectsRepository,
             IAcademicRecordsRepository academicRecordsRepository, ISubjectRepository subjectRepository, IStudentRepository studentRepository,
             IDoctorRepository doctorRepository, IDepartmentRepository departmentRepository)

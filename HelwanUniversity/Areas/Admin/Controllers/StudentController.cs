@@ -1,9 +1,7 @@
-﻿using Data.Repository;
-using Data.Repository.IRepository;
+﻿using Data.Repository.IRepository;
 using HelwanUniversity.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Models;
 using ViewModels;
 
 namespace HelwanUniversity.Areas.Admin.Controllers
@@ -18,12 +16,12 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         private readonly IUniversityRepository universityRepository;
         private readonly IAcademicRecordsRepository academicRecordsRepository;  
 
-        public StudentController(IStudentRepository studentRepository , IDepartmentRepository departmentRepository,IFacultyRepository faculty,
+        public StudentController(IStudentRepository studentRepository , IDepartmentRepository departmentRepository,IFacultyRepository facultyRepository,
             ICloudinaryService cloudinaryService,IUniversityRepository universityRepository,IAcademicRecordsRepository academicRecordsRepository)
         {
             this.studentRepository = studentRepository;
             this.departmentRepository = departmentRepository;
-            this.facultyRepository = faculty;
+            this.facultyRepository = facultyRepository;
             this.cloudinaryService = cloudinaryService;
             this.universityRepository = universityRepository;
             this.academicRecordsRepository = academicRecordsRepository;

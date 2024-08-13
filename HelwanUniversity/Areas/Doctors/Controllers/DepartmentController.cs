@@ -1,6 +1,5 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
-using ViewModels;
 
 namespace HelwanUniversity.Areas.Doctors.Controllers
 {
@@ -8,18 +7,19 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
     public class DepartmentController : Controller
     {
         private readonly IDepartmentRepository departmentRepository;
-        private readonly IHighBoardRepository highBoardRepository;
         private readonly IDepartmentSubjectsRepository departmentSubjectsRepository;
+        private readonly IHighBoardRepository highBoardRepository;
         private readonly IDoctorRepository doctorRepository;
         private readonly IFacultyRepository facultyRepository;
-        public DepartmentController(IDepartmentRepository departmentRepository,IHighBoardRepository highBoardRepository,
-            IDepartmentSubjectsRepository departmentSubjects,IDoctorRepository doctorRepository,IFacultyRepository faculty)
+
+        public DepartmentController(IDepartmentRepository departmentRepository, IDepartmentSubjectsRepository departmentSubjectsRepository,
+            IHighBoardRepository highBoardRepository,IDoctorRepository doctorRepository , IFacultyRepository facultyRepository)
         {
             this.departmentRepository = departmentRepository;
+            this.departmentSubjectsRepository = departmentSubjectsRepository;
             this.highBoardRepository = highBoardRepository;
-            this.departmentSubjectsRepository = departmentSubjects;
             this.doctorRepository = doctorRepository;
-            this.facultyRepository = faculty;
+            this.facultyRepository = facultyRepository;
         }
         public IActionResult Index()
         {
