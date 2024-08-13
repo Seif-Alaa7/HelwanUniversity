@@ -10,15 +10,16 @@ namespace HelwanUniversity.Areas.Admin.Controllers
     {
         private readonly IDepartmentRepository departmentRepository;
         private readonly ISubjectRepository subjectRepository;
-        private readonly IDepartmentSubjectsRepository DepartsubjectsRepository;
+        private readonly IDepartmentSubjectsRepository departmentSubjectsRepository;
         private readonly IAcademicRecordsRepository academicRecordsRepository;
-        public DepartmentSubjectsController(IDepartmentRepository department,ISubjectRepository subject,
-            IDepartmentSubjectsRepository repository
+
+        public DepartmentSubjectsController(IDepartmentRepository departmentRepository,ISubjectRepository subjectRepository,
+            IDepartmentSubjectsRepository departmentSubjectsRepository
             ,IAcademicRecordsRepository academicRecordsRepository)
         {
-            this.departmentRepository = department;
-            this.subjectRepository = subject;
-            this.DepartsubjectsRepository = repository;
+            this.departmentRepository = departmentRepository;
+            this.subjectRepository = subjectRepository;
+            this.departmentSubjectsRepository = departmentSubjectsRepository;
             this.academicRecordsRepository = academicRecordsRepository;
         }
         public IActionResult Index()
@@ -33,7 +34,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         }
         public IActionResult SaveAdd(DepartmentSubjects model) 
         {
-            var ExistDepartmentSubject = DepartsubjectsRepository.Exist(model);
+            var ExistDepartmentSubject = departmentSubjectsRepository.Exist(model);
 
             if (ExistDepartmentSubject)
             {
@@ -48,15 +49,15 @@ namespace HelwanUniversity.Areas.Admin.Controllers
                     DepartmentId = model.DepartmentId,
                     SubjectId = model.SubjectId,
                 };
-                DepartsubjectsRepository.Add(DepartmentSubject);
-                DepartsubjectsRepository.Save();
+                departmentSubjectsRepository.Add(DepartmentSubject);
+                departmentSubjectsRepository.Save();
 
             }
             return RedirectToAction("Details", "Department", new { area = "Admin", id = model.DepartmentId });
         }
         public IActionResult Delete(int subjectId, int departmentId)
         {
-            var link = DepartsubjectsRepository.DeleteRelation(subjectId, departmentId);
+            var link = departmentSubjectsRepository.DeleteRelation(subjectId, departmentId);
 
             if (link == null)
             {
@@ -65,8 +66,8 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
             }
 
-            DepartsubjectsRepository.Delete(link);
-            DepartsubjectsRepository.Save();
+            departmentSubjectsRepository.Delete(link);
+            departmentSubjectsRepository.Save();
 
             return RedirectToAction("Details", "Department", new { area = "Admin", id = departmentId });
         }
@@ -79,7 +80,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
             ViewData["StudentId"] = Studentid;
             ViewData["departmentName"] = department.Name;
-            var StudentSubjects = DepartsubjectsRepository.StudentSubjects(level , semester ,department.Id);
+            var StudentSubjects = departmentSubjectsRepository.StudentSubjects(level , semester ,department.Id);
             return View(StudentSubjects);
         }
     }
