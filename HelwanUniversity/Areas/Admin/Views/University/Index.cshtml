@@ -99,25 +99,26 @@
                         <li class="nav-item">
                             <a class="nav-link NavItems" style="color: white;" asp-area="Admin" asp-controller="University" asp-action="Index">
                                 <img style="margin-bottom: 4px;" alt="svgImg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjUiIGhlaWdodD0iMjUiIHZpZXdCb3g9IjAsMCwyNTYsMjU2IgpzdHlsZT0iZmlsbDojMDAwMDAwOyI+CjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtcnVsZT0ibm9uemVybyIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS1kYXNoYXJyYXk9IiIgc3Ryb2tlLWRhc2hvZmZzZXQ9IjAiIGZvbnQtZmFtaWx5PSJub25lIiBmb250LXdlaWdodD0ibm9uZSIgZm9udC1zaXplPSJub25lIiB0ZXh0LWFuY2hvcj0ibm9uZSIgc3R5bGU9Im1peC1ibGVuZC1tb2RlOiBub3JtYWwiPjxnIHRyYW5zZm9ybT0ic2NhbGUoOCw4KSI+PHBhdGggZD0iTTE2LDIuNTkzNzVsLTAuNzE4NzUsMC42ODc1bC0xMywxM2wxLjQzNzUsMS40Mzc1bDEuMjgxMjUsLTEuMjgxMjV2MTEuNTYyNWg5di0xMGg0djEwaDl2LTExLjU2MjVsMS4yODEyNSwxLjI4MTI1bDEuNDM3NSwtMS40Mzc1bC0xMywtMTN6TTE2LDUuNDM3NWw5LDl2MTEuNTYyNWgtNXYtMTBoLTh2MTBoLTV2LTExLjU2MjV6Ij48L3BhdGg+PC9nPjwvZz4KPC9zdmc+" />
-                                الرئيسية
+                                Home
                                 </a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
                             <a class="nav-link NavItems" style="color: white;" asp-area="Admin" asp-controller="Faculty" asp-action="Index">
                                 <img style="margin-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/external-fauzidea-detailed-outline-fauzidea/64/FFFFFF/external-college-building-fauzidea-detailed-outline-fauzidea-2.png" alt="external-college-building-fauzidea-detailed-outline-fauzidea-2" />
-                                الكليات
+                                Facilities
                             </a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
                             <a class="nav-link NavItems" style="color: white;" asp-area="Admin" asp-controller="UniFile" asp-action="News">
                                 <img style="margin-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/glyph-neue/64/FFFFFF/news.png" alt="news" />
-                                الاخبار
+                                News
                                 </a>
                         </li>
                         <li class="nav-item" style="margin-left: 30px;">
                             <a class="nav-link NavItems" style="color: white;" href="@ViewBag.Mail">
                                 <img width="23" height="23" src="https://img.icons8.com/ios/25/FFFFFF/email.png" alt="email" />
-                                تواصل معنا</a>
+                                Contact Us
+                            </a>
                         </li>
                         <li class="nav-item dropdown" style="margin-left: 30px;">
                             <a class="nav-link dropdown-toggle" href="#" id="membersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -186,10 +187,11 @@
                                         <img width="20" height="20" src="https://img.icons8.com/ios/50/1A1A1A/add-user-male.png" alt="add-user-male" />
                                         <span style="margin-left: 10px;">Register</span>
                                     </a>
-                                    <a class="dropdown-item d-flex align-items-center" style="color: black;text-decoration: none" href="/Admin/entity/add">
+                                    <a class="dropdown-item d-flex align-items-center" style="color: black; text-decoration: none;" asp-controller="Admin" asp-action="Add" asp-route-area="Entity">
                                         <img width="20" height="20" src="https://img.icons8.com/ios/50/1A1A1A/signing-a-document.png" alt="signing-a-document" />
                                         <span style="margin-left: 10px;">Register Entity</span>
                                     </a>
+
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item text-danger d-flex align-items-center" style="color: black;text-decoration: none" href="/Identity/Account/Logout">
                                         <img width="20" height="20" src="https://img.icons8.com/ios/50/logout-rounded--v1.png" alt="logout-rounded--v1" />                                        
@@ -206,9 +208,9 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-7 py-5">
-                    <h1 class="mb-4 arabic-text fw-bold" style="margin-top: 50px;margin-right: 80px;">جامعة حلوان</h1>
-                    <div style="margin-left: 40px; color: white; font-size : 20px"> ،تسعى جامعة حلوان أن تكون مؤسسة تعليمية وبحثية، رائدة فى التكنولوجيا والفنون</div>
-                    <div style="margin-left: 160px; color: white; font-size : 20px">ومتميزة في التربية والعلوم وفقاً لمعايير الجودة العالمية</div>
+                    <h1 class="mb-4 arabic-text fw-bold" style="margin-top: 50px;margin-right: 80px;">Helwan University</h1>
+                    <div style="margin-left: 40px; color: white; font-size : 20px"> ،Helwan University aims to be a leading educational and research institution in technology and the arts.</div>
+                    <div style="margin-left: 160px; color: white; font-size : 20px">and distinguished in education and sciences according to global quality standards.</div>
                 </div>
                 <div class="col-lg-5">
                     <div class="py-5 px-4 masthead-cards">
@@ -219,7 +221,7 @@
                                         <div class="text-center">
                                             <i class="fa fa-info-circle fa-4x my-2"></i>
                                         </div>
-                                        <div class="CardText">عن الجامعة</div>
+                                        <div class="CardText">About University</div>
                                     </div>
                                 </div>
                             </a>
@@ -229,7 +231,7 @@
                                         <div class="text-center">
                                             <i class="fas fa-map-marked-alt	 fa-4x my-2"></i>
                                         </div>
-                                        <div class="CardText">خريطة الحرم الجامعي</div>
+                                        <div class="CardText">Campus Map</div>
                                     </div>
                                 </div>
                             </a>
@@ -285,7 +287,8 @@
         <div class="container mt-100">
             <div class="row">
                 <div class="col-md-8 mr-auto ml-auto">
-                    <h3 class="arabic-text">معرض الصور
+                    <h3 class="arabic-text">
+                        Photo Gallery
                         <a href="@Url.Action("DispalyImages", "UniFile")">
                             <i class="fa fa-info-circle"></i>
                         </a>
@@ -329,7 +332,7 @@
 
         <!-- Statistics -->
         <div class="sectiontitle" style="margin-top: 200px;">
-            <h3 class="arabic-text">جامعة حلوان في ارقام</h3>
+            <h3 class="arabic-text">Helwan University by the Numbers</h3>
             <span class="headerLine"></span>
         </div>
         <div id="projectFacts" class="sectionClass">
@@ -339,25 +342,25 @@
                         <i class="fa fa-briefcase"></i>
                         <p id="number1" class="number">@Model.ViewCount</p>
                         <span></span>
-                        <p>الزوار</p>
+                        <p>Visitors</p>
                     </div>
                     <div class="item wow fadeInUpBig animated animated" style="visibility: visible;">
                         <i class="fa fa-smile-o"></i>
                         <p id="number2" class="number">@ViewBag.StudentCounts</p>
                         <span></span>
-                        <p>الطلاب</p>
+                        <p>Students</p>
                     </div>
                     <div class="item wow fadeInUpBig animated animated" style="visibility: visible;">
                         <i class="fa fa-coffee"></i>
                         <p id="number3" class="number">@ViewBag.DoctorCounts</p>
                         <span></span>
-                        <p>هيئة التدريس</p>
+                        <p>University Doctors</p>
                     </div>
                     <div class="item wow fadeInUpBig animated animated" style="visibility: visible;">
                         <i class="fa fa-camera"></i>
                         <p id="number4" class="number">@ViewBag.FacultyCounts</p>
                         <span></span>
-                        <p>الكليات</p>
+                        <p>Facilities</p>
                     </div>
                 </div>
             </div>
@@ -370,7 +373,7 @@
         <div class="container py-5" style="margin-top: 100px;">
             <div class="row text-center text-white">
                 <div class="col-lg-8 mx-auto">
-                    <h3 class="arabic-text">الادارة</h3>
+                    <h3 class="arabic-text">Highboards</h3>
                     <span class="headerLine"></span>
                 </div>
             </div>
