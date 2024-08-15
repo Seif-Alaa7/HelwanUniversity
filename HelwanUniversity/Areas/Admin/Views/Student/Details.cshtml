@@ -51,20 +51,6 @@
                         </div>
                     </div>
                     <hr/>
-                    <div class="mt-4">
-                        <a href="@Url.ActionLink("DisplaySubjects","DepartmentSubjects", new { Facultyid = ViewBag.Faculty.Id , StudentId = Model.Id})" class="btn btn-primary mr-2">
-                            <i class="fas fa-edit mr-1"></i> Academic Registeration
-                        </a>
-                        <a href="@Url.ActionLink("SubjectRegsitered","StudentSubjects", new { id = Model.Id})" class="btn btn-primary mr-2">
-                            <i class="fas fa-edit mr-1"></i> Show Registerations
-                        </a>
-                            <a href="@Url.ActionLink("DisplayDegrees","StudentSubjects", new { id = Model.Id})" class="btn btn-primary mr-2">
-                                <i class="fas fa-edit mr-1"></i> Degrees
-                            </a>
-                        <a style="margin-top: 10px;"href="@Url.ActionLink("ResultsRegisteration","Subject", new { id = Model.Id})" class="btn btn-primary mr-2">
-                            <i class="fas fa-edit mr-1"></i> Result Registeration
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>

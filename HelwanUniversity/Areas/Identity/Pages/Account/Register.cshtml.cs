@@ -248,7 +248,9 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
                             Picture = Input.PicturePath,
                             AdmissionDate = Input.StudentAdmissionDate ?? DateTime.Now,
                             PaymentFeesDate = Input.StudentPaymentFeesDate,
-                            ApplicationUserId = userId
+                            ApplicationUserId = userId , 
+                            Gender = Input.StudentGender,
+                            Religion = Input.StudentReligion
                         };
                         var department = departmentRepository.GetOne(Input.StudentDepartmentId ?? 0);
 
