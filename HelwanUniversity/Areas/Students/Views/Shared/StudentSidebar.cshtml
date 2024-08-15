@@ -74,7 +74,7 @@
                 <img src="@studentPicture" alt="Student Picture" />
             </div>
             <div id="nav-footer-titlebox" class="nav-footer-titlebox">
-                <a id="nav-footer-title" class="nav-footer-title" asp-area="Students" asp-controller="Profile" asp-action="Index">@studentName</a>
+                <a id="nav-footer-title" class="nav-footer-title" asp-area="Students" asp-controller="Student" asp-action="Details" asp-route-id="@ViewBag.Student.Id">@studentName</a>
                 <span id="nav-footer-subtitle" class="nav-footer-subtitle">Student</span>
             </div>
             <label for="nav-footer-toggle" class="nav-footer-toggle-label">
