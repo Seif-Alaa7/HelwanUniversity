@@ -129,8 +129,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-7 py-5">
                     <h1 class="mb-4 arabic-text fw-bold" style="margin-top: 50px;margin-right: 80px;">Helwan University</h1>
-                    <div style="margin-left: 40px; color: white; font-size : 20px"> ،Helwan University aims to be a leading educational and research institution in technology and the arts.</div>
-                    <div style="margin-left: 160px; color: white; font-size : 20px">and distinguished in education and sciences according to global quality standards.</div>
+                    <div style="margin-left: 40px; color: white; font-size : 20px">Helwan University aims to be a leading educational and research institution in technology and the arts and distinguished in education and sciences according to global quality standards.</div>
                 </div>
                 <div class="col-lg-5">
                     <div class="py-5 px-4 masthead-cards">
@@ -254,25 +253,33 @@
             <div class="fullWidth eight columns">
                 <div class="projectFactsWrap ">
                     <div class="item wow fadeInUpBig animated animated" style="visibility: visible;">
-                        <i class="fa fa-briefcase"></i>
+                        <div class="eye-icon">
+                            <i class="fa fa-eye"></i>
+                        </div>
                         <p id="number1" class="number">@Model.ViewCount</p>
                         <span></span>
                         <p>Visitors</p>
                     </div>
                     <div class="item wow fadeInUpBig animated animated" style="visibility: visible;">
-                        <i class="fa fa-smile-o"></i>
+                        <div class="student-icon">
+                            <i class="fa fa-user-graduate"></i>
+                        </div>
                         <p id="number2" class="number">@ViewBag.StudentCounts</p>
                         <span></span>
                         <p>Students</p>
                     </div>
                     <div class="item wow fadeInUpBig animated animated" style="visibility: visible;">
-                        <i class="fa fa-coffee"></i>
+                        <div class="professor-icon">
+                            <i class="fa fa-chalkboard-teacher"></i>
+                        </div>
                         <p id="number3" class="number">@ViewBag.DoctorCounts</p>
                         <span></span>
                         <p>University Doctors</p>
                     </div>
                     <div class="item wow fadeInUpBig animated animated" style="visibility: visible;">
-                        <i class="fa fa-camera"></i>
+                        <div class="college-icon">
+                            <i class="fa fa-university"></i>
+                        </div>
                         <p id="number4" class="number">@ViewBag.FacultyCounts</p>
                         <span></span>
                         <p>Facilities</p>
@@ -341,7 +348,6 @@
             <ul class="footer-links">
                 <li><a href="/User/University/Details">About Us</a></li>
                 <li><a href="@ViewBag.Mail">Contact Us</a></li>
-                <li><a href="/User/Home/Privacy">Privacy Policy</a></li>
             </ul>
             <br />
 

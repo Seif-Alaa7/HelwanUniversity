@@ -34,7 +34,7 @@ namespace HelwanUniversity.Areas.Students.Controllers
             if (exists)
             {
                 ModelState.AddModelError("", "This subject is already registered.");
-                return RedirectToAction("DisplaySubjects", "DepartmentSubjects", new { Studentid = studentId });
+                return RedirectToAction("DisplaySubjects", "DepartmentSubjects", new { id = studentId });
             }
 
             var studentSubject = new StudentSubjects
@@ -52,46 +52,6 @@ namespace HelwanUniversity.Areas.Students.Controllers
             // Calculate Academic Records
             UpdateAcademicRecords(studentId);
 
-            return RedirectToAction("SubjectRegsitered", new { id = studentId });
-        }
-        public IActionResult DeleteSubject(int studentId, int subjectId)
-        {
-            var links = studentSubjectsRepository.FindStudent(studentId);
-            if (links.Count() == 1)
-            {
-                academicRecordsRepository.DeleteByStudent(studentId);
-                studentRepository.Delete(studentId);
-
-                studentRepository.Save();
-
-                foreach (var model in links)
-                {
-                    studentSubjectsRepository.Delete(model);
-                    studentSubjectsRepository.Save();
-                }
-
-                // Update Academic Records
-                UpdateAcademicRecords(studentId);
-
-                return RedirectToAction("SubjectRegsitered", new { id = studentId });
-            }
-            else
-            {
-                var link = studentSubjectsRepository.GetOne(studentId, subjectId);
-                if (link == null)
-                {
-                    ModelState.AddModelError("", "you Can't Delete Subject because you Did not Add");
-                    return RedirectToAction("DisplaySubjects", "DepartmentSubjects", new { Studentid = studentId });
-                }
-                else
-                {
-                    studentSubjectsRepository.Delete(link);
-                    studentSubjectsRepository.Save();
-
-                    // Update Academic Records
-                    UpdateAcademicRecords(studentId);
-                }
-            }
             return RedirectToAction("SubjectRegsitered", new { id = studentId });
         }
         public IActionResult SubjectRegsitered(int id)

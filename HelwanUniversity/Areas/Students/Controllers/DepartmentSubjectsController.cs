@@ -64,21 +64,19 @@ namespace HelwanUniversity.Areas.Students.Controllers
                 return RedirectToAction("Details", "Department", new { area = "Admin", id = departmentId });
 
             }
-
             departmentSubjectsRepository.Delete(link);
             departmentSubjectsRepository.Save();
 
             return RedirectToAction("Details", "Department", new { area = "Admin", id = departmentId });
         }
-        public IActionResult DisplaySubjects(int Studentid)
+        public IActionResult DisplaySubjects(int id)
         {
 
-            var department = departmentRepository.DepartmentByStudent(Studentid);
-            var level = academicRecordsRepository.GetAll().FirstOrDefault(x => x.StudentId == Studentid).Level;
-            var semester = academicRecordsRepository.GetAll().FirstOrDefault(x => x.StudentId == Studentid).Semester;
+            var department = departmentRepository.DepartmentByStudent(id);
+            var level = academicRecordsRepository.GetAll().FirstOrDefault(x => x.StudentId == id).Level;
+            var semester = academicRecordsRepository.GetAll().FirstOrDefault(x => x.StudentId == id).Semester;
 
-            ViewData["StudentId"] = Studentid;
-            ViewData["departmentName"] = department.Name;
+            ViewData["StudentId"] = id;
             var StudentSubjects = departmentSubjectsRepository.StudentSubjects(level, semester, department.Id);
             return View(StudentSubjects);
         }

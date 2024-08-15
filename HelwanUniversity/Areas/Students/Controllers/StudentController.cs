@@ -31,18 +31,6 @@ namespace HelwanUniversity.Areas.Students.Controllers
         public IActionResult Details(int id)
         {
             var studentDatails = studentRepository.GetOne(id);
-            var department = departmentRepository.DepartmentByStudent(id);
-
-            if (department != null)
-            {
-                var facultyData = faculty.FacultyByDepartment(department.Id);
-                ViewData["Faculty"] = facultyData;
-            }
-            else
-            {
-                ViewData["Faculty"] = null;
-            }
-            ViewData["FormBifurcation"] = universityRepository.Get().GoogleForm;
             return View(studentDatails);
         }
         public IActionResult ChangePicture(int id)

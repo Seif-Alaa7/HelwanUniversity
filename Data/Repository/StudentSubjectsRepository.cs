@@ -124,8 +124,8 @@ namespace Data.Repository
         public int CalculateRecordedHours(int studentid,Semester semester)
         {
             var Hours = context.StudentSubjects
-           .Where(ss => ss.StudentId == studentid && ss.Subject.Semester == semester)
-           .Sum(ss => ss.Subject.SubjectHours);
+                .Where(ss => ss.StudentId == studentid && ss.Subject.Semester == semester)
+                .Sum(ss => ss.Subject.SubjectHours);
 
            return Hours;
         }
