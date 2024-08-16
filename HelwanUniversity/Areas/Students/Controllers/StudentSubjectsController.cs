@@ -12,19 +12,17 @@ namespace HelwanUniversity.Areas.Students.Controllers
         private readonly IStudentSubjectsRepository studentSubjectsRepository;
         private readonly IAcademicRecordsRepository academicRecordsRepository;
         private readonly ISubjectRepository subjectRepository;
-        private readonly IStudentRepository studentRepository;
         private readonly IDoctorRepository doctorRepository;
         private readonly IDepartmentRepository departmentRepository;
         private readonly IUniFileRepository uniFileRepository;
         public StudentSubjectsController(IStudentSubjectsRepository studentSubjectsRepository, IAcademicRecordsRepository academicRecordsRepository,
-            ISubjectRepository subjectRepository, IStudentRepository studentRepository,
+            ISubjectRepository subjectRepository,
             IDoctorRepository doctorRepository,
             IDepartmentRepository departmentRepository, IUniFileRepository uniFileRepository)
         {
             this.studentSubjectsRepository = studentSubjectsRepository;
             this.academicRecordsRepository = academicRecordsRepository;
             this.subjectRepository = subjectRepository;
-            this.studentRepository = studentRepository;
             this.doctorRepository = doctorRepository;
             this.departmentRepository = departmentRepository;
             this.uniFileRepository = uniFileRepository;
