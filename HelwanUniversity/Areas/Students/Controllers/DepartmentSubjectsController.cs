@@ -1,4 +1,5 @@
-﻿using Data.Repository.IRepository;
+﻿using Data.Repository;
+using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 
@@ -8,66 +9,23 @@ namespace HelwanUniversity.Areas.Students.Controllers
     public class DepartmentSubjectsController : Controller
     {
         private readonly IDepartmentRepository departmentRepository;
-        private readonly ISubjectRepository subjectRepository;
         private readonly IDepartmentSubjectsRepository departmentSubjectsRepository;
         private readonly IAcademicRecordsRepository academicRecordsRepository;
+        private readonly IUniFileRepository uniFileRepository;
 
-        public DepartmentSubjectsController(IDepartmentRepository departmentRepository, ISubjectRepository subjectRepository,
+        public DepartmentSubjectsController(IDepartmentRepository departmentRepository,
             IDepartmentSubjectsRepository departmentSubjectsRepository
-            , IAcademicRecordsRepository academicRecordsRepository)
+            , IAcademicRecordsRepository academicRecordsRepository,
+              IUniFileRepository uniFileRepository)
         {
             this.departmentRepository = departmentRepository;
-            this.subjectRepository = subjectRepository;
             this.departmentSubjectsRepository = departmentSubjectsRepository;
             this.academicRecordsRepository = academicRecordsRepository;
+            this.uniFileRepository = uniFileRepository;
         }
         public IActionResult Index()
         {
             return View();
-        }
-        public IActionResult Add(int id)
-        {
-            ViewData["DepartId"] = id;
-            ViewData["Subjects"] = subjectRepository.Select();
-            return View();
-        }
-        public IActionResult SaveAdd(DepartmentSubjects model)
-        {
-            var ExistDepartmentSubject = departmentSubjectsRepository.Exist(model);
-
-            if (ExistDepartmentSubject)
-            {
-                ModelState.AddModelError("SubjectId", "This Subject is Already Exist in this Department..");
-                ViewData["Subjects"] = subjectRepository.Select();
-                return View("Add");
-            }
-            else
-            {
-                var DepartmentSubject = new DepartmentSubjects()
-                {
-                    DepartmentId = model.DepartmentId,
-                    SubjectId = model.SubjectId,
-                };
-                departmentSubjectsRepository.Add(DepartmentSubject);
-                departmentSubjectsRepository.Save();
-
-            }
-            return RedirectToAction("Details", "Department", new { area = "Admin", id = model.DepartmentId });
-        }
-        public IActionResult Delete(int subjectId, int departmentId)
-        {
-            var link = departmentSubjectsRepository.DeleteRelation(subjectId, departmentId);
-
-            if (link == null)
-            {
-                TempData["ErrorMessage"] = "The relationship between the subject and department could not be found.";
-                return RedirectToAction("Details", "Department", new { area = "Admin", id = departmentId });
-
-            }
-            departmentSubjectsRepository.Delete(link);
-            departmentSubjectsRepository.Save();
-
-            return RedirectToAction("Details", "Department", new { area = "Admin", id = departmentId });
         }
         public IActionResult DisplaySubjects(int id)
         {
@@ -75,8 +33,11 @@ namespace HelwanUniversity.Areas.Students.Controllers
             var department = departmentRepository.DepartmentByStudent(id);
             var level = academicRecordsRepository.GetAll().FirstOrDefault(x => x.StudentId == id).Level;
             var semester = academicRecordsRepository.GetAll().FirstOrDefault(x => x.StudentId == id).Semester;
+            var Images = uniFileRepository.GetAllImages();
 
             ViewData["StudentId"] = id;
+            ViewData["LogoTitle"] = Images[0].File;
+
             var StudentSubjects = departmentSubjectsRepository.StudentSubjects(level, semester, department.Id);
             return View(StudentSubjects);
         }

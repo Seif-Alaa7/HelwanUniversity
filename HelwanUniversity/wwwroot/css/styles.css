@@ -569,3 +569,13 @@ main {
     height: 300px;
     margin-top: 20px;
 }
+.WelcomeMessage {
+    margin-left: 40px;
+    color: white;
+    font-size: 20px
+}
+.Divider {
+    border: 1px solid #000;
+    width: 80%;
+    margin: 20px auto;
+}

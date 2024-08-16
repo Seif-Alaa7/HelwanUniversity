@@ -1,4 +1,5 @@
-﻿using Data.Repository.IRepository;
+﻿using Data.Repository;
+using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.Enums;
@@ -14,8 +15,11 @@ namespace HelwanUniversity.Areas.Students.Controllers
         private readonly IStudentRepository studentRepository;
         private readonly IDoctorRepository doctorRepository;
         private readonly IDepartmentRepository departmentRepository;
+        private readonly IUniFileRepository uniFileRepository;
         public StudentSubjectsController(IStudentSubjectsRepository studentSubjectsRepository, IAcademicRecordsRepository academicRecordsRepository,
-            ISubjectRepository subjectRepository, IStudentRepository studentRepository, IDoctorRepository doctorRepository, IDepartmentRepository departmentRepository)
+            ISubjectRepository subjectRepository, IStudentRepository studentRepository,
+            IDoctorRepository doctorRepository,
+            IDepartmentRepository departmentRepository, IUniFileRepository uniFileRepository)
         {
             this.studentSubjectsRepository = studentSubjectsRepository;
             this.academicRecordsRepository = academicRecordsRepository;
@@ -23,6 +27,7 @@ namespace HelwanUniversity.Areas.Students.Controllers
             this.studentRepository = studentRepository;
             this.doctorRepository = doctorRepository;
             this.departmentRepository = departmentRepository;
+            this.uniFileRepository = uniFileRepository;
         }
         public IActionResult Index()
         {
@@ -56,22 +61,26 @@ namespace HelwanUniversity.Areas.Students.Controllers
         }
         public IActionResult SubjectRegsitered(int id)
         {
+            var Images = uniFileRepository.GetAllImages();
             var Subjects = subjectRepository.GetSubjects(id);
             var department = departmentRepository.DepartmentByStudent(id);
             ViewData["departmentName"] = department.Name;
             ViewBag.DoctorNames = doctorRepository.GetName(Subjects);
+            ViewData["LogoTitle"] = Images[0].File;
             return View(Subjects);
         }
         public IActionResult DisplayDegrees(int id)
         {
             var studentSubjects = studentSubjectsRepository.FindStudent(id);
-
+            var Images = uniFileRepository.GetAllImages();
             var Subjects = subjectRepository.GetSubjects(id);
             ViewBag.SubjectNames = subjectRepository.GetName(Subjects);
+
 
             var AcademicRecords = academicRecordsRepository.GetStudent(id);
 
             ViewData["AcademicRecords"] = AcademicRecords;
+            ViewData["LogoTitle"] = Images[0].File;
 
             return View(studentSubjects);
         }

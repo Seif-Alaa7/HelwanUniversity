@@ -1,4 +1,5 @@
-﻿using Data.Repository.IRepository;
+﻿using Data.Repository;
+using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HelwanUniversity.Areas.Students.Controllers
@@ -7,13 +8,16 @@ namespace HelwanUniversity.Areas.Students.Controllers
     public class FacultyController : Controller
     {
         private readonly IFacultyRepository facultyRepository;
+        private readonly IUniFileRepository uniFileRepository;
         private readonly IHighBoardRepository highBoardRepository;
 
         public FacultyController(IFacultyRepository facultyRepository,
-            IHighBoardRepository highBoardRepository)
+            IHighBoardRepository highBoardRepository,
+            IUniFileRepository uniFileRepository)
         {
             this.facultyRepository = facultyRepository;
             this.highBoardRepository = highBoardRepository;
+            this.uniFileRepository = uniFileRepository;
         }
         public IActionResult Index()
         {
@@ -22,6 +26,8 @@ namespace HelwanUniversity.Areas.Students.Controllers
         }
         public IActionResult Details(int id)
         {
+            var Images = uniFileRepository.GetAllImages();
+
             var faculty = facultyRepository.GetOne(id);
             if (faculty == null)
             {
@@ -31,6 +37,24 @@ namespace HelwanUniversity.Areas.Students.Controllers
             facultyRepository.Save();
 
             ViewData["Dean"] = highBoardRepository.GetOne(faculty.DeanId)?.Name;
+            ViewData["LogoTitle"] = Images[0].File;
+
+            return View(faculty);
+        }
+        public IActionResult DetailsStudent(int id)
+        {
+            var Images = uniFileRepository.GetAllImages();
+
+            var faculty = facultyRepository.GetOne(id);
+            if (faculty == null)
+            {
+                return NotFound();
+            }
+            faculty.ViewCount++;
+            facultyRepository.Save();
+
+            ViewData["Dean"] = highBoardRepository.GetOne(faculty.DeanId);
+            ViewData["LogoTitle"] = Images[0].File;
 
             return View(faculty);
         }

@@ -3,6 +3,8 @@
     ViewData["Title"] = "Personal Data";
     Layout = null;
 }
+
+<!-- Styles -->
 <style>
     .badge-danger {
         color: white !important;
@@ -14,17 +16,21 @@
         background-color: green !important;
     }
 </style>
-<link rel="stylesheet" href="/css/SideBar.css"/>
+
+<title>@ViewData["Title"] - Helwan University</title>
+<link rel="icon" href="@ViewBag.LogoTitle" type="image/png">
+
+<!-- External Stylesheets -->
+<link rel="stylesheet" href="/css/SideBar.css" />
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/HelwanUniversity.styles.css" asp-append-version="true" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
+<!-- Sidebar Partial -->
 @await Html.PartialAsync("~/Areas/Students/Views/Shared/StudentSidebar.cshtml")
 
-<div id="main-content">
-    <div class="container py-5">
+<div id="main-content" class="container py-5">
         <h1 class="text-center mb-5 font-weight-bold">Personal Data</h1>
         <div class="card shadow-lg rounded-lg overflow-hidden">
             <div class="row no-gutters">
@@ -71,9 +77,8 @@
             </div>
         </div>
     </div>
-</div>
 
-
+<!-- Script -->
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
