@@ -1,11 +1,12 @@
-﻿using Data.Repository;
-using Data.Repository.IRepository;
+﻿using Data.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 
 namespace HelwanUniversity.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class DepartmentSubjectsController : Controller
     {
         private readonly IDepartmentRepository departmentRepository;

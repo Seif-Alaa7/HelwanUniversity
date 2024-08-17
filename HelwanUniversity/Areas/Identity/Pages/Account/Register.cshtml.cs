@@ -8,7 +8,6 @@ using System.Text;
 using System.Text.Encodings.Web;
 using Data;
 using Data.Repository.IRepository;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -25,9 +24,11 @@ using ViewModels.Vaildations.HighBoardValid;
 using ViewModels.Vaildations.StudentsValid;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using HelwanUniversity.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HelwanUniversity.Areas.Identity.Pages.Account
 {
+    [Authorize(Roles = "Admin")]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -65,7 +66,7 @@ namespace HelwanUniversity.Areas.Identity.Pages.Account
             _identityOptions = identityOptions;
             _context = context;
             this.cloudinaryService = cloudinaryService;
-            this.departmentRepository = department;
+            departmentRepository = department;
             ;
         }
 

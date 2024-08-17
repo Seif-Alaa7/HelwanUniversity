@@ -1,5 +1,6 @@
 ﻿using Data.Repository.IRepository;
 using HelwanUniversity.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using ViewModels.FacultyVMs;
@@ -7,6 +8,7 @@ using ViewModels.FacultyVMs;
 namespace HelwanUniversity.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class FacultyController : Controller
     {
         private readonly IFacultyRepository facultyRepository;
