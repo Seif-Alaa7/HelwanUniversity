@@ -1,10 +1,12 @@
 ﻿using Data.Repository;
 using Data.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HelwanUniversity.Areas.Students.Controllers
 {
     [Area("Students")]
+    [Authorize(Roles = "Student")]
     public class FacultyController : Controller
     {
         private readonly IFacultyRepository facultyRepository;

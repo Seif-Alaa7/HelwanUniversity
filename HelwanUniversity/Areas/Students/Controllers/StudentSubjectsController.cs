@@ -1,5 +1,6 @@
 ﻿using Data.Repository;
 using Data.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.Enums;
@@ -7,6 +8,7 @@ using Models.Enums;
 namespace HelwanUniversity.Areas.Students.Controllers
 {
     [Area("Students")]
+    [Authorize(Roles = "Student")]
     public class StudentSubjectsController : Controller
     {
         private readonly IStudentSubjectsRepository studentSubjectsRepository;

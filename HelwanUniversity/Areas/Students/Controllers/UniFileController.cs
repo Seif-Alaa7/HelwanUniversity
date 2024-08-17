@@ -1,9 +1,11 @@
 ﻿using Data.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HelwanUniversity.Areas.Students.Controllers
 {
     [Area("Students")]
+    [Authorize(Roles = "Student")]
     public class UniFileController : Controller
     {
         private readonly IUniFileRepository uniFileRepository;

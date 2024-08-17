@@ -1,6 +1,7 @@
 ﻿using Data.Repository;
 using Data.Repository.IRepository;
 using HelwanUniversity.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using ViewModels;
@@ -8,6 +9,7 @@ using ViewModels;
 namespace HelwanUniversity.Areas.Students.Controllers
 {
     [Area("Students")]
+    [Authorize(Roles = "Student")]
     public class StudentController : Controller
     {
         private readonly IStudentRepository studentRepository;

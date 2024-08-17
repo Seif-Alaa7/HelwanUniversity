@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using System.Diagnostics;
@@ -5,6 +6,7 @@ using System.Diagnostics;
 namespace HelwanUniversity.Areas.Students.Controllers
 {
     [Area("Students")]
+    [Authorize(Roles = "Student")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
