@@ -1,8 +1,12 @@
 ﻿@model ViewModels.UniFileVMs.UniFileVM2
 
 @{
-    ViewData["Title"] = "UpdateImage";
+    ViewData["Title"] = "Update Image";
 }
+
+<link rel="icon" href="@ViewBag.LogoTitle" type="image/png">
+
+<!-- Stylesheet -->
 <link rel="stylesheet" href="/css/File.css">
 
 <h1>Update Image</h1>
@@ -14,6 +18,8 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
+
+                    <!-- Form -->
                     <form asp-action="SaveUpdate" method="post" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
                         <input type="hidden" asp-for="Id" class="form-control" />

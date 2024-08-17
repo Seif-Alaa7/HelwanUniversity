@@ -80,7 +80,10 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             };
 
             var Imgs = uniFileRepository.GetAllImages();
+
             ViewData["ImgUpdate"] = Imgs[2].File;
+            ViewData["LogoTitle"] = Imgs[0].File;
+
             return View(universityVM);
 
         }
@@ -128,7 +131,9 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         public IActionResult DisplayMap()
         {
             var Imgs = uniFileRepository.GetAllImages();
+
             ViewData["MapImage"] = Imgs[1].File;
+            ViewData["LogoTitle"] = Imgs[0].File;
 
             return View();
         }

@@ -1,9 +1,12 @@
 ﻿@model ViewModels.UniversityVM
 
 @{
-    ViewData["Title"] = "Update Univeristy - Helwan University";
+    ViewData["Title"] = "Update Univeristy";
 }
 
+<link rel="icon" href="@ViewBag.LogoTitle" type="image/png">
+
+<!-- Stylesheets -->
 <link rel="stylesheet" href="/css/Picture.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
@@ -16,6 +19,8 @@
         <div class="col-md-8">
             <div class="card-body">
                 <h4 class="card-title">Edit Form</h4>
+
+                <!-- Form -->
                 <form asp-action="SaveUpdate" method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
