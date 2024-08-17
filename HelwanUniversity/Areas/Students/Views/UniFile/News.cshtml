@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "News";
 }
+
+<!-- External Stylesheets -->
 <link rel="stylesheet" href="/css/News.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
@@ -21,8 +23,7 @@
     </div>
 </div>
 
+
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @await Html.PartialAsync("_ValidationScriptsPartial")
 }

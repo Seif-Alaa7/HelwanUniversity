@@ -54,4 +54,10 @@ html {
 .navbar-nav .nav-item {
     margin: 0 0.5rem;
 }
+.NavPadding {
+    padding: 5px 0 0 30px;
+}
+.dropDownPadding {
+    padding: 10px 60px 0 0;
+}
 

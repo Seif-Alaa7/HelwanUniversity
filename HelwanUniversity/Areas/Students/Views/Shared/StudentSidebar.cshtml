@@ -3,7 +3,13 @@
 @inject IStudentRepository studentRepository
 @inject IDepartmentRepository departmentRepository
 @inject IFacultyRepository FacultyRepository
+@inject IUniversityRepository University
+
+
+
 @{
+    <!-- Retrieve the user ID from the current claim -->
+   
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
     var Student = studentRepository.GetAll().FirstOrDefault(h => h.ApplicationUserId == userId);
@@ -13,6 +19,7 @@
         ViewData["DepartmentId"] = departmentRepository.DepartmentByStudent(Student.Id)?.Id;
         ViewData["FacultyId"] = FacultyRepository.FacultyByDepartment(ViewBag.DepartmentId)?.Id;
     };
+    ViewData["FormGoogle"] = University.Get()?.GoogleForm;
 }
 
 @{
@@ -20,11 +27,15 @@
     var studentId = ViewBag.Student?.Id ?? "Student ID";
     var studentPicture = ViewBag.Student?.Picture ?? "/images/default-avatar.png";
     var hasPaidFees = ViewBag.Student.PaymentFees ?? false;
+    var Form = ViewBag.FormGoogle ?? "https:/WWW.Google.com";
 
     Layout = null;
 }
+
+<!-- External Stylesheet -->
 <link rel="stylesheet" href="/css/SideBar.css" />
 
+<!-- NavBar -->
 <div id="nav-bar">
     <input id="nav-toggle" type="checkbox" />
     <div id="nav-header" class="nav-header">
@@ -40,10 +51,7 @@
         <a class="nav-button" asp-area="Students" asp-controller="University" asp-action="Index">
             <i class="fas fa-home"></i><span>Home</span>
         </a>
-        <a class="nav-button" asp-area="Students" asp-controller="UniFile" asp-action="News">
-            <i class="fas fa-newspaper"></i><span>News</span>
-        </a>
-        <a class="nav-button" asp-area="Students" asp-controller="Faculty" asp-action="Details" asp-route-id="@ViewBag.FacultyId">
+        <a class="nav-button" asp-area="Students" asp-controller="Faculty" asp-action="DetailsStudent" asp-route-id="@ViewBag.FacultyId">
             <i class="fas fa-school"></i><span>Faculty</span>
         </a>
         <a class="nav-button" asp-area="Students" asp-controller="Department" asp-action="Details" asp-route-id="@ViewBag.DepartmentId">
@@ -58,7 +66,7 @@
         <a class="nav-button" asp-area="Students" asp-controller="StudentSubjects" asp-action="SubjectRegsitered" asp-route-id="@ViewBag.Student.Id">
             <i class="fas fa-book"></i><span>Courses</span>
         </a>
-        <a class="nav-button" href="https://path-to-request-page.com">
+        <a class="nav-button" href="@Form">
             <i class="fas fa-envelope"></i><span>Add Request</span>
         </a>
 
@@ -81,6 +89,8 @@
                 <i class="fas fa-caret-up"></i>
             </label>
         </div>
+
+        <!-- Reminder -->
         @if (!hasPaidFees)
         {
             <div id="nav-footer-content" class="nav-footer-content">
@@ -108,20 +118,5 @@
         }
     </div>
     </div>
-</div>
-<script>
-    function showModal() {
-        document.getElementById('alert-modal').style.display = 'block';
-    }
 
-    function hideModal() {
-        document.getElementById('alert-modal').style.display = 'none';
-    }
-
-    window.onclick = function (event) {
-        if (event.target == document.getElementById('alert-modal')) {
-            document.getElementById('alert-modal').style.display = 'none';
-        }
-    }
-
-</script>
+<script src="/js/SideBar.js"></script>

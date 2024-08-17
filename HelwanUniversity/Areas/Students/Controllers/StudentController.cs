@@ -2,6 +2,7 @@
 using Data.Repository.IRepository;
 using HelwanUniversity.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using ViewModels;
 
 namespace HelwanUniversity.Areas.Students.Controllers
@@ -10,20 +11,23 @@ namespace HelwanUniversity.Areas.Students.Controllers
     public class StudentController : Controller
     {
         private readonly IStudentRepository studentRepository;
-        private readonly IDepartmentRepository departmentRepository;
         private readonly IFacultyRepository faculty;
         private readonly IUniversityRepository universityRepository;
         private readonly ICloudinaryService cloudinaryService;
+        private readonly IUniFileRepository uniFileRepository;
 
-        public StudentController(IStudentRepository studentRepository , IDepartmentRepository departmentRepository
-            ,IFacultyRepository faculty, IUniversityRepository universityRepository , ICloudinaryService cloudinaryService)
+        
+        public StudentController(IStudentRepository studentRepository
+            ,IFacultyRepository faculty, IUniversityRepository universityRepository 
+            , ICloudinaryService cloudinaryService,IUniFileRepository uniFileRepository)
         {
             this.studentRepository = studentRepository;
-            this.departmentRepository = departmentRepository;
             this.faculty = faculty;
             this.universityRepository = universityRepository;
             this.cloudinaryService = cloudinaryService;
+            this.uniFileRepository = uniFileRepository;
         }
+
         public IActionResult Index()
         {
             return View();
@@ -31,6 +35,9 @@ namespace HelwanUniversity.Areas.Students.Controllers
         public IActionResult Details(int id)
         {
             var studentDatails = studentRepository.GetOne(id);
+
+            var Images = uniFileRepository.GetAllImages();
+            ViewData["LogoTitle"] = Images[0].File;
             return View(studentDatails);
         }
         public IActionResult ChangePicture(int id)

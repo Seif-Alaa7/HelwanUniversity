@@ -1,21 +1,14 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const navBar = document.getElementById('nav-bar');
-    const toggleLabel = document.getElementById('nav-toggle-label');
+    function showModal() {
+        document.getElementById('alert-modal').style.display = 'block';
+    }
 
-    toggleLabel.addEventListener('click', function () {
-        navBar.classList.toggle('open');
-    });
+    function hideModal() {
+        document.getElementById('alert-modal').style.display = 'none';
+    }
 
-    // Close sidebar when clicking outside
-    document.addEventListener('click', function (event) {
-        const isClickInside = navBar.contains(event.target) || toggleLabel.contains(event.target);
-        if (!isClickInside && navBar.classList.contains('open')) {
-            navBar.classList.remove('open');
+    window.onclick = function (event) {
+        if (event.target == document.getElementById('alert-modal')) {
+        document.getElementById('alert-modal').style.display = 'none';
         }
-    });
+    }
 
-    // Prevent closing when clicking inside the sidebar
-    navBar.addEventListener('click', function (event) {
-        event.stopPropagation();
-    });
-});

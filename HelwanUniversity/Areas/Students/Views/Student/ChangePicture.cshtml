@@ -7,72 +7,34 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
+
+    <!-- External Stylesheets -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/EditPerson.css">
     <link rel="stylesheet" href="/css/SideBar.css" />
+    <link rel="stylesheet" href="/css/Picture.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/HelwanUniversity.styles.css" asp-append-version="true" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .card {
-            margin-top: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-header {
-            background-color: #007bff;
-            color: white;
-            border-bottom: 0;
-            border-radius: 10px 10px 0 0;
-            text-align: center;
-        }
-
-        .form-group label {
-            font-weight: bold;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-        }
-
-            .btn-primary:hover {
-                background-color: #0056b3;
-            }
-
-        .form-control-file {
-            margin-top: 10px;
-        }
-
-        .img-preview {
-            margin-top: 20px;
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
 </head>
+
 <body>
-
+    <!-- Sidebar Partial -->
     @await Html.PartialAsync("~/Areas/Students/Views/Shared/StudentSidebar.cshtml")
-    <div id="main-content">
 
-    <div class="container">
+    <div id="main-content" class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4>@ViewData["Title"]</h4>
+                        <h4 style="color: black" >@ViewData["Title"]</h4>
                     </div>
                     <div class="card-body">
                         <form asp-action="SaveChange" enctype="multipart/form-data">
@@ -111,8 +73,8 @@
             </div>
         </div>
     </div>
-    </div>
 
+    <!-- External Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="/js/File.js"></script>
