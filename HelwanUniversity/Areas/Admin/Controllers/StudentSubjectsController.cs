@@ -137,8 +137,23 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             studentSubjectsRepository.Update(StudentSubject);
             studentSubjectsRepository.Save();
 
-            // Update Academic Records
             UpdateAcademicRecords(modelVM.StudentId);
+
+            var credithours = studentSubjectsRepository.CalculateCreditHours(modelVM.StudentId);
+            var semester = studentSubjectsRepository.Calculatesemester(credithours);
+
+            var gpaSemester = academicRecordsRepository.CalculateGpaSemester(modelVM.StudentId , semester);
+            var gpaTotal = academicRecordsRepository.CalculateGPATotal(modelVM.StudentId);
+
+            var academicRecords = academicRecordsRepository.GetStudent(modelVM.StudentId);
+            if (academicRecords != null)
+            {
+                academicRecords.GPASemester = gpaSemester;
+                academicRecords.GPATotal = gpaTotal;
+                academicRecordsRepository.Update(academicRecords);
+                academicRecordsRepository.Save();
+            }
+
 
             return RedirectToAction("DisplayDegrees", new { id = modelVM.StudentId });
         }

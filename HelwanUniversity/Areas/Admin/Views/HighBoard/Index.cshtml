@@ -1,13 +1,50 @@
 ﻿@model IEnumerable<Models.HighBoard>
-
 @{
     ViewData["Title"] = "HighBoard";
 }
-
 <h1 class="text-center" style="font-size: 80px;">@ViewData["Title"]</h1>
-<br/>
+<br />
 <link rel="stylesheet" href="/css/Highboard.css">
+<style>
+    .box {
+        margin-bottom: 20px;
+    }
 
+    .content {
+        padding: 15px;
+    }
+
+    .name {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .job-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #0056b3;
+    }
+
+    .description {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 15px;
+        color: #666;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .action-link, .btn-danger {
+        margin-right: 10px;
+    }
+</style>
 <div class="container">
     <!-- صندوق الرئيس -->
     <div class="box president-box">
@@ -15,10 +52,10 @@
             <img src="@ViewBag.President.Picture" alt="@ViewBag.President.Name">
         </div>
         <div class="content">
-            <h2>
-                @ViewBag.President.Name<br>
-                <span>President</span><br />
-                <span>@ViewBag.President.Description</span><br/>
+            <h2 class="name">@ViewBag.President.Name</h2>
+            <h3 class="job-title">President</h3>
+            <p class="description">@ViewBag.President.Description</p>
+            <div class="actions">
                 <a href="@Url.Action("Edit", "Highboard", new { id = @ViewBag.President.Id })" class="action-link text-decoration-none mx-1">
                     <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/1A1A1A/create-new--v2.png" alt="Edit" />
                 </a>
@@ -28,7 +65,7 @@
                         <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/FFFFFF/trash.png" alt="trash" />
                     </button>
                 </form>
-            </h2>
+            </div>
         </div>
     </div>
 
@@ -41,10 +78,10 @@
                     <img src="@item.Picture" alt="@item.Name">
                 </div>
                 <div class="content">
-                    <h2>
-                        @item.Name<br>
-                        <span>@item.JobTitle</span><br />
-                        <span>@item.Description</span><br/>
+                    <h2 class="name">@item.Name</h2>
+                    <h3 class="job-title">@item.JobTitle</h3>
+                    <p class="description">@item.Description</p>
+                    <div class="actions">
                         <a href="@Url.Action("Edit", "Highboard", new { id = @item.Id })" class="action-link text-decoration-none mx-1">
                             <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/1A1A1A/create-new--v2.png" alt="Edit" />
                         </a>
@@ -54,7 +91,7 @@
                                 <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/FFFFFF/trash.png" alt="trash" />
                             </button>
                         </form>
-                    </h2>
+                    </div>
                 </div>
             </div>
         }
@@ -73,10 +110,10 @@
                         <img src="@item.Picture" alt="@item.Name">
                     </div>
                     <div class="content">
-                        <h2>
-                            @item.Name<br>
-                            <span>@item.JobTitle</span><br />
-                            <span>@item.Description</span><br/>
+                        <h2 class="name">@item.Name</h2>
+                        <h3 class="job-title">@item.JobTitle</h3>
+                        <p class="description">@item.Description</p>
+                        <div class="actions">
                             <a href="@Url.Action("Edit","Highboard", new { id = @item.Id })" class="action-link text-decoration-none mx-1">
                                 <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/1A1A1A/create-new--v2.png" alt="Edit" />
                             </a>
@@ -86,13 +123,10 @@
                                     <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/FFFFFF/trash.png" alt="trash" />
                                 </button>
                             </form>
-                        </h2>
+                        </div>
                     </div>
                 </div>
-            };
+            }
         }
     </div>
 </div>
-
-
-

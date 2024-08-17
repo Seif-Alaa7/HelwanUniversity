@@ -139,6 +139,22 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
             // Update Academic Records
             UpdateAcademicRecords(modelVM.StudentId);
 
+            var credithours = studentSubjectsRepository.CalculateCreditHours(modelVM.StudentId);
+            var semester = studentSubjectsRepository.Calculatesemester(credithours);
+
+            var gpaSemester = academicRecordsRepository.CalculateGpaSemester(modelVM.StudentId, semester);
+            var gpaTotal = academicRecordsRepository.CalculateGPATotal(modelVM.StudentId);
+
+            // Update the academic record with the correct GPA
+            var academicRecords = academicRecordsRepository.GetStudent(modelVM.StudentId);
+            if (academicRecords != null)
+            {
+                academicRecords.GPASemester = gpaSemester;
+                academicRecords.GPATotal = gpaTotal;
+                academicRecordsRepository.Update(academicRecords);
+                academicRecordsRepository.Save();
+            }
+
             return RedirectToAction("DisplayDegrees", new { id = modelVM.StudentId });
         }
         public IActionResult StudentSubjectRegistered(int id)
