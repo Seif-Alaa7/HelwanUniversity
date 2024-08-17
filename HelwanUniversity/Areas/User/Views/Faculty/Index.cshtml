@@ -27,7 +27,7 @@
                         <h5 class="card-title">@faculty.Name</h5>
                         <p class="card-text">
                             @(faculty.Description?.Length > 100 ?
-                                faculty.Description.Substring(0, 100) + "..." :
+                                Html.Raw(faculty.Description.Substring(0, 100) + "...") :
                                 faculty.Description)
                         </p>
                         <p class="card-text"><small class="text-muted">Number of departments: @faculty.Departments?.Count</small></p>
