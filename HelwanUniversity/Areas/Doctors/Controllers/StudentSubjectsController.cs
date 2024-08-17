@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Models.Enums;
 using Models;
 using ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HelwanUniversity.Areas.Doctors.Controllers
 {
     [Area("Doctors")]
+    [Authorize(Roles = "Doctor")]
     public class StudentSubjectsController : Controller
     {
         private readonly IStudentSubjectsRepository studentSubjectsRepository;

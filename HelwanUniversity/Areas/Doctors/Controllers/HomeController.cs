@@ -1,5 +1,6 @@
 using Data.Repository;
 using Data.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using System.Diagnostics;
@@ -7,6 +8,7 @@ using System.Diagnostics;
 namespace HelwanUniversity.Areas.Doctors.Controllers
 {
     [Area("Doctors")]
+    [Authorize(Roles = "Doctor")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

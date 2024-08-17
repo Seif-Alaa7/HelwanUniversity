@@ -1,6 +1,7 @@
 ﻿using Data.Repository;
 using Data.Repository.IRepository;
 using HelwanUniversity.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Models;
@@ -11,6 +12,7 @@ using ViewModels;
 namespace HelwanUniversity.Areas.Doctors.Controllers
 {
     [Area("Doctors")]
+    [Authorize(Roles = "Doctor")]
     public class HighBoardController : Controller
     {
         private readonly IHighBoardRepository highBoardRepository;
