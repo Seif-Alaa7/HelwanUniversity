@@ -3,11 +3,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repository
 {
@@ -39,13 +34,6 @@ namespace Data.Repository
             var subject = context.Subjects
                 .Find(Id);
             return subject;
-        }
-
-        public List<Subject> GetAll()
-        {
-            var subjects = context.Subjects
-                .ToList();
-            return subjects;
         }
         public List<SelectListItem> Select()
         {
@@ -126,17 +114,5 @@ namespace Data.Repository
             var Ids =  subjects.Select(s => s.Id).ToList();
             return Ids;
         }
-        public List<Subject> SubjectsByDepartment(int Departmentid, Level level)
-        {
-            var subjects = context.DepartmentSubjects
-                .Where(ds => ds.DepartmentId == Departmentid)
-                .Include(ds => ds.Subject) 
-                .Where(ds => ds.Subject.Level == level) 
-                .Select(ds => ds.Subject) 
-                .ToList();
-
-            return subjects;
-        }
-
     }
 }

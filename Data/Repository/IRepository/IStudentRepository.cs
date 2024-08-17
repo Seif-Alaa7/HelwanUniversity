@@ -1,9 +1,4 @@
 ﻿using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repository.IRepository
 {
@@ -13,7 +8,6 @@ namespace Data.Repository.IRepository
         Student GetOne(int Id);
         void Delete(int id);
         void Update(Student student);
-        void Add(Student student);
         void Save();
         bool Exist(string Name);
         bool ExistPhone(string Phone);

@@ -1,10 +1,5 @@
 ﻿using Models;
 using Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repository.IRepository
 {
@@ -27,6 +22,5 @@ namespace Data.Repository.IRepository
         StudentSubjects GetOne(int studentID, int subjectID);
         IQueryable<StudentSubjects> FindStudent(int StudentID);
         void Delete(StudentSubjects model);
-        List<StudentSubjects> GetAll();
     }
 }

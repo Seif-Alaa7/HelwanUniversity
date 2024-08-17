@@ -1,13 +1,6 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repository
 {
@@ -18,10 +11,6 @@ namespace Data.Repository
         public DoctorRepository(ApplicationDbContext context)
         {
             this.context = context;
-        }
-        public void Add(Doctor doctor)
-        {
-            context.Doctors.Add(doctor);
         }
 
         public void Update(Doctor doctor)
@@ -107,13 +96,6 @@ namespace Data.Repository
                 }
             }
             return doctorNames;
-        }
-        public Dictionary<int, string> Dict()
-        {
-            var Dict = context.Doctors
-                .ToList().ToDictionary(x => x.Id, x => x.Name);
-
-            return Dict;
         }
         public Dictionary<int,List<string>> GetSubjects(List<Doctor> Doctors)
         {

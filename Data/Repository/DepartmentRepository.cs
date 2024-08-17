@@ -1,14 +1,7 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repository
 {
@@ -94,20 +87,6 @@ namespace Data.Repository
         {
             return context.Departments.Where(d => d.FacultyId == collegeId).ToList();
         }
-        public int DepartmentsFaculty(int Facultyid)
-        {
-            var Counts = context.Departments.Where(x => x.FacultyId == Facultyid).Count();
-            return Counts;
-        }
-        public IQueryable<SelectListItem> DepartmentsSelect(int Facultyid)
-        {
-            var departments = context.Departments.Where(x => x.FacultyId == Facultyid).Select(a => new SelectListItem
-            {
-                Value = a.Id.ToString(),
-                Text = a.Name,  
-            });
-            return departments;
-        }
         public Department? DepartmentByStudent(int StudentId)
         {
             var student = context.Students
@@ -149,19 +128,6 @@ namespace Data.Repository
             }
 
             return departmentsByFaculty;
-        }
-        public string GetName(int id)
-        {
-            var name = context.Departments.FirstOrDefault(x => x.Id == id)?.Name;
-            return name;
-               
-        }
-        public Department DepartmentIncludeFaculty(int id)
-        {
-           var list =   context.Departments
-                .Include(d => d.Faculty)
-                .FirstOrDefault(d => d.Id == id);
-            return list;
         }
         public Dictionary<int, string> GetDepartments(List<Department> departments)
         {

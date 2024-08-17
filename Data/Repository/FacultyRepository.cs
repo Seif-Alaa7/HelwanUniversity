@@ -2,11 +2,6 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repository
 {
@@ -95,11 +90,6 @@ namespace Data.Repository
             }
 
             return facultyNames;
-        }
-        public string GetName(int id)
-        {
-            var name = context.Faculties.FirstOrDefault(d => d.Id == id)?.Name;
-            return name;
         }
         public Dictionary<int,string> GetFaculty(List<Faculty> faculties)
         {

@@ -1,10 +1,5 @@
 ﻿using Data.Repository.IRepository;
 using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repository
 {
@@ -16,11 +11,6 @@ namespace Data.Repository
         {
             this.context = context;
         }
-        public void Add(Student student)
-        {
-            context.Students.Add(student);
-        }
-
         public void Update(Student student)
         {
             context.Students.Update(student);

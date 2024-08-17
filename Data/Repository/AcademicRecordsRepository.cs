@@ -1,12 +1,6 @@
 ﻿using Data.Repository.IRepository;
-using Microsoft.EntityFrameworkCore;
 using Models;
 using Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repository
 {
@@ -18,26 +12,10 @@ namespace Data.Repository
         {
             this.context = context;
         }
-        public void Add(AcademicRecords academicRecords)
-        {
-            context.academicRecords.Add(academicRecords);
-        }
 
         public void Update(AcademicRecords academicRecords)
         {
             context.academicRecords.Update(academicRecords);
-        }
-
-        public void Delete(AcademicRecords academicRecords)
-        {
-            context.academicRecords.Remove(academicRecords);
-        }
-
-        public AcademicRecords GetOne(int Id)
-        {
-            var AcademicRecords = context.academicRecords
-                .Find(Id);
-            return AcademicRecords;
         }
 
         public List<AcademicRecords> GetAll()
@@ -102,16 +80,6 @@ namespace Data.Repository
                 }
             }
             return records;
-        }
-        public IQueryable<AcademicRecords> GetStudents(int Departmentid,int Facultyid,Level level)
-        {
-            var list = context.academicRecords
-                  .Include(ar => ar.Student)
-                  .Where(ar => ar.Student.DepartmentId == Departmentid
-                               && ar.Level == level
-                               && ar.Student.Department.FacultyId == Facultyid);
-
-            return list;
         }
     }
 }
