@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repository.IRepository
 {
@@ -20,7 +15,6 @@ namespace Data.Repository.IRepository
         bool ExistDeanInFaculty(int DeanId);
         Faculty? FacultyByDepartment(int DepartmentId);
         Dictionary<int, string> GetNames(List<Student> Students);
-        string GetName(int id);
         Dictionary<int, string> GetFaculty(List<Faculty> faculties);
         Faculty GetFacultybyDean(int id);
     }

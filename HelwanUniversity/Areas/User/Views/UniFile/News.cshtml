@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "News";
 }
-<link rel="stylesheet" href="/css/News.css">
+<link rel="stylesheet" href="/css/News.css" asp-append-version="true">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 <h1>News</h1>
@@ -14,7 +14,9 @@
         {
             <div class="col-md-4">
                 <div class="card video-card">
-                    <iframe src="@item.File" allowfullscreen></iframe>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="@item.File" allowfullscreen></iframe>
+                    </div>
                 </div>
             </div>
         }

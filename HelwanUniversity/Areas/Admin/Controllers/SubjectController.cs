@@ -1,4 +1,5 @@
 ﻿using Data.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using ViewModels;
@@ -6,6 +7,7 @@ using ViewModels;
 namespace HelwanUniversity.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class SubjectController : Controller
     {
         private readonly ISubjectRepository subjectRepository;

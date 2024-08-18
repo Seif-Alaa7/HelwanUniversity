@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using ViewModels;
 using HelwanUniversity.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HelwanUniversity.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class EntityController : Controller
     {
         private readonly ISubjectRepository subjectRepository;

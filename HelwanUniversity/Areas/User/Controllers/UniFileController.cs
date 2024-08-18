@@ -13,7 +13,7 @@ namespace HelwanUniversity.Areas.User.Controllers
             this.uniFileRepository = uniFileRepository;
         }
 
-        //Display image & Video
+        //Display Video News
         public IActionResult News()
         {
             var videos = uniFileRepository.GetAllVideos();

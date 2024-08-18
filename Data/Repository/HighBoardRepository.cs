@@ -1,13 +1,7 @@
 ﻿using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Models;
 using Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repository
 {
@@ -19,11 +13,6 @@ namespace Data.Repository
         {
             this.context = context;
         }
-        public void Add(HighBoard highBoard)
-        {
-            context.HighBoards.Add(highBoard);
-        }
-
         public void Update(HighBoard highBoard)
         {
             context.HighBoards.Update(highBoard);

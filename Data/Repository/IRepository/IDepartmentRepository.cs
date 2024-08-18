@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repository.IRepository
 {
@@ -21,13 +16,9 @@ namespace Data.Repository.IRepository
         bool ExistHeadInDepartment(int headId);
         int GetStudentCount(int? studentDepartmentId);
         IEnumerable<Department> GetDepartmentsByCollegeId(int collegeId);
-        int DepartmentsFaculty(int Facultyid);
         Department? DepartmentByStudent(int StudentId);
-        IQueryable<SelectListItem> DepartmentsSelect(int Facultyid);
         Dictionary<int, string> Dict();
         Dictionary<int, List<(int Id, string Name)>> GetDepartmentsByFaculty(List<Faculty> facultyList);
-        string GetName(int id);
-        Department DepartmentIncludeFaculty(int id);
         Dictionary<int, string> GetDepartments(List<Department> departments);
         Department GetDepartbyHead(int id);
     }

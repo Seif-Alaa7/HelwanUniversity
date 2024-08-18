@@ -2,11 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Models;
 using Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repository
 {
@@ -16,10 +11,6 @@ namespace Data.Repository
         public StudentSubjectsRepository(ApplicationDbContext context)
         {
             this.context = context;
-        }
-         public List<StudentSubjects> GetAll() 
-        { 
-            return context.StudentSubjects.ToList();    
         }
         public List<StudentSubjects> StudentBySubject(int id)
         {
