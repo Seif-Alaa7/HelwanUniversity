@@ -56,3 +56,41 @@ h2 {
         font-size: 18px;
         color: #555;
     }
+.box {
+    margin-bottom: 20px;
+}
+
+.content {
+    padding: 15px;
+}
+
+.name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.job-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #0056b3;
+}
+
+.description {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.action-link, .btn-danger {
+    margin-right: 10px;
+}

@@ -1,4 +1,5 @@
-﻿using Data.Repository.IRepository;
+﻿using Data.Repository;
+using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.Enums;
@@ -98,27 +99,29 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         }
         public IActionResult SubjectRegsitered(int id)
         {
+
             var Subjects = subjectRepository.GetSubjects(id);
             var department = departmentRepository.DepartmentByStudent(id);
+
             ViewData["departmentName"] = department.Name;
             ViewBag.DoctorNames = doctorRepository.GetName(Subjects);
+
             return View(Subjects);
         }
         public IActionResult DisplayDegrees(int id)
         {
             var studentSubjects = studentSubjectsRepository.FindStudent(id);
-
             var Subjects = subjectRepository.GetSubjects(id);
-            ViewBag.SubjectNames = subjectRepository.GetName(Subjects);
-
             var AcademicRecords = academicRecordsRepository.GetStudent(id);
 
+            ViewBag.SubjectNames = subjectRepository.GetName(Subjects);
             ViewData["AcademicRecords"] = AcademicRecords;
 
             return View(studentSubjects);
         }
         public IActionResult AddDegree(int Studentid, int Subjectid)
         {
+
             var ModelVM = new StudentSubjectsVM()
             {
                 StudentId = Studentid,
@@ -159,6 +162,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         }
         public IActionResult StudentSubjectRegistered(int id)
         {
+
             ViewData["SubjectName"] = subjectRepository.GetName(id);
             ViewData["Level"] = subjectRepository.GetLevel(id);
             ViewData["Semester"] = subjectRepository.GetSemester(id);

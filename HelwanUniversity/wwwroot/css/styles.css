@@ -579,3 +579,15 @@ main {
     width: 80%;
     margin: 20px auto;
 }
+.dropdown-item {
+    color: #000000 !important;
+}
+
+    .dropdown-item:hover {
+        background-color: #f8f9fa !important;
+        color: #000000 !important;
+    }
+
+.dropdown-menu {
+    background-color: #ffffff !important;
+}

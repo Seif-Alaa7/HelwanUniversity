@@ -10,18 +10,16 @@ namespace HelwanUniversity.Areas.Admin.Controllers
     {
         private readonly ISubjectRepository subjectRepository;
         private readonly IDoctorRepository doctorRepository;
-        private readonly IUniFileRepository uniFileRepository;
         private readonly IDepartmentRepository departmentRepository;
         private readonly IDepartmentSubjectsRepository departmentSubjectsRepository;
         private readonly IAcademicRecordsRepository academicRecordsRepository;
 
         public SubjectController(ISubjectRepository subjectRepository,IDoctorRepository doctorRepository,
-            IUniFileRepository uniFileRepository,IDepartmentRepository departmentRepository,
+            IDepartmentRepository departmentRepository,
             IDepartmentSubjectsRepository departmentSubjectsRepository,IAcademicRecordsRepository academicRecordsRepository)
         {
             this.subjectRepository = subjectRepository;
             this.doctorRepository = doctorRepository;
-            this.uniFileRepository = uniFileRepository;
             this.departmentRepository = departmentRepository;
             this.departmentSubjectsRepository = departmentSubjectsRepository;
             this.academicRecordsRepository = academicRecordsRepository;
@@ -136,6 +134,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             var Subjects = subjectRepository.GetSubjects(id);
             ViewBag.DoctorNames = doctorRepository.GetName(Subjects);
             var department = departmentRepository.DepartmentByStudent(id);
+
             ViewData["StudentId"] = id;
             ViewData["departmentName"] = department.Name;
 

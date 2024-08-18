@@ -117,3 +117,6 @@ input.form-control, select.form-select {
 .mt-4 {
     margin-top: 2rem;
 }
+.Divider {
+    border: 1px solid #000;
+}

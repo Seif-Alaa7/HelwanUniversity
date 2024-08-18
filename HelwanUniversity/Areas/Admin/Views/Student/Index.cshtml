@@ -3,12 +3,13 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     var records = ViewBag.Records as Dictionary<int, (Level Level, Semester Semester)>;
 }
+<!-- Stylesheet -->
 <link rel="stylesheet" href="/css/Student.css">
 
 @model IEnumerable<Models.Student>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Student";
 }
 <h1 class="text-center">All Students</h1>
 <br />

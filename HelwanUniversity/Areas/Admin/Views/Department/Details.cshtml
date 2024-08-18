@@ -24,6 +24,9 @@
             <a href="@Url.Action("Delete", new { id = Model.Id })" class="btn btn-danger" id="delete-department" title="Delete Department">
                 <i class="fas fa-trash-alt"></i>
             </a>
+            <a href="@Url.Action("StudentsByDepartment", "Student", new { id = Model.Id})" class="btn btn-primary" title="Students">
+                <i class="fas fa-user"></i>
+            </a>
         </div>
     </div>
 

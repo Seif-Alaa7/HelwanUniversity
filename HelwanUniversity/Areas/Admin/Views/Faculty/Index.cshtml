@@ -31,19 +31,26 @@
                                 faculty.Description)
                         </p>
                         <p class="card-text"><small class="text-muted">عدد الأقسام: @faculty.Departments?.Count</small></p>
-                        <a href="@Url.Action("Details", "Faculty", new { id = faculty.Id })" class="btn btn-primary btn-custom">
-                            <i class="fas fa-info-circle"></i>
-                        </a>
-                        <a href="@Url.Action("Edit", "Faculty", new { id = faculty.Id })" class="btn btn-warning btn-custom">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <form asp-action="Delete" method="post" class="d-inline" id="delete-form">
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" name="id" value="@faculty.Id" />
-                            <button type="button" class="btn btn-danger btn-custom" id="delete-button">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </form>
+                        <div class="d-inline-block">
+                            <a href="@Url.Action("Details", "Faculty", new { id = faculty.Id })" class="btn btn-primary" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                        </div>
+                        <div class="d-inline-block">
+                            <a href="@Url.Action("Edit", "Faculty", new { id = faculty.Id })" class="btn btn-warning" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </div>
+                        <div class="d-inline-block">
+                            <form asp-action="Delete" method="post" class="d-inline" id="delete-form">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@faculty.Id" />
+                                <button type="submit" class="btn btn-outline-danger" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;" title="Delete" onclick="return confirm('Are you sure you want to delete this Faculty?');">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </div>
+
                     </div>
                 </div>
             </div>

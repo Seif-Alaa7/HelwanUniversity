@@ -2,10 +2,10 @@
 @using Models.Enums
 @{
     var ImgType = Filetype.IMG;
+    ViewData["Title"] = "Add Image";
 }
-@{
-    ViewData["Title"] = "AddImage";
-}
+
+<!-- Stylesheet -->
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 <div class="relative min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 bg-gray-500 bg-no-repeat bg-cover relative items-center"
@@ -18,6 +18,8 @@
             </h2>
             <p class="mt-2 text-sm text-gray-400">Upload your image using the form below.</p>
         </div>
+
+        <!-- Form -->
         <form id="uploadForm" class="mt-8 space-y-3" asp-action="SaveImg" method="post" enctype="multipart/form-data">
             <div class="grid grid-cols-1 space-y-2">
                 <label class="text-sm font-bold text-gray-500 tracking-wide">Image Upload</label>
