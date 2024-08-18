@@ -1,10 +1,14 @@
 ﻿@using Models.Enums
 @model ViewModels.HighBoardVM
+@{
+    ViewData["Title"] = "Edit Leader";
+}
+<!-- Stylesheet -->
+<link rel="stylesheet" href="/css/EditPerson.css">
 
 <h2>Edit</h2>
 
-<link rel="stylesheet" href="/css/EditPerson.css">
-
+<!-- Form -->
 <form asp-action="SaveEdit" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Id" />
 
@@ -39,7 +43,7 @@
             <img src="@Model.Picture" alt="Current Image" class="img-fluid" />
         </div>
     </div>
-    <hr style="border: 1px solid #000">
+    <hr class="Divider">
     <div class="mb-4">
         <input asp-for="FormFile" type="file" class="form-control-file" id="pictureInput" style="display:none;" />
         <div id="picturePreview" class="mt-2"></div>
@@ -52,6 +56,7 @@
     <button type="submit" class="btn btn-primary">Save Changes</button>
 </form>
 
+<!-- Scripts -->
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

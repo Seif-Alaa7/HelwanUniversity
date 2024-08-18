@@ -125,9 +125,12 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             if (jop == Models.Enums.JobTitle.DeanOfFaculty)
             {
                 var faculty = facultyRepository.GetFacultybyDean(id);
-                facultyRepository.Delete(faculty);
-                facultyRepository.Save();
 
+                if (faculty != null)
+                {
+                    facultyRepository.Delete(faculty);
+                    facultyRepository.Save();
+                }
                 highBoardRepository.Delete(id);
                 highBoardRepository.Save();
 
@@ -139,9 +142,11 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             else if (jop == Models.Enums.JobTitle.HeadOfDepartment)
             {
                 var department = departmentRepository.GetDepartbyHead(id);
-                departmentRepository.Delete(department);
-                departmentRepository.Save();
-
+                if (department != null)
+                {
+                    departmentRepository.Delete(department);
+                    departmentRepository.Save();
+                }
                 highBoardRepository.Delete(id);
                 highBoardRepository.Save();
 

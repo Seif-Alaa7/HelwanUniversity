@@ -3,14 +3,16 @@
 @{
     ViewData["Title"] = "All Deans";
 }
+<!-- Stylesheet -->
+<link rel="stylesheet" href="/css/DisplayDeanHead.css">
 
-<h1 class="text-center my-4" style="color: #4A90E2; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+<h1 class="text-center my-4 Title">
     All Deans
 </h1>
 
-<input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search by name" class="form-control mb-4" style="border-radius: 25px; border: 2px solid #4A90E2;">
+<input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search by name" class="form-control mb-4 Fiter">
 
-<table class="table table-hover table-striped" id="deansTable" style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+<table class="table table-hover table-striped Column" id="deansTable">
     <thead class="thead-light">
         <tr>
             <th>Picture</th>
@@ -23,13 +25,22 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr style="transition: background-color 0.3s;">
+            <tr style="">
                 <td>
-                    <img src="@item.Picture" alt="Current Image" class="img-fluid rounded-circle" style="width: 80px; height: 80px; border: 2px solid #4A90E2;">
+                    <img src="@item.Picture" alt="Current Image" class="img-fluid rounded-circle HighboardPhoto">
                 </td>
                 <td class="name-column" style="vertical-align: middle;">@Html.DisplayFor(modelItem => item.Name)</td>
                 <td style="vertical-align: middle;">@Html.DisplayFor(modelItem => item.Description)</td>
-                <td>@ViewBag.Faculty[item.Id]</td>
+                @if (ViewBag.Faculty.ContainsKey(item.Id) && ViewBag.Faculty[item.Id] != null)
+                {
+                    <td>@ViewBag.Faculty[item.Id]</td>
+                }
+                else
+                {
+                    <td>
+                        No Faculty Determined
+                    </td>
+                }
                 <td style="vertical-align: middle;">
                     @Html.ActionLink(
                              "Edit",
@@ -49,23 +60,6 @@
     </tbody>
 </table>
 
-<script>
-    function filterTable() {
-        var input = document.getElementById("searchInput");
-        var filter = input.value.toUpperCase();
-        var table = document.getElementById("deansTable");
-        var tr = table.getElementsByTagName("tr");
+<!-- Script -->
+<script src="/js/Highboard.js"></script>
 
-        for (var i = 1; i < tr.length; i++) {
-            var td = tr[i].getElementsByClassName("name-column")[0];
-            if (td) {
-                var txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-</script>

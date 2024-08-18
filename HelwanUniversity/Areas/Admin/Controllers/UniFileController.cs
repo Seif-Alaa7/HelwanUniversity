@@ -71,6 +71,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveImg(UniFileVM uniFileVM)
         {
+
             try
             {
                 uniFileVM.File = await cloudinaryService.UploadFile(uniFileVM.ImgPath, string.Empty, "An error occurred while uploading the photo. Please try again.");
@@ -105,6 +106,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
                 File = Video.File,
                 ContentType = Video.ContentType
             };
+
             return View(VideoVM);
         }
         [HttpPost]
@@ -132,7 +134,6 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         public IActionResult UpdateImage(int id)
         {
             var Img = uniFileRepository.GetFile(id);
-
             if (Img == null)
             {
                 return NotFound();
@@ -144,6 +145,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
                 File = Img.File,
                 ContentType = Img.ContentType
             };
+
             return View(ImgVM);
         }
         [HttpPost]

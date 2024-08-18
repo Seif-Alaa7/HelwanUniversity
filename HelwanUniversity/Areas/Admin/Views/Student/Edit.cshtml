@@ -3,10 +3,13 @@
 @{
     ViewData["Title"] = "Edit Student";
 }
+
+<!-- Stylesheet -->
 <link rel="stylesheet" href="/css/EditPerson.css">
 
 <h2 class="mt-4 mb-4">Edit Student Information</h2>
 
+<!-- Form -->
 <form asp-action="SaveEdit" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Id" />
 
@@ -93,7 +96,7 @@
             <img src="@Model.Picture" alt="Current Image" class="img-fluid" />
         </div>
     </div>
-    <hr style="border: 1px solid #000;">
+    <hr class="Divider">
     <div class="mb-4">
         <input asp-for="FormFile" type="file" class="form-control-file" id="pictureInput" style="display:none;" />
         <div id="picturePreview" class="mt-2"></div>

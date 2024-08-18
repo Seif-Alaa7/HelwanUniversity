@@ -143,6 +143,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         {
             var Images = uniFileRepository.GetAllImages();
             ViewData["LogoTitle"] = Images[0].File;
+            ViewData["LogoTitle"] = Images[0].File;
 
             var university = universityRepository.Get();
             return View(university);

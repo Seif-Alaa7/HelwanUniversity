@@ -10,11 +10,9 @@
         ViewData["Admin"] = admin;
     }
 }
-
 @{
     var Images = UniFileRepository.GetAllImages();
     ViewData["LogoTitle"] = Images[0].File;
-
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +26,6 @@
     <link rel="stylesheet" href="~/HelwanUniversity.styles.css" asp-append-version="true" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
 </head>
 <body>
     <header>
@@ -43,28 +40,28 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1" style="margin-top: 9px">
-                        <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link NavItems text-dark" asp-area="Admin" asp-controller="University" asp-action="Index">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item" style="margin-top: 5px">
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="University" asp-action="Index">
                                 <img style="margin-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/pulsar-color/48/home-page.png" alt="external-college-building-fauzidea-detailed-outline-fauzidea-2" />
-                                الصفحة الرئيسية
+                                Home
                             </a>
                         </li>
-                        <li class="nav-item" style="margin-left: 30px;">
-                            <a class="nav-link NavItems text-dark" asp-area="Admin" asp-controller="UniFile" asp-action="News">
-                                <img style="margin-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/pulsar-color/48/news.png" alt="news" />
-                                الاخبار
-                            </a>
-                        </li>
-                        <li class="nav-item" style="margin-left: 30px;">
+                        <li class="nav-item NavPadding">
                             <a class="nav-link NavItems text-dark" asp-area="Admin" asp-controller="Faculty" asp-action="Index">
-                                <img style="margin-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/external-fauzidea-detailed-outline-fauzidea/64/036bb8/external-college-building-fauzidea-detailed-outline-fauzidea-2.png" alt="external-college-building-fauzidea-detailed-outline-fauzidea-2" alt="external-college-building-fauzidea-detailed-outline-fauzidea-2" " alt="external-college-building-fauzidea-detailed-outline-fauzidea-2" />
-                                الكليات
+                                <img style="margin-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/external-fauzidea-detailed-outline-fauzidea/64/036bb8/external-college-building-fauzidea-detailed-outline-fauzidea-2.png" alt="Facilities" />
+                                Facilities
                             </a>
                         </li>
-                        <li class="nav-item dropdown" style="margin-left: 30px;">
+                        <li class="nav-item NavPadding">
+                            <a class="nav-link NavItems text-dark" asp-area="Admin" asp-controller="UniFile" asp-action="News">
+                                <img style="margin-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/pulsar-color/48/news.png" alt="News" />
+                                News
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown" style="padding: 4px 0 0 30px;">
                             <a class="nav-link dropdown-toggle" href="#" id="membersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img style="margin-bottom: 4px;" width="25" height="25" src="https://img.icons8.com/pulsar-color/48/group.png" alt="members" />
+                                <img width="25" height="25" src="https://img.icons8.com/pulsar-color/48/group.png" alt="members" />
                                 Members
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="membersDropdown">
@@ -105,8 +102,6 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                                 @if(admin != null)
                                 {
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
                                         <div class="dropdown-item text-center">
                                             <img class="img-thumbnail rounded-circle"
                                                  width="100"
@@ -134,7 +129,6 @@
                                             <img width="20" height="20" src="https://img.icons8.com/ios/50/logout-rounded--v1.png" alt="logout-rounded--v1" />
                                             <span style="margin-left: 2px;">Logout</span>
                                         </a>
-                                    }
                                 }
                             </div>
                         </li>
@@ -150,7 +144,7 @@
     </div>
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - HelwanUniversity - <a style="text-decoration: none;" asp-area="Admin" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - HelwanUniversity
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

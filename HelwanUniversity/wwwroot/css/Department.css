@@ -115,3 +115,10 @@ body {
     font-weight: bold;
     margin-right: 10px;
 }
+.TitleInfo {
+    margin-right: 5px;
+}
+.containerStyle {
+    font-family: 'Roboto', sans-serif;
+    padding-bottom: 120px;
+}

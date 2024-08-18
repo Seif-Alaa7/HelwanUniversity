@@ -1,4 +1,5 @@
-﻿using Data.Repository.IRepository;
+﻿using Data.Repository;
+using Data.Repository.IRepository;
 using HelwanUniversity.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,8 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         private readonly IAcademicRecordsRepository academicRecordsRepository;  
 
         public StudentController(IStudentRepository studentRepository , IDepartmentRepository departmentRepository,IFacultyRepository facultyRepository,
-            ICloudinaryService cloudinaryService,IUniversityRepository universityRepository,IAcademicRecordsRepository academicRecordsRepository)
+            ICloudinaryService cloudinaryService,IUniversityRepository universityRepository,
+            IAcademicRecordsRepository academicRecordsRepository)
         {
             this.studentRepository = studentRepository;
             this.departmentRepository = departmentRepository;
@@ -40,6 +42,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         }
         public IActionResult Details(int id)
         {
+
             var studentDatails = studentRepository.GetOne(id);
             var department = departmentRepository.DepartmentByStudent(id);
 
@@ -58,6 +61,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         }
         public IActionResult Edit(int id)
         {
+
             var student = studentRepository.GetOne(id);
             ViewBag.Departments = new SelectList(departmentRepository.GetAll(), "Id", "Name");
             var studentVM = new StudentVM
