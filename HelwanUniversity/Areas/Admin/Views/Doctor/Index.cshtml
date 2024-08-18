@@ -4,7 +4,7 @@
     ViewData["Title"] = "All Doctors";
 }
 <!-- StyleSheet -->
-<link rel="stylesheet" href="css/DoctorTable.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <!-- Main Container -->
 <div class="container mt-5">
@@ -26,7 +26,7 @@
                     <th>Subjects</th>
                     <th>Faculties</th>
                     <th>Departments</th>
-                    <th>Actions</th>
+                    <th class="text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +36,7 @@
                         <td>@Html.DisplayFor(modelItem => item.Name)</td>
                         <td>@Html.DisplayFor(modelItem => item.JobTitle)</td>
                         <td>
-                            <ul class="list-unstyled">
+                            <ul class="list-unstyled mb-0">
                                 @if (ViewBag.Subjects.ContainsKey(item.Id))
                                 {
                                     @foreach (var subject in ViewBag.Subjects[item.Id])
@@ -51,7 +51,7 @@
                             </ul>
                         </td>
                         <td>
-                            <ul class="list-unstyled">
+                            <ul class="list-unstyled mb-0">
                                 @if (ViewBag.DoctorColleges.ContainsKey(item.Id))
                                 {
                                     @foreach (var college in ViewBag.DoctorColleges[item.Id])
@@ -66,7 +66,7 @@
                             </ul>
                         </td>
                         <td>
-                            <ul class="list-unstyled">
+                            <ul class="list-unstyled mb-0">
                                 @if (ViewBag.DoctorDepartments.ContainsKey(item.Id))
                                 {
                                     @foreach (var department in ViewBag.DoctorDepartments[item.Id])
@@ -81,23 +81,25 @@
                             </ul>
                         </td>
                         <td class="text-center">
-                            <a href="@Url.Action("Details", "Doctor", new { id = @item.Id })" class="action-link text-decoration-none mx-1">
-                                <img width="25" height="25" src="https://img.icons8.com/ios/50/1A1A1A/info--v1.png" alt="Details" />
-                            </a>
-                            <a href="@Url.Action("Edit", "Doctor", new { id = @item.Id })" class="action-link text-decoration-none mx-1">
-                                <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/1A1A1A/create-new--v2.png" alt="Edit" />
-                            </a>
-                            <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display: inline;" class="mx-1">
-                                @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this doctor?');">Delete</button>
-                            </form>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <a href="@Url.Action("Details", "Doctor", new { id = @item.Id })" class="action-link mx-1">
+                                    <img width="25" height="25" src="https://img.icons8.com/ios/50/1A1A1A/info--v1.png" alt="Details" />
+                                </a>
+                                <a href="@Url.Action("Edit", "Doctor", new { id = @item.Id })" class="action-link mx-1">
+                                    <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/1A1A1A/create-new--v2.png" alt="Edit" />
+                                </a>
+                                <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display: inline;" class="mx-1">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this doctor?');">Delete</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-
-        <!-- Script -->
-        <script src="/js/Doctor.js"></script>
     </div>
 </div>
+
+<!-- Script -->
+<script src="/js/Doctor.js"></script>

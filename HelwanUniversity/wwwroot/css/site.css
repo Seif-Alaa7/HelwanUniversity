@@ -43,6 +43,13 @@ html {
         text-decoration: none;
         border-bottom: 2px solid blue;
     }
+.Nav-item .Nav-link {
+    position: relative;
+    color: #544A4A;
+    text-decoration: none;
+    transition: color 0.2s ease, border-bottom-color 0.2s ease;
+    padding: 0.25rem 0.5rem;
+}
 .navbar {
     padding: 0.25rem 1rem; 
     height: 80px;
@@ -60,4 +67,8 @@ html {
 .dropDownPadding {
     padding: 10px 60px 0 0;
 }
+#userDropdown::after {
+    display: none;
+}
+
 
