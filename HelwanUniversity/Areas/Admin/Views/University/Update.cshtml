@@ -6,10 +6,8 @@
 
 <link rel="icon" href="@ViewBag.LogoTitle" type="image/png">
 
-<!-- Stylesheets -->
+<!-- Stylesheet -->
 <link rel="stylesheet" href="/css/Picture.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
 
 <h1 class="text-center">Update University</h1>
 <br/>
@@ -112,7 +110,7 @@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        <script src="/js/picture.js"></script>
+        <script src="/js/picture.js" defer></script>
     }
 }
 <script>
