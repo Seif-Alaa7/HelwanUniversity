@@ -30,7 +30,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         {
             return View();
         }
-        [[HttpGet]]
+        [HttpGet]
         public IActionResult Edit(int id, int departmentId)
         {
             var subject = subjectRepository.GetOne(id);

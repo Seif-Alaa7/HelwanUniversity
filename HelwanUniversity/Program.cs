@@ -5,7 +5,6 @@ using HelwanUniversity.Services;
 using Data.Repository.IRepository;
 using Data.Repository;
 using CloudinaryDotNet;
-using Models;
 
 namespace HelwanUniversity
 {
