@@ -4,23 +4,24 @@
     ViewData["Title"] = $"{Model.Name} Department";
 }
 
+<!-- StyleSheets -->
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/Department.css">
 
-<div class="container mt-4" style="font-family: 'Roboto', sans-serif;padding-bottom: 120px;">
+<div class="container mt-4 containerStyle">
     <h1 class="text-center mb-4">@Model.Name Department</h1>
 
     <div class="card mb-4">
         <div class="card-body">
             <h4>
-                <i class="fas fa-user-tie" style="margin-right: 5px;"></i><span style="font-weight: bold;margin-right: 10px;">Head:</span> @ViewBag.Head
+                <i class="fas fa-user-tie TitleInfo"></i><span class="DepartmentInfo">Head:</span> @ViewBag.Head
             </h4>
             <h4>
-                <i class="fas fa-user-graduate" style="margin-right: 5px;"></i><span style="font-weight: bold;margin-right: 10px;">Number Allowed of Students:</span>@Model.Allowed
+                <i class="fas fa-user-graduate TitleInfo"></i><span class="DepartmentInfo">Number Allowed of Students:</span>@Model.Allowed
 
             </h4>
             <h4>
-                <i class="fas fa-user-check" style="margin-right: 5px;"></i><span style="font-weight: bold;margin-right: 10px;">Number Registered Students:</span> @ViewBag.Students
+                <i class="fas fa-user-check TitleInfo"></i><span class="DepartmentInfo">Number Registered Students:</span> @ViewBag.Students
 
             </h4>
         </div>

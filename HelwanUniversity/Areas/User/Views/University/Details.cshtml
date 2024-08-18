@@ -1,13 +1,14 @@
 ﻿@model Models.University
 
 @{
-    ViewData["Title"] = "AboutUs";
+    ViewData["Title"] = "About Us";
 }
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>@ViewData["Title"] - Helwan University</title>
+
+    <!-- StyleSheets -->
     <link rel="stylesheet" href="/css/DetailsUni.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 </head>
@@ -21,36 +22,29 @@
             <h4>@Model.Name</h4>
             <hr />
             <dl class="row">
-                <dt class="col-sm-3 font-weight-bold">University Description:</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+                <dt class="col-sm-2 text-Arabic" style="font-size: 16px;">@Html.DisplayName("University description:")</dt>
+                <dd class="col-sm-10 text-Arabic" style="margin-top: 6px; overflow-wrap: break-word;">@Html.DisplayFor(model => model.Description)</dd>
 
-                <dt class="col-sm-3 font-weight-bold">University Image:</dt>
-                <dd class="col-sm-9">
-                    <img src="@Model.MainPicture" alt="University Image" class="img-fluid" style="max-width: 100%;" />
+                <dt class="col-sm-2 text-Arabic" style="font-size: 16px;">@Html.DisplayName("University image:")</dt>
+                <dd class="col-sm-10" style="margin-top: 20px;">
+                    <img src="@Model.MainPicture" alt="University Image" style="max-width: 100%; height: auto;" />
                 </dd>
 
-                <dt class="col-sm-3 font-weight-bold">Contact Us on Facebook:</dt>
-                <dd class="col-sm-9">
-                    <a href="@Model.FacebookPage" target="_blank">@Model.FacebookPage</a>
-                </dd>
+                <!-- Buttons FrontEnd -->
+                <dt class="col-sm-2 text-Arabic" style="font-size: 16px;">@Html.DisplayName("Contact us on Facebook:")</dt>
+                <dd class="col-sm-10" style="margin-top: 20px; overflow-wrap: break-word;"><a href="@Model.FacebookPage" target="_blank">@Model.FacebookPage</a></dd>
 
-                <dt class="col-sm-3 font-weight-bold">Contact Us on LinkedIn:</dt>
-                <dd class="col-sm-9">
-                    <a href="@Model.LinkedInPage" target="_blank">@Model.LinkedInPage</a>
-                </dd>
+                <dt class="col-sm-2 text-Arabic" style="font-size: 16px;">@Html.DisplayName("Contact us on LinkedIn:")</dt>
+                <dd class="col-sm-10" style="margin-top: 20px; overflow-wrap: break-word;"><a href="@Model.LinkedInPage" target="_blank">@Model.LinkedInPage</a></dd>
 
-                <dt class="col-sm-3 font-weight-bold">Our Homepage:</dt>
-                <dd class="col-sm-9">
-                    <a href="@Model.MainPage" target="_blank">@Model.MainPage</a>
-                </dd>
+                <dt class="col-sm-2 text-Arabic" style="font-size: 16px;">@Html.DisplayName("Our homepage:")</dt>
+                <dd class="col-sm-10" style="margin-top: 9px; overflow-wrap: break-word;"><a href="@Model.MainPage" target="_blank">@Model.MainPage</a></dd>
 
-                <dt class="col-sm-3 font-weight-bold">Contact Us:</dt>
-                <dd class="col-sm-9">
-                    <a href="mailto:@Model.ContactMail">@Model.ContactMail</a>
-                </dd>
+                <dt class="col-sm-2 text-Arabic" style="font-size: 16px;">@Html.DisplayName("Contact us:")</dt>
+                <dd class="col-sm-10" style="margin-top: 10px; overflow-wrap: break-word;"><a href="mailto:@Model.ContactMail">@Model.ContactMail</a></dd>
 
-                <dt class="col-sm-3 font-weight-bold">Foundation:</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.HistoricalBackground)</dd>
+                <dt class="col-sm-2 text-Arabic" style="font-size: 16px;">@Html.DisplayName("Foundation:")</dt>
+                <dd class="col-sm-10 text-Arabic" style="margin-top: 9px; overflow-wrap: break-word;">@Html.DisplayFor(model => model.HistoricalBackground)</dd>
             </dl>
         </div>
     </div>

@@ -3,11 +3,12 @@
 @{
     ViewData["Title"] = "News";
 }
+
+<!-- StyleSheets -->
 <link rel="stylesheet" href="/css/News.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-<h1>Videos</h1>
-
+<h1>@ViewData["Title"]</h1>
 <div class="container" style="padding-bottom: 170px;">
     <div class="row video-list">
         @foreach (var item in Model)
