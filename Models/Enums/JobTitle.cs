@@ -1,5 +1,4 @@
-﻿
-namespace Models.Enums
+﻿namespace Models.Enums
 {
     public enum JobTitle
     {
