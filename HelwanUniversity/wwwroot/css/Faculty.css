@@ -54,6 +54,7 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+    height: 50px; margin-bottom: 10px;
 }
 
 .faculty-image {
@@ -144,4 +145,15 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.LogoIndex {
+    height: 50px;
+    margin-bottom: 10px;
+}
+.Action {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -1,10 +1,15 @@
 ﻿@using Models.Enums
 @model ViewModels.DoctorVM
+@{
+    ViewData["Title"] = "Edit Doctor";
+}
+
+<!-- StyleSheet -->
+<link rel="stylesheet" href="/css/EditPerson.css">
 
 <h2>Edit</h2>
 
-<link rel="stylesheet" href="/css/EditPerson.css">
-
+<!-- Form -->
 <form asp-action="SaveEdit" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Id" />
     <div class="form-group mb-3">
@@ -60,4 +65,6 @@
     </div>
     <button type="submit" class="btn btn-primary">Save Changes</button>
 </form>
+
+<!-- Script -->
 <script src="/js/File.js"></script>

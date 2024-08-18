@@ -28,7 +28,6 @@ namespace HelwanUniversity.Areas.Students.Controllers
         }
         public IActionResult Details(int id)
         {
-            var Images = uniFileRepository.GetAllImages();
 
             var faculty = facultyRepository.GetOne(id);
             if (faculty == null)
@@ -39,7 +38,6 @@ namespace HelwanUniversity.Areas.Students.Controllers
             facultyRepository.Save();
 
             ViewData["Dean"] = highBoardRepository.GetOne(faculty.DeanId)?.Name;
-            ViewData["LogoTitle"] = Images[0].File;
 
             return View(faculty);
         }
