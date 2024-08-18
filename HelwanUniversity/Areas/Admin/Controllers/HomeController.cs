@@ -15,12 +15,6 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         {
             _logger = logger;
         }
-
-        public IActionResult Index()
-        {
-            return View(); 
-        }
-
         public IActionResult Privacy()
         {
           

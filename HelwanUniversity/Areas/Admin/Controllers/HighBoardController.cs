@@ -33,6 +33,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             ViewData["President"] = highBoardRepository.GetPresident();
             return View(Highboards);
         }
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             var highboard = highBoardRepository.GetOne(id);

@@ -61,6 +61,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             return View(UNI);       
 
         }
+        [HttpGet]
         public IActionResult Update()
         {
             var university = universityRepository.Get();
@@ -89,6 +90,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             return View(universityVM);
 
         }
+        [HttpPost]
         public async Task<IActionResult> SaveUpdate(UniversityVM newUniVm)
         {
                 var uni = universityRepository.Get();

@@ -42,6 +42,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
             return View(Department);
         }
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             var department = departmentRepository.GetOne(id);
@@ -61,6 +62,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
             return View(departmentVM);
         }
+        [HttpPost]
         public IActionResult SaveEdit(DepartmentVM departmentVM)
         {
             var department = departmentRepository.GetOne(departmentVM.Id);
@@ -106,6 +108,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             };
             return RedirectToAction("Details", new {id = department.Id});
         }
+        [HttpPost]
         public IActionResult Delete(int id)
         {
             var department = departmentRepository.GetOne(id);
@@ -114,7 +117,6 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             foreach(var Department in departmentSubjects)
             {
                departmentSubjectsRepository.Delete(Department);
-               departmentRepository.Save();
             }
             departmentRepository.Delete(department);
             departmentRepository.Save();
