@@ -29,6 +29,7 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
             var highboard = highBoardRepository.GetOne(id);
             return View(highboard);
         }
+        [HttpGet]
         public IActionResult ChangePicture(int id)
         {
             var doctor = highBoardRepository.GetOne(id);
@@ -40,6 +41,7 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
 
             return View(ModelVM);
         }
+        [HttpPost]
         public async Task<IActionResult> SaveChange(Picture ModelVM)
         {
             var HB = highBoardRepository.GetOne(ModelVM.Id);
