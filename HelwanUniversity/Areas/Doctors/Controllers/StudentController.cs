@@ -78,7 +78,10 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
                 ViewData["Doctor"] = Highboard;
             }
             var students = studentRepository.GetStudents(id).ToList();
-
+            if(students == null)
+            {
+                return NotFound();
+            }
             ViewBag.Records = academicRecordsRepository.GetLevelANDSemester(students);
             ViewData["DepartmentName"] = departmentRepository.GetOne(id)?.Name;
             ViewData["FacultyName"] = facultyRepository.FacultyByDepartment(id).Name;

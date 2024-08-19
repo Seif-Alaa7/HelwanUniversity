@@ -43,8 +43,11 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
         public IActionResult Students(int id)
         {
             var Faculty = facultyRepository.GetFacultybyDean(id);
+            if(Faculty == null)
+            {
+                return NotFound();
+            };
             var Departments = departmentRepository.GetDepartmentsByCollegeId(Faculty.Id);
-
             ViewData["FacultyName"] = Faculty.Name;
             return View(Departments);
         }
