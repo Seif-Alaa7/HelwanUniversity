@@ -52,7 +52,6 @@
             toggle.classList.replace('fa-moon', 'fa-sun');
         }
     });
-
     // تحميل الصورة
     var img = new Image();
     img.src = '/img9.png';
@@ -61,7 +60,7 @@
     };
 
     // إضافة مستمعي الأحداث لأزرار الحذف
-    ['delete-forever', 'delete-from-department', 'delete-department', 'delete-button'].forEach(id => {
+    ['delete-forever', 'delete-from-department', 'delete-button'].forEach(id => {
         const element = document.getElementById(id);
         if (element) {
             element.addEventListener('click', handleDelete);
@@ -69,12 +68,17 @@
     });
 });
 
-function handleDelete(event) {
+function handleDelete(event, customMessage) {
     event.preventDefault();
-    const isArabic = this.id === 'delete-button';
+
+    const element = event.currentTarget; 
+    const url = element.href; 
+
+    const isArabic = element.id === 'delete-button'; 
+
     Swal.fire({
         title: isArabic ? 'هل أنت متأكد؟' : 'Are you sure?',
-        text: isArabic ? 'هل تريد حذف هذه الكلية نهائيًا؟' : 'You want to delete this item!',
+        text: customMessage,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#dc3545',
@@ -88,11 +92,28 @@ function handleDelete(event) {
         }
     }).then((result) => {
         if (result.isConfirmed) {
-            if (this.id === 'delete-button') {
-                document.getElementById('delete-form').submit();
+            if (element.id === 'delete-department') {
+                window.location.href = url;
             } else {
-                window.location.href = this.href;
+                window.location.href = element.href;
             }
+        }
+    });
+}
+function confirmDelete() {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var form = document.getElementById('deleteForm');
+            form.submit();
         }
     });
 }

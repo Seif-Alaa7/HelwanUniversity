@@ -59,6 +59,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
             return RedirectToAction("SubjectRegsitered", new { id = studentId });
         }
+
         public IActionResult DeleteSubject(int studentId, int subjectId)
         {
             var links = studentSubjectsRepository.FindStudent(studentId);

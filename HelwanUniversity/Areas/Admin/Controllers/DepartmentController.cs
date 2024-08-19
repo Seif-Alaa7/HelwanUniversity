@@ -31,17 +31,24 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         }
         public IActionResult Details(int id)
         {
-            var Department = departmentRepository.GetOne(id);
+            var department = departmentRepository.GetOne(id);
 
-            ViewData["Head"] = highBoardRepository.GetName(Department.HeadId);
+            if (department == null)
+            {
+                TempData["ErrorMessage"] = "The department could not be found.";
+                return RedirectToAction("Index", "Faculty");
+            }
+            ViewData["Head"] = highBoardRepository.GetName(department.HeadId);
+
             ViewBag.Subjects = departmentSubjectsRepository.subjectsByDepartment(id);
             ViewData["Students"] = departmentRepository.GetStudentCount(id);
 
             ViewBag.StudentsBySubject = departmentSubjectsRepository.StudentCounts(ViewBag.Subjects);
             ViewBag.DoctorNames = doctorRepository.GetName(ViewBag.Subjects);
 
-            return View(Department);
+            return View(department);
         }
+
         public IActionResult Edit(int id)
         {
             var department = departmentRepository.GetOne(id);
@@ -106,6 +113,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             };
             return RedirectToAction("Details", new {id = department.Id});
         }
+        [HttpPost]
         public IActionResult Delete(int id)
         {
             var department = departmentRepository.GetOne(id);

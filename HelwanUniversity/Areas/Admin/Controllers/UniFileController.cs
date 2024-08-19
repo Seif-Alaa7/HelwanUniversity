@@ -171,6 +171,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
                 }
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             var file = uniFileRepository.GetFile(id);

@@ -6,6 +6,7 @@
 
 <!-- StyleSheet -->
 <link rel="stylesheet" href="/css/Department.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 <div class="container mt-4 containerStyle">
     <h1 class="text-center mb-4">@Model.Name Department</h1>
@@ -17,9 +18,12 @@
             <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-warning">
                 <i class="fas fa-edit"></i>
             </a>
-            <a href="@Url.Action("Delete", new { id = Model.Id })" class="btn btn-danger" id="delete-department" title="Delete Department">
-                <i class="fas fa-trash-alt"></i>
-            </a>
+            <form id="deleteForm" asp-action="Delete" asp-route-id="@Model.Id" method="post" style="display: inline;">
+                @Html.AntiForgeryToken()
+                <button type="button" class="btn btn-outline-danger" title="Delete" onclick="confirmDelete();">
+                    <i class="fas fa-trash-alt text-danger"></i>
+                </button>
+            </form>
             <a href="@Url.Action("StudentsByDepartment", "Student", new { id = Model.Id})" class="btn btn-primary" title="Students">
                 <i class="fas fa-user"></i>
             </a>
@@ -73,10 +77,11 @@
                         <a href="@Url.Action("Edit", "Subject", new { id = @subject.Subject.Id, departmentId = Model.Id })" class="action-link edit-link" title="Edit Subject">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a href="@Url.Action("DeleteForever", "Subject", new { id = @subject.Subject.Id, departmentId = Model.Id })" class="action-link delete-forever-link" id="delete-forever" title="Delete Forever">
+                        <a href="@Url.Action("DeleteForever", "Subject", new { id = @subject.Subject.Id, departmentId = Model.Id })" class="action-link delete-forever-link" onclick="handleDelete(event, 'Do you want delete this Subject Forever?');" id="delete-forever" title="Delete Forever">
                             <i class="fas fa-trash-alt text-danger"></i>
                         </a>
-                        <a href="@Url.Action("Delete", "DepartmentSubjects", new { subjectId = subject.Subject.Id, departmentId = Model.Id })" class="action-link delete-link" id="delete-from-department" title="Delete from Department">
+
+                        <a href="@Url.Action("Delete", "DepartmentSubjects", new { subjectId = subject.Subject.Id, departmentId = Model.Id })" class="action-link delete-link" onclick="handleDelete(event, 'Do you want delete this Subject From this Department?');" id="delete-from-department" title="Delete from Department">
                             <i class="fas fa-minus-circle text-danger"></i>
                         </a>
                     </td>
@@ -85,8 +90,7 @@
         </tbody>
     </table>
 </div>
-
 <!-- Script -->
-<script src="/js/site.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@latest/dist/sweetalert2.all.min.js"></script>
+<script src="/js/site.js" defer></script>
 

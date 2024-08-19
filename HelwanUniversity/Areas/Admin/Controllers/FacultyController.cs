@@ -134,6 +134,5 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             ViewBag.DepartmentsByFaculty = departmentRepository.GetDepartmentsByFaculty(faculties);
             return View(faculties);
         }
-        
     }
 }
