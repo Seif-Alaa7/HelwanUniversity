@@ -189,7 +189,6 @@ namespace HelwanUniversity.Areas.Admin.Controllers
                 ? RedirectToAction("DispalyImages")
                 : RedirectToAction("News");
         }
-
         public IActionResult DispalyImages()
         {
             var Imgs = uniFileRepository.GetAllImages();

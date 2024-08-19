@@ -45,6 +45,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
             return View(faculty);
         }
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             var Faculty = facultyRepository.GetOne(id);

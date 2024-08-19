@@ -30,6 +30,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         {
             return View();
         }
+        [HttpGet]
         public IActionResult Edit(int id, int departmentId)
         {
             var subject = subjectRepository.GetOne(id);
@@ -118,6 +119,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
             return RedirectToAction("Details", "Department", new { id = departmentSubject.DepartmentId });
         }
+        [HttpPost]
         public IActionResult DeleteForever(int id,int Departmentid)
         {
             var Departments = departmentSubjectsRepository.SubjectDepartments(id);

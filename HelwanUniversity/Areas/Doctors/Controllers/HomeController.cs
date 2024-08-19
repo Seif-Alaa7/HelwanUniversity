@@ -1,5 +1,3 @@
-using Data.Repository;
-using Data.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -17,19 +15,12 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
         {
             _logger = logger;
         }
-
-        public IActionResult Index()
-        {
-            return View(); 
-        }
-
         public IActionResult Privacy()
         {
           
 
             return View();
         }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

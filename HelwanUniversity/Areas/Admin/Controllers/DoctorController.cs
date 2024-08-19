@@ -41,6 +41,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             var DoctorDatails = doctorRepository.GetOne(id);
             return View(DoctorDatails);
         }
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             var doctor = doctorRepository.GetOne(id);
@@ -127,8 +128,5 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
             return View(subjects);
         }
-
-
-
     }
 }

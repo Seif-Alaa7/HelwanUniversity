@@ -59,6 +59,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
             return View(studentDatails);
         }
+        [HttpGet]
         public IActionResult Edit(int id)
         {
 

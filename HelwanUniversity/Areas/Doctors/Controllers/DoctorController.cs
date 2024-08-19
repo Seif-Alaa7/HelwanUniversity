@@ -55,6 +55,7 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
 
             return View(subjects);
         }
+        [HttpGet]
         public IActionResult ChangePicture(int id)
         {
             var doctor = doctorRepository.GetOne(id);

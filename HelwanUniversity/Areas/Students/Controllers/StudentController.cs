@@ -42,6 +42,7 @@ namespace HelwanUniversity.Areas.Students.Controllers
             ViewData["LogoTitle"] = Images[0].File;
             return View(studentDatails);
         }
+        [HttpGet]
         public IActionResult ChangePicture(int id)
         {
             var student = studentRepository.GetOne(id);

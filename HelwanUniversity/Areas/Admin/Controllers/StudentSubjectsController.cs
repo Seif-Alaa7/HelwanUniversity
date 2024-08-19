@@ -33,6 +33,7 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         {
             return View();
         }
+        [HttpPost]
         public IActionResult AddSubject(int studentId, int subjectId)
         {
             var exists = studentSubjectsRepository.Exist(studentId, subjectId);
@@ -59,7 +60,6 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
             return RedirectToAction("SubjectRegsitered", new { id = studentId });
         }
-
         public IActionResult DeleteSubject(int studentId, int subjectId)
         {
             var links = studentSubjectsRepository.FindStudent(studentId);
@@ -122,18 +122,17 @@ namespace HelwanUniversity.Areas.Admin.Controllers
 
             return View(studentSubjects);
         }
+        [HttpGet]
         public IActionResult AddDegree(int Studentid, int Subjectid)
         {
-
             var ModelVM = new StudentSubjectsVM()
             {
                 StudentId = Studentid,
                 SubjectId = Subjectid
             };
             return View(ModelVM);
-
-
         }
+        [HttpPost]
         public IActionResult SaveAdd(StudentSubjectsVM modelVM)
         {
             var StudentSubject = studentSubjectsRepository.GetOne(modelVM.StudentId, modelVM.SubjectId);
