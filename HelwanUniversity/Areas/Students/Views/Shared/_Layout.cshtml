@@ -14,7 +14,6 @@
         ViewData["Student"] = Student;
     }
 }
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,8 +26,9 @@
     <!-- External Stylesheets -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/HelwanUniversity.styles.css" asp-append-version="true" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
@@ -89,7 +89,7 @@
                                         </a>
                                         <a class="dropdown-item d-flex align-items-center" style="color: black; text-decoration: none" asp-area="Students" asp-controller="Student" asp-action="Details" asp-route-id="@ViewBag.Student.Id">
                                             <img width="20" height="20" src="https://img.icons8.com/pastel-glyph/64/1A1A1A/student-male--v1.png" alt="Student Details" />
-                                            <span style="margin-left: 2px;">Student Details</span>
+                                        <span style="margin-left: 2px;">Student Portal</span>
                                         </a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item text-danger d-flex align-items-center" style="color: black;text-decoration: none" href="/Identity/Account/Logout">
