@@ -33,7 +33,6 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
         {
             return View();
         }
-        [HttpPost]
         public IActionResult AddSubject(int studentId, int subjectId)
         {
             var exists = studentSubjectsRepository.Exist(studentId, subjectId);
@@ -60,7 +59,6 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
 
             return RedirectToAction("SubjectRegsitered", new { id = studentId });
         }
-        [HttpPost]
         public IActionResult DeleteSubject(int studentId, int subjectId)
         {
             var links = studentSubjectsRepository.FindStudent(studentId);

@@ -152,7 +152,7 @@
                                                 <span>Personal Data</span>
                                             </a>
                                         }
-                                        else if (ViewBag.Doctor.JobTitle == Models.Enums.JobTitle.HeadOfDepartment)
+                                        else if (ViewBag.Doctor.JobTitle == Models.Enums.JobTitle.HeadOfDepartment && ViewBag.Department != null)
                                         {
                                             <a class="dropdown-item d-flex align-items-center" style="color: black; text-decoration: none" asp-area="Doctors" asp-controller="Student" asp-action="StudentsByDepartment" asp-route-id="@ViewBag.Department.Id">
                                                 <img width="15" height="15" src="https://img.icons8.com/parakeet-line/48/1A1A1A/safety-collection-place.png" alt="add-user-male" />

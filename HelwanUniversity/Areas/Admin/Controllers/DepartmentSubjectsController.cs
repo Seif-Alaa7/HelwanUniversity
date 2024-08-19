@@ -58,7 +58,6 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             }
             return RedirectToAction("Details", "Department", new { area = "Admin", id = model.DepartmentId });
         }
-        [HttpPost]
         public IActionResult Delete(int subjectId, int departmentId)
         {
             var link = departmentSubjectsRepository.DeleteRelation(subjectId, departmentId);

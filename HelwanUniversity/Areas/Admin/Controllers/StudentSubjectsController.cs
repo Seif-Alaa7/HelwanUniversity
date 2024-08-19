@@ -33,7 +33,6 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         {
             return View();
         }
-        [HttpPost]
         public IActionResult AddSubject(int studentId, int subjectId)
         {
             var exists = studentSubjectsRepository.Exist(studentId, subjectId);
