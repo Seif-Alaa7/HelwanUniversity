@@ -5,6 +5,10 @@ using HelwanUniversity.Services;
 using Data.Repository.IRepository;
 using Data.Repository;
 using CloudinaryDotNet;
+using Models;
+using Stripe;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Newtonsoft.Json;
 
 namespace HelwanUniversity
 {
@@ -23,6 +27,14 @@ namespace HelwanUniversity
             builder.Services.AddIdentity<IdentityUser , IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI().AddDefaultTokenProviders();
 
+            builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
+            StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
+
+            builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+
             builder.Services.AddRazorPages();
 
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
@@ -38,7 +50,7 @@ namespace HelwanUniversity
             builder.Services.AddScoped<IDepartmentSubjectsRepository, DepartmentSubjectsRepository>();
             builder.Services.AddScoped<ICloudinaryService, CloudinaryService>();
 
-            var cloudinaryAccount = new Account(
+            var cloudinaryAccount = new CloudinaryDotNet.Account(
                 builder.Configuration["Cloudinary:CloudName"],
                 builder.Configuration["Cloudinary:ApiKey"],
                 builder.Configuration["Cloudinary:ApiSecret"]

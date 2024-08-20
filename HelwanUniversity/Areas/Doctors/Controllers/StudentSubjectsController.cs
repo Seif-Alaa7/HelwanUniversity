@@ -133,6 +133,10 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
         [HttpPost]
         public IActionResult SaveAdd(StudentSubjectsVM modelVM)
         {
+            var studentId = modelVM.StudentId;
+            var academicRecords = academicRecordsRepository.GetStudent(studentId);
+            var CurrentLevel = academicRecordsRepository.GetStudent(studentId)?.Level;
+
             var StudentSubject = studentSubjectsRepository.GetOne(modelVM.StudentId, modelVM.SubjectId);
             StudentSubject.Degree = modelVM.Degree;
             StudentSubject.Grade = studentSubjectsRepository.CalculateGrade(modelVM.Degree);
@@ -150,15 +154,31 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
             var gpaTotal = academicRecordsRepository.CalculateGPATotal(modelVM.StudentId);
 
             // Update the academic record with the correct GPA
-            var academicRecords = academicRecordsRepository.GetStudent(modelVM.StudentId);
             if (academicRecords != null)
             {
                 academicRecords.GPASemester = gpaSemester;
                 academicRecords.GPATotal = gpaTotal;
                 academicRecordsRepository.Update(academicRecords);
                 academicRecordsRepository.Save();
-            }
 
+                if (academicRecords.Level != CurrentLevel)
+                {
+                    var student = studentRepository.GetOne(studentId);
+                    if (student != null)
+                    {
+                        if (student.PaymentFees == true)
+                        {
+                            student.PaymentFees = false;
+                        }
+                        else
+                        {
+                            student.PaymentFees = true;
+                        }
+                        studentRepository.Update(student);
+                        studentRepository.Save();
+                    }
+                }
+            }
             return RedirectToAction("DisplayDegrees", new { id = modelVM.StudentId });
         }
         public IActionResult StudentSubjectRegistered(int id)

@@ -69,10 +69,18 @@
         <a class="nav-button" href="@Form">
             <i class="fas fa-envelope"></i><span>Add Request</span>
         </a>
-
-        <a class="nav-button" asp-area="Students" asp-controller="StudentSubjects" asp-action="DisplayDegrees" asp-route-id="@ViewBag.Student.Id">
-            <i class="fas fa-graduation-cap"></i><span>Grades</span>
-        </a>
+        @if (!hasPaidFees)
+        {
+            <a class="nav-button" asp-area="Students" asp-controller="StudentSubjects" asp-action="Pay">
+                <i class="fas fa-receipt"></i><span>Payment Fees</span>
+            </a>
+        }
+        else
+        {
+            <a class="nav-button" asp-area="Students" asp-controller="StudentSubjects" asp-action="DisplayDegrees" asp-route-id="@ViewBag.Student.Id">
+                <i class="fas fa-graduation-cap"></i><span>Grades</span>
+            </a>
+        }
         <div id="nav-content-highlight" class="nav-content-highlight"></div>
     </div>
     <input id="nav-footer-toggle" type="checkbox" />
@@ -113,7 +121,7 @@
         {
             <div id="nav-footer-content" class="nav-footer-content">
                 Student ID: @studentId
-                <i id="alert-icon" class="fas fa-bell"></i>
+                <i class="fas fa-bell"></i>
             </div>
         }
     </div>

@@ -1,4 +1,5 @@
 ﻿using Models.Enums;
+using System.Text.Json.Serialization;
 
 namespace Models
 {
@@ -17,6 +18,7 @@ namespace Models
         public List<Student> Students { get; set; } = new List<Student>();
         public List<Department> Departments { get; set; } = new List<Department>();
         public List<DepartmentSubjects> DepartmentSubjects { get; set; } = new List<DepartmentSubjects>();
+        [JsonIgnore]
         public List<StudentSubjects> StudentSubjects { get; set; } = new List<StudentSubjects>();
         public Doctor Doctor { get; set; } = null!;
 

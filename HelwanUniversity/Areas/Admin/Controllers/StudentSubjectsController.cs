@@ -134,6 +134,11 @@ namespace HelwanUniversity.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult SaveAdd(StudentSubjectsVM modelVM)
         {
+
+            var studentId = modelVM.StudentId;
+            var academicRecords = academicRecordsRepository.GetStudent(studentId);
+            var CurrentLevel = academicRecordsRepository.GetStudent(studentId)?.Level;
+
             var StudentSubject = studentSubjectsRepository.GetOne(modelVM.StudentId, modelVM.SubjectId);
             StudentSubject.Degree = modelVM.Degree;
             StudentSubject.Grade = studentSubjectsRepository.CalculateGrade(modelVM.Degree);
@@ -149,16 +154,31 @@ namespace HelwanUniversity.Areas.Admin.Controllers
             var gpaSemester = academicRecordsRepository.CalculateGpaSemester(modelVM.StudentId , semester);
             var gpaTotal = academicRecordsRepository.CalculateGPATotal(modelVM.StudentId);
 
-            var academicRecords = academicRecordsRepository.GetStudent(modelVM.StudentId);
             if (academicRecords != null)
             {
                 academicRecords.GPASemester = gpaSemester;
                 academicRecords.GPATotal = gpaTotal;
                 academicRecordsRepository.Update(academicRecords);
                 academicRecordsRepository.Save();
+
+                if (academicRecords.Level != CurrentLevel)
+                {
+                    var student = studentRepository.GetOne(studentId);
+                    if (student != null)
+                    {
+                        if (student.PaymentFees == true)
+                        {
+                            student.PaymentFees = false;
+                        }
+                        else
+                        {
+                            student.PaymentFees = true;
+                        }
+                        studentRepository.Update(student);
+                        studentRepository.Save();
+                    }
+                }
             }
-
-
             return RedirectToAction("DisplayDegrees", new { id = modelVM.StudentId });
         }
         public IActionResult StudentSubjectRegistered(int id)

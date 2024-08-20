@@ -80,7 +80,6 @@
                         <a href="@Url.Action("DeleteForever", "Subject", new { id = @subject.Subject.Id, departmentId = Model.Id })" class="action-link delete-forever-link" onclick="handleDelete(event, 'Do you want delete this Subject Forever?');" id="delete-forever" title="Delete Forever">
                             <i class="fas fa-trash-alt text-danger"></i>
                         </a>
-
                         <a href="@Url.Action("Delete", "DepartmentSubjects", new { subjectId = subject.Subject.Id, departmentId = Model.Id })" class="action-link delete-link" onclick="handleDelete(event, 'Do you want delete this Subject From this Department?');" id="delete-from-department" title="Delete from Department">
                             <i class="fas fa-minus-circle text-danger"></i>
                         </a>

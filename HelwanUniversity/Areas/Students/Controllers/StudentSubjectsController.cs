@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.Enums;
+using Newtonsoft.Json;
+using Stripe.Checkout;
 
 namespace HelwanUniversity.Areas.Students.Controllers
 {
@@ -67,7 +69,58 @@ namespace HelwanUniversity.Areas.Students.Controllers
             ViewData["departmentName"] = department.Name;
             ViewBag.DoctorNames = doctorRepository.GetName(Subjects);
             ViewData["LogoTitle"] = Images[0].File;
+
+            var settings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+
+            TempData["CartItems"] = JsonConvert.SerializeObject(Subjects,settings); 
+
             return View(Subjects);
+        }
+        public IActionResult Pay()
+        {
+            var subjectsJson = TempData["CartItems"] as string;
+            if (string.IsNullOrEmpty(subjectsJson))
+            {
+                return NotFound();
+            }
+
+            var subjects = JsonConvert.DeserializeObject<List<Subject>>(subjectsJson);
+
+
+            var options = new SessionCreateOptions
+            {
+                PaymentMethodTypes = new List<string> { "card" },
+                LineItems = new List<SessionLineItemOptions>(),
+                Mode = "payment",
+                SuccessUrl = $"{Request.Scheme}://{Request.Host}/Students/checkout/success",
+                CancelUrl = $"{Request.Scheme}://{Request.Host}/Students/checkout/cancel",
+            };
+
+            foreach (var model in subjects)
+            {
+                var line = new SessionLineItemOptions
+                {
+                    PriceData = new SessionLineItemPriceDataOptions
+                    {
+                        Currency = "usd",
+                        ProductData = new SessionLineItemPriceDataProductDataOptions
+                        {
+                            Name = model.Name,
+                            Description = model.subjectType.ToString(),
+                        },
+                        UnitAmount = (long)model.Salary*100,
+                    },
+                    Quantity = 1,
+                };
+                options.LineItems.Add(line);
+            }
+
+            var service = new SessionService();
+            var session = service.Create(options);
+            return Redirect(session.Url);   
         }
         public IActionResult DisplayDegrees(int id)
         {
