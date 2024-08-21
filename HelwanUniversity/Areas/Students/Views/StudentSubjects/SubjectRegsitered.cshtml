@@ -1,5 +1,16 @@
 ﻿@model IEnumerable<Models.Subject>
+@using System.Security.Claims
+@using Data.Repository.IRepository
+@inject IStudentRepository studentRepository
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+    var Student = studentRepository.GetAll().FirstOrDefault(h => h.ApplicationUserId == userId);
+    if (Student != null)
+    {
+        ViewData["Student"] = Student;
+    };
+}
 @{
     ViewData["Title"] = "Courses Registered";
     Layout = null;
@@ -65,13 +76,16 @@
                 }
             </tbody>
         </table>
-
-        <!-- Centered Button -->
-        <div class="text-center mt-4">
-            <a class="btn btn-primary nav-button text-white mx-auto" style="max-width: 150px;" asp-area="Students" asp-controller="StudentSubjects" asp-action="Pay">
-                <i class="fas fa-receipt"></i> Payment Fees
-            </a>
-        </div>
+        @if (!ViewBag.Student.PaymentFees)
+        {
+            <!-- Centered Button -->
+            <div class="text-center mt-4">
+                <a class="btn btn-primary nav-button text-white mx-auto" style="max-width: 150px;" asp-area="Students" asp-controller="StudentSubjects" asp-action="Pay">
+                    <i class="fas fa-receipt"></i> Payment Fees
+                </a>
+            </div>
+        }
     </div>
 </body>
+
 </html>
