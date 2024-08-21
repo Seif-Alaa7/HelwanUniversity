@@ -24,6 +24,7 @@ namespace HelwanUniversity.Areas.Students.Controllers
             if (Student != null)
             {
                 Student.PaymentFees = true;
+                Student.PaymentFeesDate = DateTime.Now;
 
                 studentRepository.Update(Student);
                 studentRepository.Save();
