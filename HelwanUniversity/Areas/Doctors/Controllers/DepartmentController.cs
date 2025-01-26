@@ -62,6 +62,8 @@ namespace HelwanUniversity.Areas.Doctors.Controllers
         {
             ViewData["DepartmentName"] = departmentRepository.GetOne(id)?.Name;
             ViewData["FacultyName"] = facultyRepository.FacultyByDepartment(id).Name;
+            ViewData["FacultyId"] = facultyRepository.FacultyByDepartment(id).Id;
+
             ViewBag.ID = id;
 
             return View();
